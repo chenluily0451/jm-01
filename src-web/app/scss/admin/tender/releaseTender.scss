@@ -1,0 +1,197 @@
+@import '/scripts/plugins/My97DatePicker/skin/WdatePicker.css';
+
+.release-tender{
+  background: #fff;
+  border:1px solid #ebebeb;
+  padding:27px 50px;
+  margin-bottom: 10px;
+  font-size: 0;
+  vertical-align: middle;
+  select{opacity: 0;filter:alpha(opacity=0)}
+  select,input{
+    border:1px solid #ccc;
+    height: 35px;
+    outline: none;
+    font-size: 14px;
+  }
+  .unit,.from-to{vertical-align: middle;font-size: 14px;}
+  .from-to{padding:0 5px;}
+  .unit{margin-left: 5px;}
+  .release-title{
+    font-size: 16px;
+    color:#333;
+    margin-bottom: 25px;
+
+    span{
+      color:#d92b2b;
+    }
+  }
+  .release-input-wrap{
+    vertical-align: middle;
+    margin-bottom: 20px;
+    > *{display: inline-block}
+    label{font-size: 14px;color:#666;font-weight: normal;width: 75px;margin: 0;vertical-align: middle;}
+    label b{color:#d92b2b}
+    input{height: 35px;border:1px solid #ccc;outline: none;border-radius: 4px;line-height: 35px;padding-left: 10px;font-size: 14px;&:focus{border:1px solid #2f8ed9;}}
+    input:disabled{background: #f5f5f5}
+  }
+  .release-input-1{
+    input{
+      width: 869px;
+    }
+    textarea{
+      width: 869px;
+      resize: none;
+      word-break:break-all;
+      vertical-align: middle;
+      outline: none;
+      border:1px solid #ccc;
+      border-radius: 4px;
+      padding:10px;
+      height: 63px;
+      font-size: 14px;
+    &:focus{
+      border:1px solid #2f8ed9;
+    }
+    }
+
+  }
+  .release-input-2{
+    select,input{
+      width: 217px;
+      outline: none;
+      margin-right: 34px;
+    }
+    .mr0{
+      margin-right: 0px;
+    }
+
+  }
+  .release-input-3{
+    width: 50%;
+    display: inline-block;
+    label{width: 90px;}
+    .mr35{margin-left: 35px;}
+    input{
+      width: 149px;
+
+    }
+    .w322{
+      width: 322px;
+      height: 35px;
+      outline: none;
+      font-size: 14px;
+      border:1px solid #ccc;
+    }
+    .mr0{
+      margin-right: 0px;
+    }
+  }
+  .release-input-4{
+    textarea{
+      width: 940px;
+      resize: none;
+      word-break:break-all;
+      vertical-align: middle;
+      outline: none;
+      border:1px solid #ccc;
+      border-radius: 4px;
+      padding:10px;
+      height: 63px;
+      font-size: 14px;
+      &:focus{
+        border:1px solid #2f8ed9;
+      }
+    }
+    .height-style-1{
+      height: 108px;
+    }
+    .height-style-2{
+      height: 70px;
+    }
+    .height-style-3{
+      height: 110px;
+    }
+    p{font-size: 14px;color:#333;margin-bottom: 8px;}
+  }
+  .date-wrap{
+    position: relative;
+    input{margin:0;}
+    &:after{
+      content: '';
+      width: 21px;
+      height: 19px;
+      background: url("/images/icons/date-icon.png") no-repeat 0px;
+      position: absolute;
+      right: 10px;
+      top: 7px;
+    }
+  }
+.release-btn{width: 240px;height: 46px;border:none;margin: 0 auto;font-size: 18px;background: #61aaf2;line-height: 43px;display: inline-block;color:#fff;text-align: center;border-radius: 4px;}
+.temporarilySave{background: transparent;border:1px solid #3b82d3;color:#61aaf2;margin-left: 20px;}
+  .release-btn:hover{
+    background: #0274d0;
+  }
+  .temporarilySave:hover{
+    background: #3b82d3;
+    color:#fff;
+  }
+//  select2样式初始
+  .select2-selection{
+    height: 35px;
+    outline: none;
+    font-size: 14px;
+
+    .select2-selection__rendered{
+      line-height: 34px;
+    }
+  }
+  .select2{
+    margin-right: 34px;
+  }
+  .mr0+.select2{
+    margin-right: 0;
+
+  }
+  .select2-container--default .select2-selection--single .select2-selection__arrow{
+    top: 4px;
+    right: 4px;
+  }
+  .select2-container--default .select2-selection--single{
+    border:1px solid #ccc;
+  }
+  .select2-selection__placeholder{
+    font-size: 14px;
+    line-height: 34px;
+  }
+
+  label.error{
+    font-size: 12px;
+    color:#ff0000;
+    width: 100%;
+  }
+  .errorWrap{font-size: 12px;color:#ff0000;}
+  .display-none{display: none;}
+}
+.txtCenter{text-align: center}
+
+
+
+//  富文本编辑器样式
+.release-input-4 .indicators{
+  min-height: 112px;
+  width: 100%;
+}
+.release-input-4 .qualification{
+  min-height: 72px;
+  width: 100%;
+}
+.release-input-4 .tender-rules{
+  min-height: 110px;
+  width: 100%;
+}
+.edui-default .edui-editor-bottomContainer td {
+  border-top: none!important;
+}
+//  粘贴图标
+.edui-popup-content{display: none!important;}

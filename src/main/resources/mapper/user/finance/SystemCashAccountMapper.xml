@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.user.finance.mapper.SystemCashAccountMapper">
+
+  <sql id="Base_Column_List"> id, accId,  companyId, createDate, createBy </sql>
+
+  <select id="selectByCompanyId" parameterType="java.lang.String" resultType="com.jm.bid.user.finance.entity.SystemCashAccount">
+    select <include refid="Base_Column_List" /> from  jm_system_cashAccount where companyId= #{companyId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByAccId" resultType="com.jm.bid.user.finance.entity.SystemCashAccount">
+    select <include refid="Base_Column_List" /> from  jm_system_cashAccount where accId= #{accId,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.jm.bid.user.finance.entity.SystemCashAccount">
+    insert into jm_system_cashAccount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accId != null"> accId, </if>
+      <if test="companyId != null"> companyId, </if>
+      <if test="createDate != null"> createDate, </if>
+      <if test="createBy != null"> createBy, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accId != null"> #{accId,jdbcType=VARCHAR}, </if>
+      <if test="companyId != null"> #{companyId,jdbcType=VARCHAR}, </if>
+      <if test="createDate != null"> #{createDate,jdbcType=TIMESTAMP}, </if>
+      <if test="createBy != null"> #{createBy,jdbcType=VARCHAR}, </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.jm.bid.user.finance.entity.SystemCashAccount">
+    update jm_system_cashAccount
+    <set>
+      <if test="accId != null"> accId = #{accId,jdbcType=VARCHAR}, </if>
+      <if test="companyId != null"> companyId = #{companyId,jdbcType=VARCHAR}, </if>
+      <if test="createDate != null"> createDate = #{createDate,jdbcType=TIMESTAMP}, </if>
+      <if test="createBy != null"> createBy = #{createBy,jdbcType=VARCHAR}, </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+ </mapper>

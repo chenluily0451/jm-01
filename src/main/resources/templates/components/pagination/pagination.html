@@ -1,0 +1,33 @@
+<div th:fragment="pagination(page)">
+    <div th:if="${page.results.size()==0}"  id="noResult" class="pagination-no-result"><img src="/images/common/noDataSign.png" />没有符合条件的数据，请尝试其他搜索条件!</div>
+    <div class="box pagination-wrap text-c"  th:remove="${page.results.size()==0}?all:none">
+        <div class="ym-pagination">
+        <ul class="pageList" th:with="url=|${#httpServletRequest.getRequestURI()}${page.getQueryString(#httpServletRequest)}|">
+            <li th:class="${page.pageNo != 1} ? 'prev' : 'prev disabled'" class="prev disabled">
+                <a th:if="${page.pageNo == 1}" href="javascript:;"><i class="ico ico-page-prev"></i>上一页</a>
+                <a th:if="${page.pageNo != 1}" th:href='@{${url}(pageNo=${page.getPageNo()-1},pageSize=${page.getPageSize()})}'><i class="ico ico-page-prev"></i>上一页</a>
+            </li>
+            <li th:each='num : ${#numbers.sequence(1,page.totalPage)}' th:class="${num == page.pageNo  ?  'active'  :  ( (not(num==page.pageNo))&&((page.totalPage<=5)||((num<=2)||(num==page.pageNo+1||num==page.pageNo-1)||(num>=page.totalPage-1)||(page.pageNo<4&&num<=5)||(page.pageNo>page.totalPage-4&&num>=page.totalPage-4)))  ?  'valid'  : (( ( (not (num == page.pageNo)) && (page.totalPage>5) && (page.totalPage>7) && page.pageNo<=4 && num==6 ) || ( (not (num == page.pageNo)) && (page.totalPage>5)&& (page.totalPage>7) && page.pageNo>=page.totalPage-3 && num==page.totalPage-5 ) || ( (not (num == page.pageNo)) && (page.totalPage>5) && (page.totalPage>7) && page.pageNo>4 && page.pageNo<page.totalPage-3 && (num==page.pageNo-2 || num==page.pageNo+2) )) ?  'disabled ellipse'  :  'hidden'))}" class="active">
+                <span th:if='${num == page.pageNo}' th:text='${num}'>1</span>
+                <span th:if='${(not (num == page.pageNo)) && (page.totalPage>5) && (page.totalPage>7) && page.pageNo<=4 && num==6 }' th:text='...'>1</span>
+                <span th:if='${(not (num == page.pageNo)) && (page.totalPage>5) && (page.totalPage>7) && page.pageNo>=page.totalPage-3 && num==page.totalPage-5 }' th:text='...'>1</span>
+                <span th:if='${(not (num == page.pageNo)) && (page.totalPage>5) && (page.totalPage>7) && page.pageNo>4 && page.pageNo<page.totalPage-3 && (num==page.pageNo-2 || num==page.pageNo+2) }' th:text='...'>1</span>
+                <a th:if='${(not(num==page.pageNo))&&((page.totalPage<=5)||((num<=2)||(num==page.pageNo+1||num==page.pageNo-1)||(num>=page.totalPage-1)||(page.pageNo<4&&num<=5)||(page.pageNo>page.totalPage-4&&num>=page.totalPage-4)))}'
+                   th:href='@{${url}(pageNo=${num},pageSize=${page.pageSize})}' th:text='${num}'>1</a>
+            </li>
+            <li th:class="${page.pageNo!=page.totalPage}? 'next' : 'next disabled'" class="next">
+                <a th:if='${page.pageNo==page.totalPage}' href="javascript:;">下一页<i class="ico ico-page-next"></i></a>
+                <a th:if='${page.pageNo!=page.totalPage}' th:href='@{${url}(pageNo=${page.pageNo+1},pageSize=${page.pageSize})}'>下一页<i class="ico ico-page-next"></i></a>
+            </li>
+        </ul>
+        <div class="total" th:text="${'共 '+ page.totalPage + ' 页，'}">共 31 页，</div>
+        <form class="form" href="/hehe" th:action="@{${url}}">
+            <span class="text">到第 </span>
+            <input th:value="${page.getPageNo()}" name="pageNo" value="1" type="text" maxlength="4" class="ym-pagination-input" id="J_ym-pagination-input">
+            <input th:value="${page.getPageSize()}" name="pageSize" value="1" type="hidden" maxlength="4" class="ym-pagination-input">
+            <span class="text">页</span>
+            <input type="submit" value="确定" class="ym-pagination-sbm-btn" id="J_ym-pagination-sbm-btn" />
+        </form>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jm.bid.common.mapper.AuthCodeMapper">
+
+
+    <insert id="addAuthCode" parameterType="com.jm.bid.common.entity.AuthCode">
+      insert into jm_authCode (phone, code, userId, expireTime, validateTime, validated, validateType, createDate )
+    values (#{phone,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR},
+      #{userId,jdbcType=BIGINT}, #{expireTime,jdbcType=TIMESTAMP}, #{validateTime,jdbcType=TIMESTAMP},
+      #{validated,jdbcType=BIT}, #{validateType,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP} )
+    </insert>
+
+    <update id="updateAuthCodeInvalid">
+         update jm_authCode set validated=1, validatetime=now() where phone=#{phone} and code=#{code} and validated=0
+    </update>
+
+    <select id="findCodeWithin10Minute" resultType="com.jm.bid.common.entity.AuthCode">
+        select * from jm_authCode where phone=#{phone} and validated=0 and  validateType=#{type}  and  expiretime > NOW() order by id desc limit 1
+    </select>
+
+
+    <select id="findAuthCode" resultType="com.jm.bid.common.entity.AuthCode">
+       select phone,code,expiretime from jm_authCode where phone=#{phone} and code=#{code} and validateType=#{type} and validated=0 order by id desc limit 1
+    </select>
+
+    <select id="countInDay" resultType="java.lang.Integer">
+     SELECT  count(id) from jm_authCode where phone=#{phone} and date(createDate)=curdate();
+    </select>
+
+
+</mapper>
+
+
+

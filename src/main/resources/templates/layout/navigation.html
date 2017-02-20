@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body layout:fragment="navigation(curIndex)">
+    <div class="navigation" id="navigation">
+        <div class="nav-content">
+            <p class="pull-left">您好！欢迎来到晋煤电子商务平台 &nbsp;&nbsp;&nbsp;热线电话:0356-3662594</p>
+            <ul class="pull-right">
+                <li th:if="${@userSession.isLogined()}"><a href="/account/accountSetting" th:text="|账户名:${@userSession.user.securePhone}|">15618177577</a></li>
+                <li th:if="${@userSession.isLogined()}"><a href="/logout">退出</a></li>
+                <li th:if="${!@userSession.isLogined()}"><a href="/login">请登录</a></li>
+                <li th:if="${!@userSession.isLogined()}"><a href="/register">注册</a></li>
+                <li><a href="/helpCenter" class="border-none">帮助中心</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

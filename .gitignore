@@ -1,0 +1,17 @@
+*.swp
+.gradle
+.idea
+*.iml
+*.ipr
+*.iws
+*.rdb
+.DS_Store
+/logs
+/target
+/src-web/app/styles
+dist
+bower_components
+/src/main/resources/generatorConfig.xml
+node_modules
+
+

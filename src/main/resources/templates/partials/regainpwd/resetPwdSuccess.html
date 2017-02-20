@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤修改密码</title>
+    <link rel="stylesheet" href="/styles/partials/regainpwd/regainPwd.css">
+</head>
+<!--这里是头部的结束内容-->
+<body class="register-body">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('找回密码',-1,2)}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content regain-pwd">
+        <div class="regain-pwd-step"><img src="/images/partials/regainpwd/regain-pwd-4.png"/></div>
+        <div class="regain-pwd-success">
+            <img src="/images/partials/register/register-success.png"/>
+            <p>恭喜您，找回密码！</p>
+            <div><span class="txt-warning" id="deadLine">15秒后</span>返回登录页，<a href="/login">立即登录 >></a></div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/regainPwd/resetPwdSuccess.js"></script>
+</div>
+</body>
+</html>

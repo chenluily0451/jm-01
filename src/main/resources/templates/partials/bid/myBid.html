@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤账户设置</title>
+    <link rel="stylesheet" href="/styles/partials/bid/myBid.css">
+</head>
+<!--这里是头部的结束内容-->
+<body class="front-body">
+
+    <div layout:fragment="header">
+        <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+        <div layout:insert="~{/layout/subNav :: subNav('',3,1)}" th:remove="tag"></div>
+    </div>
+
+    <div layout:fragment="wrapper">
+        <div class="content regain-pwd">
+            <div class="content-left">
+                <div layout:insert="~{/layout/sidebar-buyer :: sidebarBuyer('0')}" th:remove="tag"></div>
+            </div>
+            <div class="content-right">
+                <div class="panel">
+                    <div class="panel-content">
+                        <div class="panel-title">
+                            <h2>我的竞价</h2>
+                        </div>
+                        <div id="myBid">
+                            <div class="listBlock">
+                                <div class="w220">项目名称</div>
+                                <div class="w220">竞拍时间</div>
+                                <div class="w140">竞拍吨数(吨)</div>
+                                <div class="w130">竞拍价格(元)</div>
+                                <div class="w120">状态</div>
+                                <div class="w120">操作</div>
+                            </div>
+                            <ul class="listCon" th:if="${page.results.size()>0}">
+                                <li th:each="bid:${page.results}">
+                                    <div class="w220" th:text="${bid.tenderTitle}">晋煤10月份第二次竞标销售公告</div>
+                                    <div class="w220" th:text="${#temporals.format(bid.createDate,'yyyy-MM-dd HH:mm:ss')}">2016-12-12 14：00：00</div>
+                                    <div class="w140" th:text="${bid.quoteAmount}">2000</div>
+                                    <div class="w130" th:text="${bid.quotePrice}">300.00</div>
+                                    <div class="w120" th:text="${bid.checked==null?'已报价':(bid.checked==true?'已中标':'未中标')}">已报价</div>
+                                    <div class="w120">
+                                        <a th:href="|/account/bid/${bid.tenderId}|" class="detailBtn">查看详情</a>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box pagination-wrap text-c" th:insert="/components/pagination/pagination :: pagination (page=${page})"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div layout:fragment="script" th:remove="tag">
+        <script type="text/javascript" src=""></script>
+    </div>
+</body>
+</html>

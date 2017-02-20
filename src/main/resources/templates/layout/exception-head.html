@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body layout:fragment="exception-head">
+<div class="exception-head" id="exception-head">
+    <div class="exception-head-wrap">
+        <!--hu -->
+        <p class="pull-right" th:if="${totalSaleAmount!=null}">
+            <label for="" class="bid-amount">
+                <i>平台成交吨数：</i>
+                <span class="bid-num" th:text="${#numbers.formatDecimal(totalSaleAmount,1,2)}">
+                        123,456
+                    </span>
+                <span class="bid-unit">吨</span>
+            </label>
+        </p>
+    </div>
+</div>
+</body>
+</html>

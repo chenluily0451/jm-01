@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤账户概览</title>
+    <link rel="stylesheet" href="/styles/partials/pay/account.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',3,1)}" th:remove="tag"></div>
+</div>
+<div layout:fragment="wrapper">
+    <div class="main">
+        <div layout:insert="~{/layout/sidebar-buyer :: sidebarBuyer(0)}" th:remove="tag"></div>
+        <div class="bg-inner">
+            <div class="account">
+                <dl class="acount-dl">
+                    <dt><img src="/images/admin/pay/accounticon.png"/></dt>
+                    <dd>
+                        <h2 th:text="|您好，亲爱的${user.userName}|">您好，亲爱的沈南溪</h2>
+                    </dd>
+                    <dd>
+                        <span>账户名：</span>
+                        <strong th:text="${user.securePhone}">15680230830</strong>
+                    </dd>
+                </dl>
+                <ul class="info-group">
+                    <li>
+                        <strong>账户号：</strong>
+                        <p th:text="${#CustomerStringUtil.bankCardNumFormat(cashAccount.bankAccountNum)}">6218 6980 2638 2268</p>
+                    </li>
+                    <li>
+                        <strong>余额：</strong>
+                        <p class="highlight">
+                            <span id="numWrap"> </span>
+                            <i>元</i>
+                            <i class="refresh">刷新</i>
+                        </p>
+                    </li>
+                    <li class="more-width text-right">
+                        <a href="/account/finance/withdraw" id="withDrawBtn">提现</a>
+                        <a href="/account/finance/tradeRecord">收支明细</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="account-list" th:if="${waitPayList.size()>0}">
+                <div class="list-header">
+                    <p>代办通知</p>
+                </div>
+                <table>
+                    <tr>
+                        <th>创建时间</th>
+                        <th>竞价编号</th>
+                        <th>类型</th>
+                        <th>金额（元）</th>
+                        <th class="text-center">操作</th>
+                    </tr>
+                    <tr th:each="apply:${waitPayList}">
+                        <td th:text="${#temporals.format(apply.createDate,'yyyy-MM-dd HH:mm')}">2016-08-22</td>
+                        <td th:text="${apply.tenderCode}"></td>
+                        <td th:text="${apply.type==1?'缴纳保证金':'其他'}">缴纳保证金</td>
+                        <td th:text="${apply.amount}">200,000.00</td>
+                        <td class="text-center">
+                            <a th:if="${apply.tenderStartDate.isAfter(#temporals.createNow()) &&  (apply.payStatus==null || apply.payStatus==3)}" th:href="|/account/finance/payDeposit?applyId=${apply.id}|" class="pay">付款</a>
+                            <a th:if="${apply.payStatus!=null && (apply.payStatus==1 || apply.payStatus==2)}"  class="pay paying">付款中...</a>
+                            <a th:if="${apply.payStatus==null || apply.payStatus==3}" href="#"  th:attr="data-id=${apply.id}"  class="delete">删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div layout:insert="~{/components/modal/modal :: modalHasBtn(1,'您确认删除该付款请求吗？删除后不可恢复！')}" th:remove="tag">
+    </div>
+    <div layout:insert="~{/components/modal/modal :: modalHasBtn(2,'出金账户尚未绑定成功,请先绑定。')}" th:remove="tag">
+        <div class="buttons" layout:fragment="modal-content">
+            <input type="button" class="btn confirm" value="确认" id="confirmLink">
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/pay/account.js"></script>
+</div>
+</body>
+</html>

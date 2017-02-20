@@ -1,0 +1,94 @@
+@import '../helpers/_mixins';
+.index-inner{
+  background: #fff;
+  border:1px solid #ebebeb;
+  padding:27px;
+  .user-info{
+    padding-left: 80px;
+    background: url("/images/admin/index/user-photo.png") no-repeat left center;
+    min-height: 68px;
+    .user-welcome{
+      font-size: 16px;
+      color:#43677f;
+      padding-top: 10px;
+    }
+    .user-detail{
+      p{display: inline-block;color:#333;font-size: 12px;margin:10px 0;margin-right: 15px;}
+      p span{color:#999}
+    }
+  }
+  .user-data{margin: 15px 0;margin-bottom:20px;background: #f5f8fa;color:#999;}
+  .user-data ul{
+    font-size: 0;
+    padding:20px 0;
+    li{display: inline-block;font-size: 14px;text-align: center;background: url("/images/admin/index/user-data-border.png") no-repeat right center;width: 330px;}
+    li{
+      .user-num{
+        font-size: 16px;
+        color:#43677f;
+        span{font-size: 30px;}
+      }
+      .strength{color:#d92b2b;}
+      .user-num-info{
+        font-size: 14px;
+        color:#999;
+        margin-top: 10px;
+      }
+    }
+    .noborder{background: none;}
+  }
+  .user-status{
+
+    li{
+      vertical-align: top;
+      background:#f5f8fa;
+      display: inline-block;
+      margin-right: 20px;
+      width: 484px;
+      border-radius: 5px;
+      padding-top: 40px;
+      padding-bottom: 57px;
+      text-align: center;
+
+      .user-status-page{
+        width: 156px;
+        height: 135px;
+        position: relative;
+        display: inline-block;
+
+        span{width: 38px;height: 24px;display: block;font-size:14px;position: absolute;top: 14px;right: 0px;color:#fff;line-height: 23px;text-align: center}
+      }
+      .user-status1{
+        background: url("/images/admin/index/user-status1.png") no-repeat center 0px;
+      }
+      .user-status2{
+        background: url("/images/admin/index/user-status2.png") no-repeat center 0px;
+      }
+      .user-status-info{
+        font-size: 18px;
+        color:#4c4c4c;
+        text-align: center;
+        margin: 20px 0 25px 0;
+      }
+      .user-control{
+        width: 300px;
+        height: 42px;
+        border:1px solid #43677f;
+        border-radius: 2px;
+        font-size: 16px;
+        line-height: 42px;
+        display: inline-block;
+        &:hover{
+          color:#fff;
+          border:none;
+          background: #61aaf2;
+          line-height: 44px;
+        }
+      }
+    }
+    .last{margin:0;}
+  }
+}
+.padding-left-20{
+  padding-left:20px;
+}

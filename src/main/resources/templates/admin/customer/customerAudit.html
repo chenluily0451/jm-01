@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤客户审核</title>
+    <link rel="stylesheet" href="/styles/admin/customer/customerAudit.css">
+    <link  rel="stylesheet"href="/scripts/plugins/lightbox2/css/lightbox.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/background-subNav}" th:remove="tag"></div>
+</div>
+<div layout:fragment="wrapper">
+    <div class="main">
+        <div layout:insert="~{/layout/sidebar-finance :: sidebarFinance(4)}" th:remove="tag"></div>
+        <div class="bg-inner">
+            <div class="panel">
+                <dl>
+                    <dt>
+                        <h2><span th:text="${company.name}">和略电子商务有点公司</span><sup th:class="${company.status==1}?'success':(${company.status==2}?'fail':'wait')"></sup></h2>
+                    </dt>
+                    <dd>
+                        <span>注册地址</span>
+                        <strong th:text="${company.registerAddress}" class="company-address">上海市闸北区裕通路388号</strong>
+                    </dd>
+                    <dd>
+                        <ul>
+                            <li>
+                                <span>注&nbsp;&nbsp;册&nbsp;&nbsp;号</span>
+                                <strong th:text="${company.registerCode}">0909882777</strong>
+                            </li>
+                            <li>
+                                <span>企业法人</span>
+                                <strong th:text="${company.legalPerson}">张张</strong>
+                            </li>
+                            <li>
+                                <span>委托人</span>
+                                <strong th:text="${company.proxyPerson}">张张</strong>
+                            </li>
+                            <li>
+                                <span>联系电话</span>
+                                <strong th:text="${company.companyPhone}">180 9080 8080</strong>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd th:each="auditMsg:${auditList}">
+                        <span>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注</span>
+                        <div class="inline-block wmax-916">
+                            <p th:if="${auditMsg.auditDate!=null}" th:text="|审核时间：${#temporals.format(auditMsg.auditDate,'yyyy-MM-dd HH:mm:ss')}|">审核时间：2016-10-22  14:22:30</p>
+                            <p th:if="${auditMsg.status==1}">状态：审核通过</p>
+                            <p th:if="${auditMsg.status==2}">状态：审核未通过</p>
+                            <p th:text="|审核人: ${auditMsg.auditBy}|">审核人：admin1</p>
+
+                            <p th:if="${auditMsg.auditMsg!=null}">
+                                <span th:if="${auditMsg.status==1}" th:text="|通过原因：${auditMsg.auditMsg}|">通过原因：</span>
+                                <span th:if="${auditMsg.status==2}" th:text="|未通过原因：${auditMsg.auditMsg}|">未通过原因：</span>
+                            </p>
+                        </div>
+                    </dd>
+                    <dd th:class="${company.status==1}?'no-border':''">
+                        <span>公司证件</span>
+                        <ul class="certificate">
+                            <li>
+                                <a th:if="${company.businessLicensePic!=null}" th:href="${company.businessLicensePic}" data-lightbox="roadtrip"><img th:src="${company.businessLicensePic}"/></a>
+                                <img th:if="${company.businessLicensePic==null}" src="/images/common/no-img.png"/>
+                                <p>营业执照</p>
+                            </li>
+                            <li>
+                                <a th:if="${company.taxRegistrationPic!=null}" th:href="${company.taxRegistrationPic}" data-lightbox="roadtrip"><img th:src="${company.taxRegistrationPic}"/></a>
+                                <img th:if="${company.taxRegistrationPic==null}" src="/images/common/no-img.png"/>
+                                <p>税务登记证</p>
+                            </li>
+                            <li>
+                                <a th:if="${company.organizationCodePic!=null}" th:href="${company.organizationCodePic}" data-lightbox="roadtrip"><img th:src="${company.organizationCodePic}"/></a>
+                                <img th:if="${company.organizationCodePic==null}" src="/images/common/no-img.png"/>
+                                <p>组织机构代码证</p>
+                            </li>
+                            <li>
+                                <a th:if="${company.openingLicensePic!=null}" th:href="${company.openingLicensePic}" data-lightbox="roadtrip"><img th:src="${company.openingLicensePic}"/></a>
+                                <img th:if="${company.openingLicensePic==null}" src="/images/common/no-img.png"/>
+                                <p>开户许可证</p>
+                            </li>
+                            <li>
+                                <a th:if="${company.creditCodePic!=null}" th:href="${company.creditCodePic}" data-lightbox="roadtrip"><img th:src="${company.creditCodePic}"/></a>
+                                <img th:if="${company.creditCodePic==null}" src="/images/common/no-img.png"/>
+                                <p>信用代码证</p>
+                            </li>
+                            <li>
+                                <a th:if="${company.proxyPic!=null}" th:href="${company.proxyPic}" data-lightbox="roadtrip"><img th:src="${company.proxyPic}"/></a>
+                                <img th:if="${company.proxyPic==null}" src="/images/common/no-img.png"/>
+                                <p>委托书</p>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd th:class="${company.status==1 || company.status==2}?'no-border':''">
+                        <span>身份证</span>
+                        <ul class="certificate">
+                            <li>
+                                <a th:if="${company.idCardPic!=null}" th:href="${company.idCardPic}" data-lightbox="roadtrip"><img th:src="${company.idCardPic}"/></a>
+                                <img th:if="${company.idCardPic==null}" src="/images/common/no-img.png"/>
+                                <p>身份证(正面+反面)</p>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+                <div th:if="${company.status!=1 && company.status!=2}" class="check-btn">
+                    <input type="submit" class="btn btn-blue" value="审核" id="checkBtn">
+                </div>
+                <div id="modalReason" class="modal fade modalPublic" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button"  class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">审核</h4>
+                            </div>
+                            <div class="modal-body">
+                                <textarea class="form-control" placeholder="如果该企业信息审核不通过，请务必填写原因" id="textarea" maxlength="200"></textarea>
+                                <p class="text-right font-size-14"><span id="lastWord">200</span>/200</p>
+                                <div class="btn-list">
+                                    <a href="#" class="" id="failBtn" th:attr="data-companyid=${company.id}">未通过</a>
+                                    <a href="#" class="pass" id="passBtn" th:attr="data-companyid=${company.id}">通过</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/admin/customer/custeromAudit.js"></script>
+</div>
+</body>
+</html>

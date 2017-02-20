@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.common.mapper.FindPwdLogMapper">
+
+    <sql id="Base_Column_List">
+    id, securePhone, UUID, success, createDate
+  </sql>
+
+    <insert id="add">
+   insert into jm_findPwdLog (securePhone,uuid,success,createDate)
+   values(#{securePhone},#{UUID},#{success},#{createDate})
+  </insert>
+
+    <select id="loadByUUId" resultType="com.jm.bid.common.entity.FindPwdLog">
+      select * from jm_findPwdLog where UUID=#{UUID} and success=0
+    </select>
+
+    <update id="updateSuccess">
+       update  jm_findPwdLog set success=1 where  UUID=#{UUID}
+    </update>
+
+</mapper>

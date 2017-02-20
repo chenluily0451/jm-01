@@ -1,0 +1,30 @@
+@import '../../helpers/_mixins';
+
+.wrapper{
+  min-height:calc(100% - 212px );
+  min-height:500px/9;
+  *min-height:500px;
+  padding:10px 0;
+  background:#fff;
+}
+.register{
+  margin-top:28px;
+  color:#333333;
+  font-size:14px;
+  .register-step{
+    width:736px;
+    margin:0 auto;
+    padding-bottom:60px;
+  }
+  .register-success{
+    width:736px;
+    margin:0 auto;
+    padding-top:64px;
+    text-align:center;
+    p{
+      padding:18px 0 28px 0;
+      color:#333333;
+      font-size:30px;
+    }
+  }
+}

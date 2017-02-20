@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤首页</title>
+    <link rel="stylesheet" href="/styles/partials/index/index.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="jm-index">
+
+    <div layout:fragment="header">
+        <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+        <div layout:insert="~{/layout/subNav :: subNav('',0,1)}" th:remove="tag"></div>
+    </div>
+    <div layout:fragment="wrapper">
+        <div id="jm-slide" class="jm-slide" >
+            <div class="hd">
+                <ul><li class="on"></li></ul>
+            </div>
+            <div class="bd">
+                <ul>
+                    <li style="background: url('/images/partials/index/slide-pic.png') no-repeat center center"></li>
+                </ul>
+            </div>
+            <a class="prev slide-btn" href="javascript:void(0)"></a>
+            <a class="next slide-btn" href="javascript:void(0)"></a>
+        </div>
+        <div class="info-subTit">
+            <ul class="info-block">
+                <li class="info-pz1" data-original="/images/partials/index/pz1.png" style="background: url('/images/partials/index/pz1.png') no-repeat 36px center;">
+                    <div class="info-mt pd">
+                        平台成交吨数(吨)
+                    </div>
+                    <div class="info-st total-amount"></div>
+                    <input type="hidden" th:value="${totalSaleAmount}" id="platform-amount"/>
+                </li>
+                <li class="info-pz2" data-original="/images/partials/index/pz2.png" style="background: url(/images/partials/index/pz2.png) no-repeat 36px center;">
+                    <div class="info-mt">
+                        实力生产企业
+                    </div>
+                    <div class="info-st">
+                        优质无烟煤生产基地，世界500强
+                    </div>
+                </li>
+                <li class="info-pz3 no-border" data-original="/images/partials/index/pz3.png" style="background: url(/images/partials/index/pz3.png) no-repeat 36px center;">
+                    <div class="info-mt">
+                        品质保障
+                    </div>
+                    <div class="info-st">
+                        先进生产工艺，保证煤炭品质
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="coal-block">
+            <div class="coal-wrap">
+                <div class="coal-inner coal-inner-l">
+                    <div class="coal-inner-tit">
+                        <p class="coal-list-name">煤炭列表</p>
+                        <p class="coal-more"><a href="/tender" target="_new">更多<i></i></a></p>
+                    </div>
+                    <div class="coal-inner-content">
+                        <th:block th:if="${page.results.size() == 0}">
+                            <!--无数据-->
+                            <div class="no-data"><img src="/images/common/no-data.png" alt=""/></div>
+                            <!--无数据-->
+                        </th:block>
+                        <ul class="coal-inner-list">
+                            <li th:each="tender,iterStat:${page.results}" th:if="${iterStat.index<3}" th:class="${iterStat.index==2?'last':''}">
+                                <div class="coal-bid-time">
+                                    <div class="img-wrap">
+                                        <th:block th:if="${tender.coalTypeId==1}">
+                                            <img width="100%" data-original="/images/partials/index/mo.png" alt="" ondragstart='return false;'/>
+                                        </th:block>
+                                        <th:block th:if="${tender.coalTypeId==2}">
+                                            <img width="100%" data-original="/images/partials/index/kuai.png" alt="" ondragstart='return false;'/>
+                                        </th:block>
+                                        <th:block th:if="${tender.coalTypeId==3}">
+                                            <img width="100%" data-original="/images/partials/index/ximo.png" alt="" ondragstart='return false;'/>
+                                        </th:block>
+                                    </div>
+                                    <div>
+                                        <p class="coal-grey-tit">竞标时间</p>
+                                        <div class="coal-bid-inner">
+                                            <p th:text="|${#temporals.format(tender.tenderStartDate,'yyyy-MM-dd HH:mm')}">2016-10-10 14:00</p>
+                                            <p>|</p>
+                                            <p th:text="|${#temporals.format(tender.tenderEndDate,'yyyy-MM-dd HH:mm')}">2016-10-10 14:00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="coal-bid-amount">
+                                    <p class="coal-grey-tit">吨 数</p>
+                                    <div class="coal-bid-inner">
+                                        <p class="pt24" th:text="|${tender.saleAmount}吨|">2,000</p>
+                                    </div>
+                                </div>
+                                <div class="coal-bid-transfer">
+                                    <p class="coal-grey-tit">运输方式</p>
+                                    <div class="coal-bid-inner">
+                                        <p class="pt24" th:text="${transportModeList[tender.transportModeId]}">汽车</p>
+                                    </div>
+                                </div>
+                                <div class="coal-bid-money toolInfoTxt">
+                                    <p class="coal-grey-tit">保证金</p>
+                                    <div class="coal-bid-inner" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<p class='priceAmountInfoContent'>竞价量1000吨，保证金<span>10万元</span>；</p><p class='priceAmountInfoContent'>竞价量2000吨，保证金<span>15万元</span>；</p><p class='priceAmountInfoContent'>竞价量3000吨，保证金<span>20万元</span>；</p><p class='priceAmountInfoContent'>竞价量4000吨，保证金<span>25万元</span>；</p><p class='priceAmountInfoContent'>竞价量5000吨及以上，保证金<span>30万元</span>。</p>">
+                                        <p class="pt24 bidMoneyStyle"><b><th:block th:if="${tender.minimumSaleAmount==1000}">10</th:block><th:block th:if="${tender.minimumSaleAmount==2000}">15</th:block><th:block th:if="${tender.minimumSaleAmount==3000}">20</th:block><th:block th:if="${tender.minimumSaleAmount==4000}">25</th:block><th:block th:if="${tender.minimumSaleAmount>=5000}">30</th:block></b>万起</p>
+                                    </div>
+                                </div>
+                                <div class="coal-bid-status">
+                                    <p class="coal-grey-tit">目前状态</p>
+                                    <div class="coal-bid-inner">
+                                        <th:block th:if="${tender.status==2}">
+                                            <p class="bid-step bid-step1"></p>
+                                        </th:block>
+                                        <th:block th:if="${tender.status==3}">
+                                            <p class="bid-step bid-step2"></p>
+                                        </th:block>
+                                        <th:block th:if="${tender.status==4}">
+                                            <p class="bid-step bid-step4"></p>
+                                        </th:block>
+                                        <th:block th:if="${tender.status==5}">
+                                            <p class="bid-step bid-step4"></p>
+                                        </th:block>
+                                    </div>
+                                </div>
+                                <div class="coal-bid-control">
+                                    <p class="coal-grey-tit">操作</p>
+                                    <div class="coal-bid-inner">
+                                        <p class="pt24">
+                                            <th:block th:if="${tender.status==3}">
+                                                <a th:href="|/tender/${tender.id}|" class="bid-btn tenderBtn">立即竞价</a>
+                                            </th:block>
+                                            <th:block th:if="${tender.status==2 || tender.status==4 || tender.status==5}">
+                                                <a th:href="|/tender/${tender.id}|" class="bid-btn viewDetail">查看详情</a>
+                                            </th:block>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="coal-inner coal-inner-r">
+                    <div class="coal-inner-tit">
+                        <p class="coal-list-name">中标公告</p>
+                        <p class="coal-more"><a href="/tender/notice" target="_new">更多<i></i></a></p>
+                    </div>
+
+                    <div class="coal-inner-content">
+                        <!--无数据-->
+                        <div th:if="${noticePage.results.size()==0}" class="no-data"><img src="/images/common/no-data.png" alt=""/></div>
+                        <!--无数据-->
+                        <ul th:if="${noticePage.results.size()>0}">
+                            <li th:each="notice,iterStat:${noticePage.results}" th:if="${iterStat.index<7}" th:class="${iterStat.index==6 ? 'mb18' : ''}">
+                                <span th:class="${iterStat.index<3 ? 'public-num public-hot' : 'public-num' }"  th:text="${iterStat.index+1}">1</span>
+                                <p class="public-tit"><a th:href="|/tender/notice/${notice.id}|" th:title="${notice.noticeName}" th:text="${notice.noticeName}">晋煤第一期竞标中标公告</a></p>
+                                <p class="public-date" th:text="${#temporals.format(notice.lastUpdateDate,'MM-dd')}">10-11</p>
+                            </li>
+                           </ul>
+                    </div>
+                    <div class="coal-ad">
+                        <a href="/helpCenter#menu9" target="_new">
+                            <img data-original="/images/partials/index/coal-ad.png" alt="" ondragstart='return false;'/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div layout:fragment="script" th:remove="tag">
+        <script type="text/javascript" src="/scripts/partials/index.js"></script>
+    </div>
+</body>
+</html>

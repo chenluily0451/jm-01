@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤竞价详情</title>
+    <link rel="stylesheet" href="/styles/admin/tender/tenderDetail.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+    <div layout:fragment="header">
+        <div layout:insert="~{/layout/background-subNav}" th:remove="tag"></div>
+    </div>
+    <div layout:fragment="wrapper">
+        <div class="main">
+            <div layout:insert="~{/layout/sidebar-finance :: sidebarFinance(2)}" th:remove="tag"></div>
+            <div class="bg-inner">
+                <div class="tenderDetailWrap">
+                    <div class="tenderDetailBlock">
+                        <p class="tenderTitle">
+                            <span>
+                                一、基本信息
+                            </span>
+                        </p>
+                        <ul class="basicInfo">
+                            <li>
+                                <label for="">项目名称</label>
+                                <div class="basic-style1" th:text="${tender.tenderTitle}">晋煤集团11月份块煤竞标销售公告</div>
+                            </li>
+                            <li>
+                                <label for="">品种</label>
+                                <div class="basic-style2" th:text="${coalTypeList[tender.coalTypeId]}">块煤</div>
+
+                                <label for="">矿别</label>
+                                <div class="basic-style2" th:text="${coalZoneList[tender.coalZoneId]}">赵庄矿</div>
+
+                                <label for="">发站</label>
+                                <div class="basic-style2" th:text="${forwardStationList[tender.forwardStationId]}">赵庄</div>
+                            </li>
+                            <li>
+                                <label for="">运输方式</label>
+                                <div class="basic-style2" th:text="${transportModeList[tender.transportModeId]}">火车</div>
+
+                                <label for="">吨数</label>
+                                <div class="basic-style2" th:text="|${tender.saleAmount}吨|">2000吨</div>
+
+                                <label for="">保证金</label>
+                                <div class="basic-style2"><th:block th:if="${tender.minimumSaleAmount==1000}">10</th:block><th:block th:if="${tender.minimumSaleAmount==2000}">15</th:block><th:block th:if="${tender.minimumSaleAmount==3000}">20</th:block><th:block th:if="${tender.minimumSaleAmount==4000}">25</th:block><th:block th:if="${tender.minimumSaleAmount>=5000}">30</th:block>万元</div>
+                            </li>
+                            <li>
+                                <label for="">成交价格</label>
+                                <div class="basic-style2">现货价</div>
+
+                                <label for="">竞买底价</label>
+                                <div class="basic-style2" th:text="|${#numbers.formatDecimal(tender.saleBasePrice,1,2)}元/吨|">赵庄矿</div>
+
+                                <label for="">加价幅度</label>
+                                <div class="basic-style2" th:text="|${tender.saleIncreasePriceStep}元/吨|">5元/吨</div>
+                            </li>
+                            <li>
+                                <label for="">最低竞买量</label>
+                                <div class="basic-style1" th:text="|${tender.minimumSaleAmount}吨|"></div>
+                            </li>
+                            <li>
+                                <label for="">交货方式</label>
+                                <div class="basic-style1" th:text="${tender.transportModeId==1?'卖方矿场交货，竞价方自行组织车辆拉运':'卖方矿场车板交货，卖方代办铁路运输，运费、货物保险费等费用均由竞价方承担'}">火车交货，买家承担运杂费等</div>
+                            </li>
+                            <li>
+                                <label for="">结算方式</label>
+                                <div class="basic-style1" th:text="${tender.settlementModeStr}">实行煤炭增值税票和运杂费增值税票等分票结算；签订交易合同前全额预付现汇；6个月以内承兑汇票加价20元/吨，6个月以上承兑汇票加价
+                                    30元/吨。</div>
+                            </li>
+                            <li>
+                                <label for="">竞价时间</label>
+                                <div class="basic-style1" th:text="|${#temporals.format(tender.tenderStartDate,'yyyy-MM-dd HH:mm')} -- ${#temporals.format(tender.tenderEndDate,'yyyy-MM-dd HH:mm')}|">2016.10.22 -- 2016.10.26</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tenderDetailBlock">
+                        <p class="tenderTitle">
+                            <span>
+                                二、煤炭指标
+                            </span>
+                        </p>
+                        <ul class="basicInfo">
+                            <li>
+                                <label for="">发热量</label>
+                                <div class="basic-style3" th:text="|${tender.coalBaseDTO.NCV}-${tender.coalBaseDTO.NCV2}kcal/kg|">1234-4020kcal/kg</div>
+
+                                <label for="">收到基硫分</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.RS!=null}?|${tender.coalBaseDTO.RS}-${tender.coalBaseDTO.RS2}%| :'-'">0.1-0.3%</div>
+
+                                <label for="">空干基挥发分</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.ADV!=null}?|${tender.coalBaseDTO.ADV}-${tender.coalBaseDTO.ADV2}%| :'-'">-</div>
+
+                                <label for="">全水</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.TM!=null}?|${tender.coalBaseDTO.TM}-${tender.coalBaseDTO.TM2}%| :'-'">3-10%</div>
+                            </li>
+                            <li>
+                                <label for="">灰分</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.ASH!=null}?|${tender.coalBaseDTO.ASH}-${tender.coalBaseDTO.ASH2}%| :'-'">4020kcal/kg</div>
+
+                                <label for="">空干基硫分</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.ADS!=null}?|${tender.coalBaseDTO.ADS}-${tender.coalBaseDTO.ADS2}%| :'-'">0.3%</div>
+
+                                <label for="">收到基挥发分</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.RV!=null}?|${tender.coalBaseDTO.RV}-${tender.coalBaseDTO.RV2}%| :'-'">0.1-0.3%</div>
+
+                                <label for="">内水分</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.IM!=null}?|${tender.coalBaseDTO.IM}-${tender.coalBaseDTO.IM2}%| :'-'">1-10%</div>
+                            </li>
+                            <li>
+                                <label for="">Y值</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.YV!=null}?|${tender.coalBaseDTO.YV}-${tender.coalBaseDTO.YV2}mm| :'-'">1-4020kcal/kg</div>
+
+                                <label for="">固定碳</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.FC!=null}?|${tender.coalBaseDTO.FC}-${tender.coalBaseDTO.FC2}%| :'-'">0.1-0.3%</div>
+
+                                <label for="">焦渣特征</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.CRC!=null}?|${tender.coalBaseDTO.CRC}-${tender.coalBaseDTO.CRC2}%| :'-'">-</div>
+
+                                <label for="">G值</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.GV!=null}?|${tender.coalBaseDTO.GV}-${tender.coalBaseDTO.GV2}| :'-'">3-10%</div>
+                            </li>
+                            <li>
+                                <label for="">干燥无灰基挥发分</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.VDAF!=null}?|${tender.coalBaseDTO.VDAF}-${tender.coalBaseDTO.VDAF2}%| :'-'">1-4020kcal/kg</div>
+
+                                <label for="">干燥基硫分 </label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.STD!=null}?|${tender.coalBaseDTO.STD}-${tender.coalBaseDTO.STD2}%| :'-'">0.03-0.3%</div>
+
+                                <label for="">哈氏可磨</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.HGI!=null}?|${tender.coalBaseDTO.HGI}-${tender.coalBaseDTO.HGI2}%| :'-'">-</div>
+
+                                <label for="">灰熔点</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.AFT!=null}?|${tender.coalBaseDTO.AFT}-${tender.coalBaseDTO.AFT2}℃| :'-'">3-10℃</div>
+                            </li>
+                            <li>
+                                <label for="">颗粒度</label>
+                                <div class="basic-style3" th:text="${tender.coalBaseDTO.PS!=null}?${tender.coalBaseDTO.PS}:'-'">三八块</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tenderDetailBlock">
+                        <p class="tenderTitle">
+                            <span>
+                                三、考核指标
+                            </span>
+                        </p>
+                        <div class="tenderInner" th:utext="${tender.KPIStr}">
+                            质量和数量的验收标准及方法，数量和质量均以卖方计量和检验结果为准；验收方执行《GB/T18666-2002商品煤质量抽查与验收方法》和《煤炭送货办
+                            法》以及《煤炭送货办法实施细则》的有关规定；如果存在数量质量异议，双方协商解决；协商不成的，以双方确认同意的第三方化验机构化验结果为准
+                            （费用由与第三方化验结果偏差较大者承担）。发运数量以车或列为单位组织，合同兑现数量误差不超过10%。
+                        </div>
+                    </div>
+                    <div class="tenderDetailBlock">
+                        <p class="tenderTitle">
+                            <span>
+                                四、竞买资质
+                            </span>
+                        </p>
+                        <p class="strengthTxt"><b>资质</b></p>
+                        <div class="tenderInner" th:utext="${tender.qualificationStr}">
+                            质量和数量的验收标准及方法，数量和质量均以卖方计量和检验结果为准；验收方执行《GB/T18666-2002商品煤质量抽查与验收方法》和《煤炭送货办
+                            法》以及《煤炭送货办法实施细则》的有关规定；如果存在数量质量异议，双方协商解决；协商不成的，以双方确认同意的第三方化验机构化验结果为准
+                            （费用由与第三方化验结果偏差较大者承担）。发运数量以车或列为单位组织，合同兑现数量误差不超过10%。
+                        </div>
+                        <p class="strengthTxt"><b>保证金</b></p>
+                        <div class="tenderInner" th:utext="${tender.marginsStr}">
+                            为保证交易正常进行，竞买方需在报名截止时间前，一次性缴纳交易保证金，逾期未足额缴纳交易保证金的企业所提交的报价视为无效，缴纳方式为线下缴纳。
+                        </div>
+                    </div>
+                    <div class="tenderDetailBlock">
+                        <p class="tenderTitle">
+                            <span>
+                                五、竞买规则
+                            </span>
+                        </p>
+                        <div class="tenderInner" th:utext="${tender.saleRuleStr}">
+                            a、需在系统规定的时间内填报采购量及价格，价格不得低于竞价公告规定的底价，每次按上浮5元/吨进行报价，系统采集最后一次报价。逾期系统将自动
+                            关闭。按照“价格优先”的原则确定成交价格。当竞价交易结束时，出价最高者自动成交。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="script" th:remove="tag">
+    </div>
+</body>
+</html>

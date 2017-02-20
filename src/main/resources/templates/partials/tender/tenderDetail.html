@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤我要竞标</title>
+    <link rel="stylesheet" href="/styles/partials/tender/tenderDetail.css">
+</head>
+<body id="tenderIndex">
+    <div layout:fragment="header">
+        <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+        <div layout:insert="~{/layout/subNav :: subNav('',1,1)}" th:remove="tag"></div>
+    </div>
+    <div layout:fragment="wrapper">
+        <div class="main">
+            <div id="tenderDetail">
+                <div class="detailBlock mt60">
+                    <div class="detailBlockL">
+                        <div class="tenderTitleBlock">
+                            <div class="introImg">
+                                <th:block th:if="${tender.coalTypeId==1}">
+                                    <img width="100%" src="/images/partials/tender/big-mo.png" alt="" ondragstart='return false;'/>
+                                </th:block>
+                                <th:block th:if="${tender.coalTypeId==2}">
+                                    <img width="100%" src="/images/partials/tender/big-kuai.png" alt="" ondragstart='return false;'/>
+                                </th:block>
+                                <th:block th:if="${tender.coalTypeId==3}">
+                                    <img width="100%" src="/images/partials/tender/big-ximo.png" alt="" ondragstart='return false;'/>
+                                </th:block>
+                            </div>
+
+                            <ul>
+                                <li class="tenderTitle" th:text="${tender.tenderTitle}">晋煤10月份第二次竞标销售公告</li>
+                                <li>
+                                    <span><th:block th:text="${bidRecordList.size()}">0</th:block>家出价</span>
+                                    <span><th:block th:text="${subscribeCount}">0</th:block>家设置预约提醒</span>
+                                    <span><th:block th:text="${visitorsCount==null?tender.visitorsCount:visitorsCount+1}">0</th:block>家围观</span>
+                                    <span class="tenderCode" th:text="${tender.tenderCode}">编号：JM201612280005</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <ul class="tenderInfoBlock">
+                            <li>
+                                <div class="w94">
+                                    <p>品种</p>
+                                    <p class="con">
+                                       <b th:text="${coalTypeList[tender.coalTypeId]}"></b>
+                                    </p>
+                                </div>
+                                <div class="w103">
+                                    <p>矿别</p>
+                                    <p class="con">
+                                       <b th:text="${coalZoneList[tender.coalZoneId]}"></b>
+                                    </p>
+                                </div>
+                                <div class="w106">
+                                    <p>发站</p>
+                                    <p class="con">
+                                        <b th:text="${forwardStationList[tender.forwardStationId]}">东京</b>
+                                    </p>
+                                </div>
+                                <div class="w100">
+                                    <p>运输方式</p>
+                                    <p class="con">
+                                        <b th:text="${transportModeList[tender.transportModeId]}">火车</b>
+                                    </p>
+                                </div>
+                                <div class="w130">
+                                    <p>吨数</p>
+                                    <p class="con">
+                                        <b class="num" th:text="|${tender.saleAmount}|">2000</b>吨
+                                    </p>
+                                </div>
+                                <div class="w200">
+                                    <p>保证金</p>
+                                    <!--<p class="con"><b class="num red"  th:text="|${#numbers.formatDecimal(tender.margins/10000,1,2)}|">30</b>万元</p>-->
+                                    <p class="con toolInfoTxt bidMoneyStyle">
+                                        <b class="num red" data-toggle="tooltip" data-placement="bottom" data-html="true" title="<p class='priceAmountInfoContent'>竞价量1000吨，保证金<span>10万元</span>；</p><p class='priceAmountInfoContent'>竞价量2000吨，保证金<span>15万元</span>；</p><p class='priceAmountInfoContent'>竞价量3000吨，保证金<span>20万元</span>；</p><p class='priceAmountInfoContent'>竞价量4000吨，保证金<span>25万元</span>；</p><p class='priceAmountInfoContent'>竞价量5000吨及以上，保证金<span>30万元</span>。</p>"><th:block th:if="${tender.minimumSaleAmount==1000}">10</th:block><th:block th:if="${tender.minimumSaleAmount==2000}">15</th:block><th:block th:if="${tender.minimumSaleAmount==3000}">20</th:block><th:block th:if="${tender.minimumSaleAmount==4000}">25</th:block><th:block th:if="${tender.minimumSaleAmount>=5000}">30</th:block></b>万起
+                                    </p>
+                                </div>
+                                <div class="w130 last">
+                                    <th:block th:if="${tender.status==2}">
+                                        <p class="bid-step bid-step1"></p>
+                                    </th:block>
+                                    <th:block th:if="${tender.status==3}">
+                                        <p class="bid-step bid-step2"></p>
+                                    </th:block>
+                                    <th:block th:if="${tender.status==4}">
+                                        <p class="bid-step bid-step4"></p>
+                                    </th:block>
+                                    <th:block th:if="${tender.status==5}">
+                                        <p class="bid-step bid-step4"></p>
+                                    </th:block>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="tenderBottomBlock">
+                            <li>
+                                <label for="">成交价格：</label>
+                                <span>现汇价</span>
+                            </li>
+                            <li>
+                                <label for="">交货方式：</label>
+                                <span th:text="${tender.transportModeId==1?'卖方矿场交货，竞价方自行组织车辆拉运':'卖方矿场车板交货，卖方代办铁路运输，运费、货物保险费等费用均由竞价方承担'}"></span>
+                            </li>
+                            <li>
+                                <label for="">结算方式：</label>
+                                <span th:text="${tender.settlementModeStr}"></span>
+                            </li>
+                            <li>
+                                <label for="">发布时间：</label>
+                                <span class="labelTwo" th:text="${#temporals.format(tender.releaseDate,'yyyy-MM-dd HH:mm')}"></span>
+                                <label for="" class="labelTwo">竞价时间：</label>
+                                <span class="labelTwo" th:text="|${#temporals.format(tender.tenderStartDate,'yyyy-MM-dd HH:mm')} 一 ${#temporals.format(tender.tenderEndDate,'yyyy-MM-dd HH:mm')}|"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="detailBlockR">
+                        <p class="reservePriceInfo">
+                            <span class="reserveInfo">竞标底价：</span>
+                            <span class="reservePrice">
+                                <b th:text="|${#numbers.formatDecimal(tender.saleBasePrice,1,2)}|">400</b>元/吨
+                            </span>
+                            <span class="reserveNotice">
+                                <i></i>参与竞价价格不得低于此价
+                            </span>
+                        </p>
+                        <div class="controlWrap" data-trigger="spinner" id="quantitySpinner">
+                            <a href="javascript:;" data-spin="down" class="subBtn disableBtn">-</a>
+                            <input type="text" class="bidPrice"  maxlength="12" id="quantity"  th:attr="data-step=1000,data-min=${bidApply!=null?bidApply.quantity:tender.minimumSaleAmount},data-max=${tender.saleAmount}" data-precision="0" th:value="${bidApply!=null ? bidApply.quantity:tender.minimumSaleAmount}" th:placeholder="|${tender.minimumSaleAmount}吨元起|" th:disabled="${tender.status==3 || bidApply!=null}" >
+                            <a href="javascript:;" data-spin="up" class="addBtn"  th:class="${bidApply!=null ? 'addBtn disableBtn' : 'addBtn'}">+</a>
+                            <div class="unit">吨</div>
+                        </div>
+                        <p class="addInfo" th:text="|最低竞买吨数不低于${tender.minimumSaleAmount}吨|"></p>
+                        <p class="marginsInfoContent">
+                            保证金：<span id="marginsTxt">
+                            <!--/*  已经报名 */-->
+                           <th:block th:if="${bidApply==null}">
+                                <th:block th:if="${tender.minimumSaleAmount==1000}">10</th:block>
+                                <th:block th:if="${tender.minimumSaleAmount==2000}">15</th:block>
+                                <th:block th:if="${tender.minimumSaleAmount==3000}">20</th:block>
+                                <th:block th:if="${tender.minimumSaleAmount==4000}">25</th:block>
+                                <th:block th:if="${tender.minimumSaleAmount>=5000}">30</th:block>
+                            </th:block>
+
+                            <!--/*  没有报名 */-->
+                            <th:block th:if="${bidApply!=null}" th:text="${#numbers.formatDecimal(bidApply.amount.divide(10000),1,2)}"></th:block>
+
+                            </span>万元
+                            <th:block th:if="${tender.minimumSaleAmount==1000}">
+                                <input type="text" id="marginsVal" class="display-none" value="10"/>
+                            </th:block>
+                            <th:block th:if="${tender.minimumSaleAmount==2000}">
+                                <input type="text" id="marginsVal" class="display-none" value="15"/>
+                            </th:block>
+                            <th:block th:if="${tender.minimumSaleAmount==3000}">
+                                <input type="text" id="marginsVal" class="display-none" value="20"/>
+                            </th:block>
+                            <th:block th:if="${tender.minimumSaleAmount==4000}">
+                                <input type="text" id="marginsVal" class="display-none" value="25"/>
+                            </th:block>
+                            <th:block th:if="${tender.minimumSaleAmount>=5000}">
+                                <input type="text" id="marginsVal" class="display-none" value="30"/>
+                            </th:block>
+
+                        </p>
+                        <div data-trigger="spinner" id="priceSpinner" class="controlWrap">
+                            <a href="javascript:;" data-spin="down" class="subBtn disableBtn">-</a>
+                            <th:block th:if="${bidRecordList.size()>0}">
+                                <input type="text" class="bidPrice" th:disabled="${tender.status==3 &&  paid} ? false : true" maxlength="12" id="bidPrice"  th:attr="data-step=${tender.saleIncreasePriceStep},data-min=${currentPrice}" data-precision="2" th:value="${currentPrice}" th:placeholder="|${currentPrice}元起|">
+                            </th:block>
+                            <th:block th:if="${bidRecordList.size()==0}">
+                                <input type="text" class="bidPrice" th:disabled="${tender.status==3 &&  paid} ? false : true" maxlength="12" id="bidPrice"  th:attr="data-step=${tender.saleIncreasePriceStep},data-min=${currentPrice+tender.saleIncreasePriceStep}" data-precision="2" th:value="${currentPrice+tender.saleIncreasePriceStep}" th:placeholder="|${currentPrice}元起|">
+                            </th:block>
+                            <a href="javascript:;" data-spin="up" class="addBtn" th:class="${tender.status==3 &&  paid} ? 'addBtn' : 'subBtn disableBtn' ">+</a>
+                            <div class="unit">元/吨</div>
+                        </div>
+                        <p class="errorWrap"></p>
+                        <p class="addInfo">
+                            <span class="currentPrice">当前价格:<b th:text="|${currentPrice}元|">500元</b></span><span class="bidUp">出价每次按上浮<b th:text="|${tender.saleIncreasePriceStep}元/吨|"></b></span>
+                        </p>
+                        <div class="leftTime">
+                            <i class="icon"></i>
+                            <div th:if="${tender.status==2 && tender.tenderStartDate.isAfter(#temporals.createNow())}">
+                                距竞拍开始还有：<div id="leftStartTime" class="timeWrap">玩命加载中...</div>
+                                <input type="text" th:value="|${#temporals.format(tender.tenderStartDate,'yyyy/MM/dd HH:mm')}" />
+                            </div>
+                            <div th:if="${tender.status==3 && tender.tenderEndDate.isAfter(#temporals.createNow()) }">
+                                距竞拍结束还有：<div id="leftEndTime" class="timeWrap">玩命加载中...</div>
+                                <input type="text" th:value="|${#temporals.format(tender.tenderEndDate,'yyyy/MM/dd HH:mm')}" />
+                            </div>
+                            <div th:if="${tender.tenderEndDate.isBefore(#temporals.createNow())}">
+                                竞拍已结束
+                            </div>
+                        </div>
+                        <a th:if="${tender.status==2 && tender.tenderStartDate.isAfter(#temporals.createNow()) &&  !paid}" href="javascript:void(0)" class="tenderSubmit" id="signTender">报名交保证金</a>
+                        <a th:if="${tender.status==2 && tender.tenderStartDate.isAfter(#temporals.createNow()) &&   paid}" href="javascript:void(0)" class="tenderSubmit" id="reservationBtn">预约提醒</a>
+                        <a th:if="${tender.status==3 && tender.tenderEndDate.isAfter(#temporals.createNow()) &&  !paid} " href="javascript:void(0)" class="tenderSubmit biddingStatus">报价进行中...</a>
+                        <a th:if="${tender.status==3 && tender.tenderEndDate.isAfter(#temporals.createNow()) &&  paid} " href="javascript:void(0)" class="tenderSubmit" id="tenderSubmit">立即竞价</a>
+                        <a th:if="${tender.status==4 || tender.status==5 || tender.tenderEndDate.isBefore(#temporals.createNow())}" href="javascript:void(0)" class="tenderComplete">竞拍已结束</a>
+
+                        <p class="amountError"></p>
+                        <input type="hidden" id="serverDataTime" th:value="${#temporals.format(#temporals.createNow(),'yyyy/MM/dd HH:mm')}">
+                        <!--<p class="marginsMethod">-->
+                            <!--<i class="icon"></i>保证金支付方式-->
+                        <!--</p>-->
+                    </div>
+                </div>
+                <div class="detailBlock">
+                    <div class="bidProgress">
+                        <div class="bidProgressL"><i></i></div>
+                        <div class="bidProgressR">
+                            <div class="bidStep"></div>
+                            <ul>
+                                <li>
+                                    <p class="title"><a href="/helpCenter#menu10" target="_blank">竞前准备</a></p>
+                                    <p><a href="/helpCenter#menu10" target="_blank">竞拍准备哪些材料</a></p>
+                                    <p><a href="/helpCenter#menu10" target="_blank">竞拍如何分工协作</a></p>
+                                </li>
+                                <li>
+                                    <p class="title"><a href="/helpCenter#menu11" target="_blank">报名交保证金</a></p>
+                                    <p><a href="/helpCenter#menu11" target="_blank">如何缴纳保证金</a></p>
+                                    <p><a href="/helpCenter#menu11" target="_blank">如何退还保证金</a></p>
+                                </li>
+                                <li>
+                                    <p class="title"><a href="/helpCenter#menu12" target="_blank">出价竞拍</a></p>
+                                    <p><a href="/helpCenter#menu12" target="_blank">成交规则</a></p>
+                                    <p><a href="/helpCenter#menu12" target="_blank">出价规则</a></p>
+                                </li>
+                                <li>
+                                    <p class="title"><a href="/helpCenter#menu13" target="_blank">竞拍成功</a></p>
+                                    <p><a href="/helpCenter#menu13" target="_blank">竞拍成功</a></p>
+                                    <p><a href="/helpCenter#menu13" target="_blank">竞拍成功后哪些行为违约</a></p>
+                                </li>
+                                <li class="last">
+                                    <p class="title"><a href="/helpCenter#menu14" target="_blank">办理交割</a></p>
+                                    <p><a href="/helpCenter#menu14" target="_blank">如何签订购销合同</a></p>
+                                    <p><a href="/helpCenter#menu14" target="_blank">如何办理交割</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="detailBlock pd15" id="fixContent">
+                    <ul class="tenderMenu">
+                        <li class="selected">产品详情<span>|</span><div></div></li>
+                        <li>竞标须知<span>|</span><div></div></li>
+                        <li>竞拍记录<i th:text="${bidRecordList.size()>0 ? '('+bidRecordList.size()+')':''}"></i><div></div></li>
+                    </ul>
+                    <ul class="tenderMenu fixed">
+                        <li class="selected">产品详情<span>|</span><div></div></li>
+                        <li>竞标须知<span>|</span><div></div></li>
+                        <li>竞拍记录<i th:text="${bidRecordList.size()>0 ? '('+bidRecordList.size()+')':''}"></i><div></div></li>
+                    </ul>
+                    <div class="coalInnerContent pdb">
+                        <div class="tenderTitWrap">产品详情</div>
+
+                        <div class="dashedBlock">
+                            <div class="dashedTitle"><i class="ring"></i>煤炭指标</div>
+                            <table>
+                                <tr>
+                                    <td class="grey">品名</td>
+                                    <td th:text="${coalTypeList[tender.coalTypeId]}"></td>
+                                    <td class="grey">发热量</td>
+                                    <td th:text="|${tender.coalBaseDTO.NCV}-${tender.coalBaseDTO.NCV2}kcal/kg|"></td>
+                                    <td class="grey">收到基硫分</td>
+                                    <td  th:text="${tender.coalBaseDTO.RS!=null}?|${tender.coalBaseDTO.RS}-${tender.coalBaseDTO.RS2}%| :'-'"></td>
+                                    <td class="grey">空干基挥发分</td>
+                                    <td  th:text="${tender.coalBaseDTO.ADV!=null}?|${tender.coalBaseDTO.ADV}-${tender.coalBaseDTO.ADV2}%| :'-'">25-40%</td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">全水</td>
+                                    <td th:text="${tender.coalBaseDTO.TM!=null}?|${tender.coalBaseDTO.TM}-${tender.coalBaseDTO.TM2}%| :'-'"></td>
+                                    <td class="grey">灰分</td>
+                                    <td th:text="${tender.coalBaseDTO.ASH!=null}?|${tender.coalBaseDTO.ASH}-${tender.coalBaseDTO.ASH2}%| :'-'"></td>
+                                    <td class="grey">空干基硫分</td>
+                                    <td th:text="${tender.coalBaseDTO.ADS!=null}?|${tender.coalBaseDTO.ADS}-${tender.coalBaseDTO.ADS2}%| :'-'">0.3-0.5%</td>
+                                    <td class="grey">收到基挥发分</td>
+                                    <td th:text="${tender.coalBaseDTO.RV!=null}?|${tender.coalBaseDTO.RV}-${tender.coalBaseDTO.RV2}%| :'-'">25-40%</td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">内水</td>
+                                    <td th:text="${tender.coalBaseDTO.IM!=null}?|${tender.coalBaseDTO.IM}-${tender.coalBaseDTO.IM2}%| :'-'">末煤</td>
+                                    <td class="grey">固定碳</td>
+                                    <td th:text="${tender.coalBaseDTO.FC!=null}?|${tender.coalBaseDTO.FC}-${tender.coalBaseDTO.FC2}%| :'-'"></td>
+                                    <td class="grey">灰熔点</td>
+                                    <td th:text="${tender.coalBaseDTO.AFT!=null}?|${tender.coalBaseDTO.AFT}-${tender.coalBaseDTO.AFT2}℃| :'-'">0.3-0.5%</td>
+                                    <td class="grey">G值</td>
+                                    <td th:text="${tender.coalBaseDTO.GV!=null}?|${tender.coalBaseDTO.GV}-${tender.coalBaseDTO.GV2}| :'-'">25-40%</td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">Y值</td>
+                                    <td th:text="${tender.coalBaseDTO.YV!=null}?|${tender.coalBaseDTO.YV}-${tender.coalBaseDTO.YV2}mm| :'-'">末煤</td>
+                                    <td class="grey">哈氏可磨</td>
+                                    <td th:text="${tender.coalBaseDTO.HGI!=null}?|${tender.coalBaseDTO.HGI}-${tender.coalBaseDTO.HGI2}%| :'-'">5000kcal/kg</td>
+                                    <td class="grey">焦渣特征</td>
+                                    <td th:text="${tender.coalBaseDTO.CRC!=null}?|${tender.coalBaseDTO.CRC}-${tender.coalBaseDTO.CRC2}%| :'-'">0.3-0.5%</td>
+                                    <td class="grey">颗粒度</td>
+                                    <td th:text="${tender.coalBaseDTO.PS!=null}?${tender.coalBaseDTO.PS}:'-'">25-40%</td>
+                                </tr>
+                                <tr>
+                                    <td class="grey">干燥无灰基挥发分</td>
+                                    <td  th:text="${tender.coalBaseDTO.VDAF!=null}?|${tender.coalBaseDTO.VDAF}-${tender.coalBaseDTO.VDAF2}%| :'-'">3-5%</td>
+                                    <td class="grey">干燥基硫分</td>
+                                    <td th:text="${tender.coalBaseDTO.STD!=null}?|${tender.coalBaseDTO.STD}-${tender.coalBaseDTO.STD2}%| :'-'">3%</td>
+                                    <td colspan="4"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="dashedBlock">
+                            <div class="dashedTitle"><i class="assessmentIndex"></i>考核指标</div>
+                            <ul class="indexInfo">
+                                <li th:utext="${tender.KPIStr}"></li>
+                            </ul>
+                        </div>
+
+                        <div class="tenderTitWrap">竞标须知</div>
+                        <div class="dashedBlock">
+                            <div class="dashedTitle">一、竞买方资格</div>
+                            <p class="subTitle"><i class="qualificationIcon"></i><b>资质：</b></p>
+                            <div class="contentWrap" th:utext="${tender.qualificationStr}">
+                                需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理人的身份证和复印件。需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理
+                            </div>
+                            <p class="subTitle"><i class="marginsIcon"></i><b>保证金：</b></p>
+                            <div class="contentWrap" th:utext="${tender.marginsStr}">
+                                需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理人的身份证和复印件。需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理
+                            </div>
+                        </div>
+                        <div class="dashedBlock">
+                            <div class="dashedTitle">二、竞买规则</div>
+                            <p class="subTitle"></p>
+                            <div class="contentWrap"  th:utext="${tender.saleRuleStr}">
+                                <p>需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理人的身份证和复印件。需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理</p>
+                                <p>需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理人的身份证和复印件。需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理</p>
+                                <p>需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理人的身份证和复印件。需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理</p>
+                                <p>需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理人的身份证和复印件。需竞买方提供营业执照和银行开户许可证，并在电商平台上传资质，经审核确认后才能进行提报竞价。竞价人委托他人代理的，应提交授权委托书及委托代理</p>
+                            </div>
+                        </div>
+                        <div class="tenderTitWrap">竞拍记录</div>
+                        <div class="coalInnerContent" th:if="${bidRecordList.size()>0}">
+                            <div class="bidRecord">
+                                <p class="w240">序号</p>
+                                <p class="w260">竞拍人</p>
+                                <p class="w249">出价(元)</p>
+                                <p class="w337">时间</p>
+                            </div>
+                            <ul class="bidRecordList">
+                                <li th:each="bid,iterStat:${bidRecordList}" th:class=" ${iterStat.index==bidRecordList.size()-1 ? 'noborder' : ''}">
+                                    <div class="w240" th:text="${iterStat.index+1}">1</div>
+                                    <div class="w260" th:text="${(tender.status ==4 || tender.status==5) ? bid.companyName:('客户'+(iterStat.index+1))}">陈路</div>
+                                    <div class="w249" th:text="${(tender.status ==4 || tender.status==5) ? bid.quotePrice:'*****'}">300000</div>
+                                    <div class="w337" th:text="${#temporals.format(bid.createDate,'yyyy/MM/dd HH:mm:ss')}">2016年11月12日  18：00：00</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div th:if="${bidRecordList.size()==0}" class="nobidRecordList">
+                            <p>暂无数据</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="tenderId" th:value="${tender.id}"/>
+        <input type="hidden" id="minimumSaleAmount" th:value="${tender.minimumSaleAmount}"/>
+        <input type="hidden" id="saleAmount" th:value="${tender.saleAmount}"/>
+        <div layout:insert="~{/components/modal/modalOneBtn :: modalOneBtn(1,'报名成功！')}" th:remove="tag"></div>
+        <div layout:insert="~{/components/modal/modalOneBtn :: modalOneBtn(2,'预约成功！')}" th:remove="tag"></div>
+
+        <div th:id="reservation" class="modal fade modalPublic" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button"  class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">预约提醒</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modalPhoneWrap">
+                            <label for="">手机号</label>
+                            <input type="text" class="inputPhone" id="inputPhone" th:value="${subscribePhone!=null?subscribePhone:''}" placeholder="请输入预约手机号" />
+                        </div>
+                        <div class="reservationInfo">
+                            该手机号将在竞拍开始前2小时收到提醒短信
+                        </div>
+                        <div class="modalErrorWrap"></div>
+                        <div class="buttons" layout:fragment="modal-content">
+                            <input type="button" class="btn confirm" value="确认" id="validateBtn">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="script" th:remove="tag">
+        <script type="text/javascript" src="/scripts/partials/tender/tenderDetail.js"></script>
+    </div>
+</body>
+</html>

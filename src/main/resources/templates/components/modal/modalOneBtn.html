@@ -1,0 +1,25 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body layout:fragment="modalOneBtn(modalId,modalTxt)">
+    <div th:id="'modalRemind_'+${modalId}" class="modal fade modalPublic" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" th:id="'modal_title_'+${modalId}">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <div class="bg_img attention" th:id="'modalImg_'+${modalId}"></div>
+                        <div class="modalInfo">
+                            <span th:id="'modalInfo_'+${modalId}" th:utext="${modalTxt}"></span>
+                        </div>
+                        <div class="buttons" layout:fragment="modal-content">
+                            <input type="button" class="btn confirm" value="确认" th:id="'md_ok_'+${modalId}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤注册</title>
+    <link rel="stylesheet" href="/styles/partials/register/register.css">
+</head>
+<!--这里是头部的结束内容-->
+<body class="register-body">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/subNav :: subNav('注册',-1,2)}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content register">
+        <div class="register-step"><img src="/images/partials/register/register-step-1.png"/></div>
+        <form class="form-horizontal register-form" id="registerForm">
+            <div class="form-group">
+                <label class="col-sm-5 control-label"><span class="txt-warning">*</span>用户名：</label>
+                <div class="col-sm-4 no-padding-left">
+                    <input type="text" class="form-control" placeholder="请输入手机号码" name="securePhone" id="securePhone" maxlength="11"/>
+                </div>
+                <div class="col-sm-3 info">
+                    <div class="info-wrap">请输入11位手机号码</div>
+                </div>
+                <div class="col-sm-4 col-sm-offset-5 error-height"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-5 control-label"><span class="txt-warning">*</span>设置密码：</label>
+                <div class="col-sm-4 no-padding-left">
+                    <input type="password" class="form-control" placeholder="请设置密码" name="password" id="password" maxlength="16"/>
+                </div>
+                <div class="col-sm-3 info">
+                    <div class="info-wrap">
+                        <ul>
+                            <li>6-16个字符、字母、数字、特殊符号</li>
+                            <li>至少两种以上组合</li>
+                            <li>字母区分大小写</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-sm-offset-5 error-height"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-5 control-label"><span class="txt-warning">*</span>确认密码：</label>
+                <div class="col-sm-4 no-padding-left">
+                    <input type="password" class="form-control" placeholder="请输入确认密码" name="confirmPassword" id="confirmPassword" maxlength="16"/>
+                </div>
+                <div class="col-sm-4 col-sm-offset-5 error-height"></div>
+            </div>
+            <div class="form-group error-hidden">
+                <label class="col-sm-5 control-label"><span class="txt-warning">*</span>图形验证码：</label>
+                <div class="col-sm-4 no-padding-left">
+                    <input type="text" class="form-control" maxlength="6" placeholder="请输入图形验证码" name="imgCode" id="imgCode"/>
+                    <div class="img-code">
+                        <a href="#"><img src="/loadImgCode" id="verifycode" width="100" height="28"/></a>
+                    </div>
+                </div>
+                <div class="col-sm-2 no-padding-left cannot-see">
+                    <p>看不清楚？</p>
+                    <a href="#" id="changeImgCode">换一张</a>
+                </div>
+                <div class="col-sm-4 col-sm-offset-5 error-height"></div>
+            </div>
+            <div class="form-group error-hidden">
+                <label class="col-sm-5 control-label"><span class="txt-warning">*</span>手机验证码：</label>
+                <div class="col-sm-4 no-padding-left margin-bottom-2">
+                    <input type="text" class="form-control" maxlength="6" placeholder="请输入手机验证码" name="authCode" id="authCode"/>
+                    <div class="yzm disabled" id="yzm">获取验证码</div>
+                    <div class="col-sm-12">
+                        <div class="yzm-tips" id="yzmTips">验证码已发送至你的手机，请查收！</div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-sm-offset-5 error-height"></div>
+                <div id="authCode-error-other" class="display-none col-sm-4 col-sm-offset-5 authCode-error-other">请输入6位手机验证码</div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-5 pull-left no-padding-left">
+                    <label class="pull-left no-margin-bottom">
+                        <input type="checkbox" class="margin-top-0" name="agreement" id="argument"/>
+                        <span class="vertical-middle">我已阅读并同意<a href="#" id="agreeBtn">《注册协议》</a>及<a href="#" id="secretBtn">《入市交易协议》</a></span>
+                    </label>
+                    <div class="col-sm-3 agreement"></div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-5 col-sm-4 no-padding-left">
+                    <input type="submit" class="btn btn-blue disabled" value="下一步" id="submitBtn"/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="agreementModal" class="modal fade modalPublic modal-edit" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">注册协议</h4>
+                </div>
+                <div class="modal-body text-indent">
+                    <h2>注册协议</h2>
+                    <p>请详细阅读、了解并自愿遵守注册协议（以下简称本协议）条款的所有内容，本协议条款具有合同效力，本协议双方为山西晋城无烟煤矿业集团有限责任公司（以下简称晋煤集团）与所有会员（以下简称会员）。</p>
+                    <h4>一、声明</h4>
+                    <p>第一条 本协议内容包括协议正文及所有晋煤集团已经发布的或将来发布的各类文件和规则。所有文件和规则为本协议不可分割的组成部分，与本协议正文具有同等法律效力。</p>
+                    <p>第二条 会员在注册或者签署协议时已充分阅读并完全理解晋煤集团制定的交易规则、管理办法及相关规定，知悉会员享有的权利和应承担的义务。一经签署本协议并加盖公章或点击"同意"按钮并按照晋煤集团电商平台的注册程序成功注册为会员，即视为会员同意并签署（包括但不限于网络签署、纸质文件签署等各形式已签署、确认之文件）了本协议。</p>
+                    <p>第三条 晋煤集团有权根据需要不时地制定、修改本协议或各类规则，如本协议有任何变更，将在交易客户端登录时进行协议更改确认并在晋煤集团电商平台网站上刊载公告。经修订的协议一经公布，立即自动生效，亦成为本协议的一部分。如会员不同意相关变更，必须停止使用晋煤集团电商平台提供的"服务"。会员继续登录或继续接受服务，将视为会员接受经修订的协议。</p>
+                    <p>第四条 签署本协议的会员应具备下列条件</p>
+                    <p>1、依法成立并能够独立承担责任的企业；</p>
+                    <p>2、有相应的民事权利能力和民事行为能力。</p>
+                    <p>若无民事行为能力人、限制民事行为能力人超越其民事权利或行为能力注册成为会员的或者无经营权或无特定经营资格的注册为晋煤集团会员，则协议无效，且晋煤集团有权立即注销（永久冻结）会员的账户，并追究会员及其监护人使用晋煤集团服务产品的一切法律后果。</p>
+                    <p>第五条 本协议适用于晋煤集团煤炭电子商务平台的全部用户。</p>
+                    <h4>二、服务规则</h4>
+                    <p>第六条  会员承诺对提交的全部资料的真实性、准确性和合法性负全部法律责任，并保证在相关资料实际发生变更时及时通知晋煤集团。若会员提供资料与真实情况不符，晋煤集团有权单方面终止协议并注销会员账户。会员应承担由此而导致的一切后果。</p>
+                    <p>第七条  晋煤集团为会员提供的服务包括交易服务、物流服务、信息服务、支付服务、价格及信息资讯服务。</p>
+                    <p>第八条  会员在使用晋煤集团提供的特定服务时，晋煤集团有权要求会员同时使用其它指定的相关服务。例如：使用交易服务，必须同时使用指定的支付服务或物流服务。</p>
+                    <h4> 三、会员权利与义务</h4>
+                    <p>第九条</p>
+                    <p>1、在服务平台内进行服务信息的浏览及允许的业务产品的操作；</p>
+                    <p>2、获得服务平台许可的有关业务信息和服务； </p>
+                    <p>3、对服务平台的工作、规则和制度提出意见和建议；</p>
+                    <p>4、参加晋煤集团组织的用户活动，具体以晋煤集团通知为准；</p>
+                    <p>5、其他依法应享有的权利。</p>
+                    <p>第十条 会员应尽以下义务：</p>
+                    <p>1、会员遵守《晋煤集团煤炭电子商务平台交易规则》及相关规章制度。</p>
+                    <p>2、为确保正常交易，履约兑现，会员在晋煤集团的交易平台进行交易时，须交纳交易保证金，具体按晋煤集团发布的“关于网上交易保证金比例的通知”标准执行。交易成交后，自动冻结会员交易保证金。若出现未能按合约约定执行的，交易双方应进行友好协商，协商不成，构成违约的，晋煤集团有权将违约方交易保证金转为违约金。具体如下：</p>
+                    <p>①入市会员在办理入市手续时，同时向晋煤集团缴纳保证金。</p>
+                    <p>②会员权益。已缴纳会员保证金的会员，方可取得交易账户及交易资格，同时享有晋煤集团的信息资讯服务及其它延展业务服务的权利。</p>
+                    <p>③保证金退还。客户未竞价成功，晋煤集团会将客户缴纳的会员保证金在五个工作日内全额退回客户原打款账户。</p>
+                    <p>3、会员有权利拥有自己在服务平台的用户名及密码，并自行使用用户名及密码登录服务平台，以会员的名义从事交易活动。会员应对自己的账户和密码的安全负责，以及对通过账户和密码实施的行为负责。会员不得以任何形式擅自转让或授权他人使用自己在平台的用户名及密码。否则由此引起的一切后果，均由会员自行承担责任。</p>
+                    <p>4、如会员交易密码或资金密码出现遗失、泄露、被窃的，应及时通过晋煤集团办理密码的重置或者账户冻结业务，以防损失扩大。会员可通过服务平台或网页中“找回密码”、“冻结账号”功能进行密码重置或者冻结账号操作，亦可通过服务平台后台进行密码重置。具体操作路径将根据服务平台功能设计进行。</p>
+                    <p>5、会员承诺自己在使用服务平台时实施的所有行为应遵守国家法律、法规和平台的相关规定，不损害社会公共利益或公共道德、不违背公序良俗。遵守诚实信用的原则，不在交易过程中采取不正当竞争行为，不扰乱各项业务的正常秩序，不从事与服务无关的行为。若违背前述承诺，会员应以自己的名义独立承担相应的法律责任。</p>
+                    <h4>四、平台权利与义务</h4>
+                    <p>第十一条  晋煤集团在现有技术条件下维护整个服务平台的正常运行，并努力提升和改进技术，以便会员能够顺利享有平台提供的各项服务。</p>
+                    <p>晋煤集团已采用行业通用技术手段和措施来保护用户的信息安全。这些措施包括技术和程序上的步骤，可防止用户的数据被误用、非法访问、泄露、丢失、更改或破坏。</p>
+                    <p>第十二条  晋煤集团对于会员在服务平台上的不当行为或其它任何服务平台认为应当终止服务的情况，有权随时做出删除相关信息、冻结账户、终止服务提供等处理，而无须征得会员的同意。</p>
+                    <p>对违反晋煤集团相关规定的会员，晋煤集团视情节轻重给予警告、限制交易权限、暂停交易、取消会员资格等处罚。对违反法律、法规等规范性法律文件的行为，追究法律责任。</p>
+                    <p>第十三条 晋煤集团有权对会员的注册数据、交易记录等进行查阅、对交易行为进行监督、管控，一旦发现任何可疑之处或者问题，均有权向会员询问、要求改正或者直接做出冻结等处理决定。</p>
+                    <p>第十四条 晋煤集团对会员的注册信息和交易记录等资料负有保密义务，通常情况下不得向第三方透露，除非法定有权机关按照法定程序查阅或者依《晋煤集团煤炭电商平台交易规则》及相关制度、规定可以提供或者为实现提供服务、合同履行、纠纷和解等目的而向第三方提供：</p>
+                    <p>1、经会员同意，与其它人士或单位共享会员资料的；</p>
+                    <p>2、需要与其它人士或单位共享会员资料，才能够提供会员所要求的产品或服务的；</p>
+                    <p>3、相关的政府职能部门、司法机关依据法律、法规的规定，按照法定程序要求晋煤集团提供会员信息的；  
+                    <p>4、会员在晋煤集团的行为违反法律、法规或本协议及相关规则，晋煤集团向有关政府部门或司法机关提交相关资料，以追究违法犯罪行为的；</p>
+                    <p>5、为保护和维护晋煤集团权利的；</p>
+                    <p>6、在紧急情况下保护晋煤集团或服务平台的会员或社会大众的安全的；</p>
+                    <p>7、其他晋煤集团根据法律法规或交易习惯认为合适的披露。</p>
+                    <p>第十五条  对于会员在服务平台发布的下列各类信息，晋煤集团有权在不通知会员的前提下进行删除或采取其它限制性措施：</p>
+                    <p>1、以规避费用为目的的信息；</p>
+                    <p>2、以炒作信誉为目的的信息；</p>
+                    <p>3、非晋煤集团提供的其他业务信息；</p>
+                    <p>4、晋煤集团有理由相信存在欺诈等恶意或内容虚假的信息；</p>
+                    <p>5、晋煤集团有理由相信与网上交易无关或不是以交易为目的的信息；</p>
+                    <p>6、晋煤集团有理由相信存在恶意竞价或其它试图扰乱正常业务秩序因素的信息；</p>
+                    <p>7、其他晋煤集团认为违反公共利益或可能严重损害平台和其它会员合法利益的信息。</p>
+                    <h4>五、责任与赔偿</h4>
+                    <p>第十六条  如果会员直接通过网络服务或者其他途径将可识别的信息或数据透露给他人，由此产生的该信息被他人收集和使用而直接或间接造成的任何损害、损失或费用，与晋煤集团无关。</p>
+                    <p>第十七条  晋煤集团发布或转载的信息仅供会员参考。会员由于信赖晋煤集团网站上登载的任何资料而遭受的任何损害、损失或费用，与晋煤集团无关。</p>
+                    <p>第十八条  会员不继续在晋煤集团参与交易，应办理会员资格注销手续，经晋煤集团审核同意，由晋煤集团注销该会员后，会员即解除与晋煤集团的协议关系。会员必须对其注销前在晋煤集团服务平台发生的所有行为负全部责任。</p>
+                    <p>第十九条  晋煤集团不对会员或任何第三人因下列情况引起的损失负责：</p>
+                    <p>1、因不可抗力（包括但不限于地震、台风、水灾、火灾、政府禁令、征收、征用等及其他不能预见、不能避免且不可克服的客观事件）导致的；</p>
+                    <p>2、因晋煤集团不可预测或无法控制的系统故障、设备故障、通讯故障、线路故障、电力故障、黑客攻击等突发事件或第三方原因给会员造成的损失；</p>
+                    <p>3、晋煤集团终止会员资格或拒绝会员接入的；</p>
+                    <p>4、非法使用会员的名称、账号、密码登录的； </p>
+                    <p>6、非经授权获取或更改会员所传送的信息或数据的；</p>
+                    <p> 7、服务中的任何第三人的声明或行为；</p>
+                    <p>8、会员间或用户与任何第三人间的违约行为、侵权责任等； </p>
+                    <p>9、会员有违本协议承诺、保证或相关义务、责任的；</p>
+                    <p>第二十条 晋煤集团对本协议及作为本协议组成部分的各类文件和规则享有最终解释权。因履行和解释本协议及相关规则发生的争议，晋煤集团与会员须友好协商解决。协商不成的，则可向晋煤集团所在地有管辖权的法院诉讼。</p>
+                    <p>第二十一条</p>
+                    <p>1、晋煤集团可根据本入市协议制定实施细则。</p>
+                    <p>2、本用户协议自公布之日起实施。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="secretModal" class="modal fade modalPublic modal-edit" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">入市交易协议</h4>
+                </div>
+                <div class="modal-body text-indent">
+                    <p>尊敬的客户：</p>
+                    <p class="letter-spacing">为保障您的合法权益，敬请您逐字逐句地认真阅读本协议的全部文件内容。本协议的所有内容都与您的利益息息相关！ </p>
+                    <h2>入市交易协议 </h2>
+                    <p>甲方：山西晋城无烟煤矿业集团有限责任公司 </p>
+                    <p>乙方：________________________ </p>
+                    <p>甲乙双方本着平等协商、诚实信用的原则，依据《大宗商品电子交易规范》、《中华人民共和国合同法》以及其它有关法律、法规的规定，就乙方参与甲方煤炭电商平台交易，并成为甲方的交易会员事宜达成如下协议，双方共同遵守。 </p>
+                    <p>第一条 乙方自愿成为甲方交易会员。乙方在申请入市之前已仔细研读《晋煤集团煤炭电商平台交易规则》及相关管理细则。甲方已就有关问题作了全面细致的解释，乙方将严格按照甲方规定从事交易活动。 </p>
+                    <p>第二条 甲乙双方认为，《晋煤集团煤炭电商平台交易规则》为确保交易过程的监控和控制市场风险之必需。乙方必须承担交易中可能发生的任何风险，并接受甲方的监督和管理。 </p>
+                    <p>第三条 乙方应妥善保管与使用交易账户，交易账户密码一经修改后，在该密码下发出的交易指令及其他操作均视为乙方的行为。因乙方自身原因造成的损失，由乙方自行承担。甲方郑重提醒乙方妥善保管交易账户密码。 </p>
+                    <p>第四条 甲方对乙方的交易记录等资料负有保密义务，非法定有权机关或乙方指示，不得向第三方透露，否则，甲方须承担相应责任。 </p>
+                    <p>第五条 甲方电子商务平台提供的任何关于市场的分析和信息仅供乙方参考，不构成对乙方下达指令的指示、诱导或暗示。乙方对自己的交易行为负全责，不得以根据甲方的分析为由，对交易的亏损要求甲方承担。 </p>
+                    <p>第六条 本协议如有变更、修改或补充，双方需协商一致并签订变更、修改或补充协议。补充协议与本协议具有同等效力。</p>
+                    <p>第七条 乙方一旦违反法律或甲方制定的相关规定，甲方有权终止本协议。 </p>
+                    <p>第八条 乙方可通过注销交易账户的方式，终止本协议。</p>
+                    <p>第九条 甲乙双方终止协议时，乙方应当办理销户手续。销户时应备其法人身份证明复印件、企业法人营业执照复印件、交易会员入市协议书原件及甲方发放的其他文件等。</p>
+                    <p>第十条 由于地震、火灾、战争等不可抗力导致的交易中断、延误等风险，甲方不承担任何责任，但应在条件允许下采取必要的补救措施减少乙方的损失。 </p>
+                    <p>第十一条 由于国家有关法律、法规、政策或相关交易市场规则的改变、紧急措施的出台等导致乙方所承担的风险，甲方不承担责任。 </p>
+                    <p>第十二条 由于通讯设施中断、电脑程序故障、电力中断等原因导致指令传达失败或延迟，甲方不承担责任。</p>
+                    <p>第十三条 甲乙双方签订的《交易会员入市协议书》及相关附件等，其权利义务仅涉及甲乙双方。若因乙方过错而使甲方遭受损失和不良影响的，乙方应当承担相应的责任。</p>
+                    <p>第十四条 本协议未尽事宜，按国家有关法律、法规、政策、大宗商品交易市场的惯例、晋煤集团煤炭电商平台有关规定另行协商解决。 </p>
+                    <p>第十五条 甲乙双方发生交易纠纷或争议时，可自行协商解决。协商不成的，可向甲方所在地的仲裁委员会提请仲裁，或向甲方管辖所在地的人民法院提起诉讼。 </p>
+                    <p>第十六条 本协议一式二份，甲乙双方各执一份。</p>
+                    <p>第十七条 本协议经甲乙双方签字之日起生效。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/register/register.js"></script>
+</div>
+</body>
+</html>

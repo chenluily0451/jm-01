@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.admin.tender.mapper.TenderMapper">
+
+    <sql id="Base_Column_List">
+    id, tenderTitle, tenderCode,status, coalTypeId, coalZoneId, forwardStationId, transportModeId,
+    saleAmount, margins, saleBasePrice, saleIncreasePriceStep, minimumSaleAmount, settlementModeStr,
+    tenderStartDate, tenderEndDate, projectStr, KPIStr, qualificationStr, marginsStr,
+    saleRuleStr, createDate, createBy,releaseDate,visitorsCount
+  </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.jm.bid.common.entity.Tender">
+        select
+        <include refid="Base_Column_List"/>
+        from jm_tender where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="isExistsTenderTitle" resultType="java.lang.Boolean">
+      select count(id) from jm_tender where tenderTitle=#{tenderTitle}
+  </select>
+
+    <select id="isExistsTenderTitleExclude" resultType="java.lang.Boolean">
+      select count(id) from jm_tender where tenderTitle=#{tenderTitle} and id!=#{id}
+  </select>
+
+    <sql id="pageWhereCondition">
+        <if test="coalTypeId!=null and (coalTypeId gte 1 and coalTypeId lte 3)">and coalTypeId =#{coalTypeId}</if>
+        <if test="coalZoneId!=null and (coalZoneId gte 1 and coalZoneId lte 4)">and coalZoneId =#{coalZoneId}</if>
+        <if test="forwardStationId!=null and (forwardStationId gte 1 and forwardStationId lte 4)">and
+            forwardStationId=#{forwardStationId}
+        </if>
+        <if test="transportModeId!=null and (transportModeId   gte 1 and transportModeId lte 2)">and transportModeId
+            =#{transportModeId}
+        </if>
+        <if test="createStartDate!=null and  createEndDate!=null">and date_format(releaseDate,'%Y-%m-%d') between
+            #{createStartDate} and #{createEndDate}
+        </if>
+        <if test="createStartDate!=null and  createEndDate==null">and date_format(releaseDate,'%Y-%m-%d') between
+            #{createStartDate} and date(now())
+        </if>
+        <if test="createStartDate==null and  createEndDate!=null">and date_format(releaseDate,'%Y-%m-%d') <![CDATA[ < ]]>
+            #{createEndDate}
+        </if>
+    </sql>
+
+    <select id="findAllTender" resultType="com.jm.bid.common.entity.Tender">
+        select
+        <include refid="Base_Column_List"/>
+        from jm_tender
+        <where>
+            <include refid="pageWhereCondition"/>
+           <choose>
+            <when test="status!=null and (status gte 1 and status lte 3)">and status=#{status}</when>
+            <when  test="status!=null and status == 4">and (status=#{status} or status=5)</when>
+            <otherwise>and status <![CDATA[ >=1 ]]>  and status <![CDATA[ <= 5 ]]> </otherwise>
+           </choose>
+        </where>
+        order by case status
+        when 4 then 5
+        else status end asc,
+        releaseDate desc
+    </select>
+
+    <select id="findAllTenderInProcessing" resultType="com.jm.bid.common.entity.Tender">
+        select
+        <include refid="Base_Column_List"/>
+        from jm_tender
+        <where>
+            <include refid="pageWhereCondition"/>
+            <choose>
+                <when test="status!=null and (status gte 2 and status lte 3)">and status=#{status}</when>
+                <when  test="status!=null and status == 4">and (status=#{status} or status=5)</when>
+                <otherwise>and status <![CDATA[ >=2 ]]>  and status <![CDATA[ <= 5 ]]> </otherwise>
+            </choose>
+        </where>
+        order by case status
+        when 4 then 5
+        else status end asc,
+        releaseDate desc
+    </select>
+
+    <select id="loadAllTender" resultType="com.jm.bid.common.entity.Tender">
+             select  <include refid="Base_Column_List"/>  from jm_tender
+        <if test="status!=null and status.length gt 0">
+            where status in
+            <foreach collection="status" open="(" close=")" separator="," item="s">
+                #{s}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="loadWaitReleaseNotice" resultType="com.jm.bid.common.entity.Tender">
+        SELECT <include refid="Base_Column_List"/>  FROM jm_tender WHERE  status in(4,5)
+        and id not in(select tenderId from jm_tenderNotice where  status=1)
+    </select>
+
+
+    <insert id="insertSelective" parameterType="com.jm.bid.common.entity.Tender">
+        insert into jm_tender
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tenderTitle != null">tenderTitle,</if>
+            tenderCode,
+            <if test="status!= null">status,</if>
+            <if test="coalTypeId != null">coalTypeId,</if>
+            <if test="coalZoneId != null">coalZoneId,</if>
+            <if test="forwardStationId != null">forwardStationId,</if>
+            <if test="transportModeId != null">transportModeId,</if>
+            <if test="saleAmount != null">saleAmount,</if>
+            <if test="margins != null">margins,</if>
+            <if test="saleBasePrice != null">saleBasePrice,</if>
+            <if test="saleIncreasePriceStep != null">saleIncreasePriceStep,</if>
+            <if test="minimumSaleAmount != null">minimumSaleAmount,</if>
+            <if test="settlementModeStr != null">settlementModeStr,</if>
+            <if test="tenderStartDate != null">tenderStartDate,</if>
+            <if test="tenderEndDate != null">tenderEndDate,</if>
+            <if test="projectStr != null">projectStr,</if>
+            <if test="KPIStr != null">KPIStr,</if>
+            <if test="qualificationStr != null">qualificationStr,</if>
+            <if test="marginsStr != null">marginsStr,</if>
+            <if test="saleRuleStr != null">saleRuleStr,</if>
+            <if test="createDate != null">createDate,</if>
+            <if test="createBy != null">createBy,</if>
+            <if test="releaseDate!= null">releaseDate,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tenderTitle != null">#{tenderTitle,jdbcType=VARCHAR},</if>
+            dateseq_next_value('JM'),
+            <if test="status!= null">#{status,jdbcType=INTEGER},</if>
+            <if test="coalTypeId != null">#{coalTypeId,jdbcType=INTEGER},</if>
+            <if test="coalZoneId != null">#{coalZoneId,jdbcType=INTEGER},</if>
+            <if test="forwardStationId != null">#{forwardStationId,jdbcType=INTEGER},</if>
+            <if test="transportModeId != null">#{transportModeId,jdbcType=INTEGER},</if>
+            <if test="saleAmount != null">#{saleAmount,jdbcType=INTEGER},</if>
+            <if test="margins != null">#{margins,jdbcType=DECIMAL},</if>
+            <if test="saleBasePrice != null">#{saleBasePrice,jdbcType=DECIMAL},</if>
+            <if test="saleIncreasePriceStep != null">#{saleIncreasePriceStep,jdbcType=INTEGER},</if>
+            <if test="minimumSaleAmount != null">#{minimumSaleAmount,jdbcType=INTEGER},</if>
+            <if test="settlementModeStr != null">#{settlementModeStr,jdbcType=VARCHAR},</if>
+            <if test="tenderStartDate != null">#{tenderStartDate,jdbcType=TIMESTAMP},</if>
+            <if test="tenderEndDate != null">#{tenderEndDate,jdbcType=TIMESTAMP},</if>
+            <if test="projectStr != null">#{projectStr,jdbcType=VARCHAR},</if>
+            <if test="KPIStr != null">#{KPIStr,jdbcType=VARCHAR},</if>
+            <if test="qualificationStr != null">#{qualificationStr,jdbcType=VARCHAR},</if>
+            <if test="marginsStr != null">#{marginsStr,jdbcType=VARCHAR},</if>
+            <if test="saleRuleStr != null">#{saleRuleStr,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
+            <if test="releaseDate!= null">#{releaseDate,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.jm.bid.common.entity.Tender">
+        update jm_tender
+        <set>
+            <if test="tenderTitle != null">tenderTitle = #{tenderTitle,jdbcType=VARCHAR},</if>
+            <if test="tenderCode != null">tenderCode = #{tenderCode,jdbcType=VARCHAR},</if>
+            <if test="status!= null">status = #{status,jdbcType=INTEGER},</if>
+            <if test="coalTypeId != null">coalTypeId = #{coalTypeId,jdbcType=INTEGER},</if>
+            <if test="coalZoneId != null">coalZoneId = #{coalZoneId,jdbcType=INTEGER},</if>
+            <if test="forwardStationId != null">forwardStationId = #{forwardStationId,jdbcType=INTEGER},</if>
+            <if test="transportModeId != null">transportModeId = #{transportModeId,jdbcType=INTEGER},</if>
+            <if test="saleAmount != null">saleAmount = #{saleAmount,jdbcType=INTEGER},</if>
+            <if test="margins != null">margins = #{margins,jdbcType=DECIMAL},</if>
+            <if test="saleBasePrice != null">saleBasePrice = #{saleBasePrice,jdbcType=DECIMAL},</if>
+            <if test="saleIncreasePriceStep != null">saleIncreasePriceStep = #{saleIncreasePriceStep,jdbcType=INTEGER}, </if>
+            <if test="minimumSaleAmount != null">minimumSaleAmount = #{minimumSaleAmount,jdbcType=INTEGER},</if>
+            <if test="settlementModeStr != null">settlementModeStr = #{settlementModeStr,jdbcType=VARCHAR},</if>
+            <if test="tenderStartDate != null">tenderStartDate = #{tenderStartDate,jdbcType=TIMESTAMP},</if>
+            <if test="tenderEndDate != null">tenderEndDate = #{tenderEndDate,jdbcType=TIMESTAMP},</if>
+            <if test="projectStr != null">projectStr = #{projectStr,jdbcType=VARCHAR},</if>
+            <if test="KPIStr != null">KPIStr = #{KPIStr,jdbcType=VARCHAR},</if>
+            <if test="qualificationStr != null">qualificationStr = #{qualificationStr,jdbcType=VARCHAR},</if>
+            <if test="marginsStr != null">marginsStr = #{marginsStr,jdbcType=VARCHAR},</if>
+            <if test="saleRuleStr != null">saleRuleStr = #{saleRuleStr,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">createDate = #{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="createBy != null">createBy = #{createBy,jdbcType=VARCHAR},</if>
+            <if test="releaseDate!= null">releaseDate= #{releaseDate,jdbcType=TIMESTAMP},</if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateVisitorsCount">
+       update jm_tender set visitorsCount=visitorsCount+1 where id=#{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤帮助中心</title>
+    <link rel="stylesheet" href="/styles/partials/helpercenter/helpCenter.css">
+</head>
+<!--这里是头部的结束内容-->
+<body class="help-center">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',-1,1)}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content">
+        <div class="left-ban">
+            <ul>
+                <li class="ft"><a href="#" class="bg">帮助中心</a></li>
+                <li><a href="#menu1">如何注册</a></li>
+                <li><a href="#menu2">忘记密码</a></li>
+                <!--<li><a href="#menu3">更换号码</a></li>-->
+                <li><a href="#menu4">验证码</a></li>
+                <li><a href="#menu5">竞价资格</a></li>
+                <li><a href="#menu6">竞价规则</a></li>
+                <li><a href="#menu7">保证金缴纳与退还</a></li>
+                <li><a href="#menu8">竞价违约与处罚</a></li>
+                <li><a href="#menu9">竞标须知</a></li>
+                <!--<li><a href="#menu10">竞前准备</a></li>-->
+                <!--<li><a href="#menu11">报名交保证金</a></li>-->
+                <!--<li><a href="#menu12">出价竞拍</a></li>-->
+                <!--<li><a href="#menu13">竞拍成功</a></li>-->
+                <!--<li><a href="#menu14">办理交割</a></li>-->
+            </ul>
+        </div>
+        <div class="left-ban abs">
+            <ul>
+                <li class="ft"><a href="#" class="bg">帮助中心</a></li>
+                <li><a href="#menu1">如何注册</a></li>
+                <li><a href="#menu2">忘记密码</a></li>
+                <!--<li><a href="#menu3">更换号码</a></li>-->
+                <li><a href="#menu4">验证码</a></li>
+                <li><a href="#menu5">竞价资格</a></li>
+                <li><a href="#menu6">竞价规则</a></li>
+                <li><a href="#menu7">保证金缴纳与退还</a></li>
+                <li><a href="#menu8">竞价违约与处罚</a></li>
+                <li><a href="#menu9">竞标须知</a></li>
+                <!--<li><a href="#menu10">竞前准备</a></li>-->
+                <!--<li><a href="#menu11">报名交保证金</a></li>-->
+                <!--<li><a href="#menu12">出价竞拍</a></li>-->
+                <!--<li><a href="#menu13">竞拍成功</a></li>-->
+                <!--<li><a href="#menu14">办理交割</a></li>-->
+            </ul>
+        </div>
+        <div class="content-right" id="menuTop">
+            <div class="panel">
+                <div class="panel-title">
+                    <h2 id="menu1" class="staticMenu">如何注册平台账号？</h2>
+                </div>
+                <div class="panel-content">
+                    <ul>
+                        <li>1.登入网址：<a href="http://www.jmcec.cn">www.jmcec.cn</a>，进入晋煤电子商务平台首页。</li>
+                        <li>
+                            <span>2.点击首页导航栏右侧的“注册”，即可进入会员注册页面，如下图所示：</span>
+                            <img src="/images/partials/helpcenter/help-img-0.png"/>
+                        </li>
+                        <li>
+                            <span>3.进入会员注册页面，填写相关信息，点击“同意协议并注册”即可，如下图所示：</span>
+                            <img src="/images/partials/helpcenter/help-img-1.png"/>
+                        </li>
+                        <li>4.注册完成。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">
+                    <h2 id="menu2" class="staticMenu">忘记登录密码怎么办？</h2>
+                </div>
+                <div class="panel-content">
+                    <ul>
+                        <li>
+                            <span>1.进入平台登录页面，点击“忘记密码”如图A所示：</span>
+                            <p><img src="/images/partials/helpcenter/help-img-2.jpg"/></p>
+                        </li>
+                        <li>
+                            <span>2.输入注册时的手机号码及手机验证码，如图B所示：</span>
+                            <p><img src="/images/partials/helpcenter/help-img-3.jpg"/></p>
+                        </li>
+                        <li>
+                            <span>3.输入次新密码，修改成功，如图C所示：</span>
+                            <p><img src="/images/partials/helpcenter/help-img-4.jpg"/></p>
+                        </li>
+                        <li><span>4.完成</span></li>
+                    </ul>
+                </div>
+            </div>
+            <!--<div class="panel">-->
+                <!--<div class="panel-title">-->
+                    <!--<h2 id="menu3" class="staticMenu">如何更换注册手机号码？</h2>-->
+                <!--</div>-->
+                <!--<div class="panel-content">-->
+                    <!--<ul>-->
+                        <!--<li>-->
+                            <!--<span>1.登录平台，进入我的账户-账户设置，点击手机号码更换，如图A所示：</span>-->
+                            <!--<p><img src="/images/partials/helpcenter/help-img-5.jpg"/></p>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<span>2.输入原手机号码校验码，进行校验；</span>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<span>3.输入新手机号码，并进行校验，校验正确，手机号码更换成功。</span>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="panel">
+                <div class="panel-title">
+                    <h2 id="menu4" class="staticMenu">注册收不到验证码怎么办?</h2>
+                </div>
+                <div class="panel-content">
+                    <p>手机短信会受到终端设备使用环境、天气、网络信号等因素影响，当您有需要收到验证码的操作时，请耐心等待。如果短时间接收不到短信请检查你的手机设备；如果长时间接收不到验证码短信，请联系晋煤工作人员。</p>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">
+                    <h2 id="menu5" class="staticMenu">具备哪些资格才能参与竞价?</h2>
+                </div>
+                <div class="panel-content">
+                    <ul>
+                        <li><span>1.依法成立并能够独立承担责任的经营性单位；</span></li>
+                        <li><span>2.有相应的民事权利能力和民事行为能力。若无民事行为能力人、限制民事行为能力人超越其民事权利或行为能力注册成为会员的或者无经营权或无特定经营资格的注册为晋煤集团会员，则协议无效，且晋煤集团有权立即注销（永久冻结）会员的账户，并追究会员及其监护人使用晋煤集团服务产品的一切法律后果；</span></li>
+                        <li><span>3.注册平台时需提供企业资质、营业执照、授权委托书、以及委托人身份证复印件等材料，经平台审核通过互才具备参与竞价资格。</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">
+                    <h2 id="menu6" class="staticMenu">竞价规则是什么?</h2>
+                </div>
+                <div class="panel-content">
+                    <p>请自行查看<a href="/images/partials/helpcenter/晋煤集团煤炭电子商务平台竞价规则.doc">《晋煤集团煤炭电商平台销售方案》</a>文件。</p>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">
+                    <h2 id="menu7" class="staticMenu">保证金如何缴纳与退还？</h2>
+                </div>
+                <div class="panel-content">
+                    <p>保证金是指竞买方在交易活动中，交付给卖方一定金额的责任担保，其主要保证在业务开展中不得无正当理由修改合同及违约。</p>
+                    <ul>
+                        <li>
+                            <span class="sub-info">竞买方登陆交易系统进行缴纳保证金，缴纳步骤如下：</span>
+                            <ul class="pl20">
+                                <li>1. 公司平台管理员登录平台在“员工设置”中分配财务人员账户；</li>
+                                <li>2. 财务人员登录平台开通资金账户；</li>
+                                <li>3. 业务人员登录平台进行报价发起用款申请；</li>
+                                <li>4. 财务人员收到付款申请，登录平台进行支付并冻结；</li>
+                                <li>5. 付款信息反馈到业务人员，业务人员进行提报报价。</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="sub-info">保证金的退还根据竞买方的中标情况和履约情况，有如下处理：</span>
+                            <ul class="pl20">
+                                <li>1. 如竞买方未中标，则系统会自动退还所缴纳保证金；</li>
+                                <li>2. 如果竞买方中标，双方签署购销合同，竞买方支付货款，保证金转为履约保证金，根据履约情况，确定退还金额。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">
+                    <h2 id="menu8" class="staticMenu">竞价过程中那些行为构成违约及处罚？</h2>
+                </div>
+                <div class="panel-content">
+                    <p>具有下列行为之一的，竞买方构成违约：</p>
+                    <br/>
+                    <ul class="pl20">
+                        <li>1) 在竞价交易过程中，出现围标、串标等行为的；</li>
+                        <li>2) 竞价交易结束后，中标人未按交易规定签订煤炭购销合同的；</li>
+                        <li>3) 合同已签订，竞买方未向出卖方支付预付货款；</li>
+                        <li>4) 竞买方未按约定进行实物交割；</li>
+                        <li>5) 若因竞买方原因兑现率未达到90%的。</li>
+                        <li>交易或合同履约过程中，出现上述情况之一，出卖方有权中止交易或合同执行，没收保证金，取消竞买方竞价资格并列入晋煤集团‘黑名单”，该企业、法人代表及授权委托代理人三年内不得在晋煤集团从事任何煤炭业务。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-title">
+                    <h2 id="menu9" class="staticMenu">竞标须知</h2>
+                </div>
+                <div class="panel-content no-padding-left">
+                    <img src="/images/partials/helpcenter/help-img-6.jpg"/>
+                    <p class="partStyle" id="menu10">第一部分：竞前准备</p>
+                    <ul>
+                        <li>
+                            <ul class="pl20">
+                                <li>1.竞拍准备哪些材料</li>
+                                <li>1) 企业营业执照、开户许可证、信用代码证扫描文件（加盖公章）</li>
+                                <li>2) 注册人（管理员）手机号码、身份证正反扫描件、公司委托书</li>
+                                <li>3) 企业人员手机号码、身份证正反扫描件、公司委托书</li>
+                                <li>4) 财务人员手机号码、身份证正反扫描件、公司委托书</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="pl20">
+                                <li>2.竞拍如何分工协作</li>
+                                <li>1) 企业平台管理员具备维护企业信息，添加业务和财务人员账号等权力</li>
+                                <li>2) 业务人员具备填写报价、保证金用款申请、查看中标结果等权力</li>
+                                <li>3) 财务人员具备开通资金账户、付款、转账、查看收支明细、打印回执等权力</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="partStyle" id="menu11">第二部分：报名交保证金</p>
+                    <ul>
+                        <li>
+                            <ul class="pl20">
+                                <li>1.如何缴纳保证金</li>
+                                <li>1) 财务人员登录平台开通晋煤资金账户</li>
+                                <li>2) 通过其他账户网银或者柜台向晋煤资金账户中进行充值</li>
+                                <li>3) 财务收到业务人员发出的付款申请</li>
+                                <li>4) 登录账户进行付款，将资金划拨到晋煤保证金账户</li>
+                                <li>5) 付款成功后，结果通知到相关人员</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="pl20">
+                                <li>2.如何退还保证金</li>
+                                <li>有2种情况，根据每个客户的情况具体退换如下：</li>
+                                <li>1) 如果客户未中标，保证金由系统自动退还原资金账户</li>
+                                <li>2) 如果客户中标，晋煤根据客户履约情况进行退换</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="partStyle" id="menu12">第三部分：出价竞拍</p>
+                    <ul>
+                        <li>
+                            <ul class="pl20">
+                                <li>1.成交规则</li>
+                                <li>1) 至少1人出价</li>
+                                <li>2) 按照价格优先原则确定，若出现相同报价者，系统按时间信后排序，先出价者成交</li>
+                                <li>3) 必须高于晋煤设定的低价、反之流拍</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="pl20">
+                                <li>2.出价规则</li>
+                                <li>1) 客户第一个出价必须高于低价</li>
+                                <li>2) 若无第二个客户出价，同一客户报价依次第二次出价必须大于前一次报价</li>
+                                <li>3) 若多客户进行出价，每次出价必须高于当前最高价</li>
+                                <li>4) 客户可以按照出价原则多次出价，系统采集最后一次出价为有效出价</li>
+                                <li>5) 出价为最小加价幅度的整倍数</li>
+                                <li>6) 出价过程中，客户可以了解各家所出价格，但不能各家所提报的采购量</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="partStyle" id="menu13">第四部分：竞拍成功</p>
+                    <ul>
+                        <li>
+                            <ul class="pl20">
+                                <li>1.竞拍成功</li>
+                                <li>您可以在晋煤电子商务平台----我的竞价 查看所有已报名并加纳保证金的拍卖品，并卡到对应标的物的状态，，如果您已竞拍成功，可以联系晋煤工作人员洽谈签订合同事宜。</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="pl20">
+                                <li>2.竞拍成功后哪些行为违约</li>
+                                <li>具有下列行为之一的，竞买方构成违约：</li>
+                                <li>1) 在竞价交易过程中，出现围标、串标等行为的</li>
+                                <li>2) 竞价交易结束后，中标人未按交易规定签订煤炭购销合同的</li>
+                                <li>3) 合同已签订，竞买方未向出卖方支付预付货款</li>
+                                <li>4) 竞买方未按约定进行实物交割</li>
+                                <li>5) 若因竞买方原因兑现率未达到90%的</li>
+                                <li>6) 交易或合同履约过程中，出现上述情况之一，出卖方有权中止交易或合同执行，没收保证金，取消竞买方竞价资格并列入晋煤集团‘黑名单”，该企业、法人代表及授权委托代理人三年内不得在晋煤集团从事任何煤炭业务。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p class="partStyle" id="menu14">第五部分：办理交割</p>
+                    <ul>
+                        <li>
+                            <ul class="pl20">
+                                <li>1.如何签订购销合同</li>
+                                <li>竞价销售交易结束后，中标客户与晋煤集团依据交易中心所制订的规则和程序，在线下签订商品买卖合约，实现标的物所有权转移。交割方式、交割商品质量、交割商品数量按实际签订煤炭购销合同约定执行。</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul class="pl20">
+                                <li>2.如何办理交割</li>
+                                <li>根据货物运输方式分如下两种情况</li>
+                                <li>1) 汽车 ：客户自行组织车辆前往货场进行装货</li>
+                                <li>2) 火车：依据晋煤火车煤销售管理办法，自行提报铁路计划，由晋煤负责装车作业</li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/helpCenter/helpCenter.js"></script>
+</div>
+</body>
+</html>

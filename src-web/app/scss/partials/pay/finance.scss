@@ -1,0 +1,119 @@
+.wrapper{
+  width:auto;
+  .content{
+    margin:0;
+    .bg{
+      height:600px;
+      background:url('/images/partials/pay/index-bg.jpg') no-repeat center;
+      h2{
+        width:818px;
+        margin:0 auto;
+        padding-top:220px;
+        color:#fff;
+        font-size:24px;
+        line-height:48px;
+      }
+    }
+    .intro{
+      height:615px;
+      background:#1779d0;
+      .intro-title{
+        width:500px;
+        margin:0 auto;
+        padding:80px 0;
+      }
+      .intro-list{
+        width:1170px;
+        margin:0 auto;
+        ul{
+          margin-right:-50px;
+          li{
+            float:left;
+            width:194px;
+            margin-right:46px;
+            p{
+              padding-top:30px;
+              color:#ffffff;
+              font-size:24px;
+              text-align:center;
+              font-weight:normal;
+            }
+          }
+        }
+      }
+    }
+    .arrow-down{
+      width:800px;
+      height:22px;
+      margin:0 auto;
+      margin-top:-2px;
+      text-align:center;
+    }
+    .form{
+      margin-top:60px;
+      color:#333333;
+      font-size:24px;
+      text-align:center;
+      font-weight:normal;
+      .img-check{
+        display:inline-block;
+        width:26px;
+        height:26px;
+        background:url('/images/partials/pay/checkbox.png') no-repeat center;
+        vertical-align:sub;
+        &.active{
+          background:url('/images/partials/pay/checkbox-active.png') no-repeat center;
+        }
+      }
+      .open-account{
+        display:inline-block;
+        width:524px;
+        height:100px;
+        margin:28px 0 40px 0;
+        background:url('/images/partials/pay/open-account-btn-disabled.gif') no-repeat center;
+        color:#fff;
+        font-size:48px;
+        line-height:100px;
+        cursor:default;
+        &.active{
+          background:url('/images/partials/pay/open-account-btn.gif') no-repeat center;
+          cursor:pointer;
+        }
+      }
+    }
+  }
+}
+.modal-edit{
+  color:#666666;
+  .modal-dialog{
+    width:800px;
+    .modal-content{
+      .modal-header{
+        .modal-title{
+          font-size:14px;
+        }
+      }
+      .modal-body {
+        overflow-y: scroll;
+        height: 600px;
+        font-size: 14px;
+        line-height: 30px;
+        text-align: left;
+        h2 {
+          padding: 20px 0;
+          font-size: 24px;
+          text-align: center;
+        }
+        h4 {
+          padding: 10px 0;
+          font-size: 20px;
+        }
+        .btn-blue{
+          width:50%;
+          margin-top:20px;
+          margin-bottom:-20px;
+        }
+      }
+    }
+  }
+}

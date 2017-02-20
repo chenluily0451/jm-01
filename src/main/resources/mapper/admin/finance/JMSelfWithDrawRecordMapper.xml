@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.admin.finance.mapper.JMSelfWithDrawRecordMapper">
+    <sql id="Base_Column_List">
+    id, tradeId, amount, status, bankCardId, createBy, createDate, remark, bankMsg, deleted
+  </sql>
+
+    <select id="selectByTradeId" resultType="com.jm.bid.admin.finance.entity.JMSelfWithDrawRecord">
+        select <include refid="Base_Column_List"/> from jm_self_withdraw_record where tradeId = #{value,jdbcType=VARCHAR}
+    </select>
+
+    <select id="loadWithDrawByStatus" resultType="com.jm.bid.admin.finance.entity.JMSelfWithDrawRecord">
+        select <include refid="Base_Column_List"/> from jm_self_withdraw_record where   deleted=0
+        <if test="status!=null and status.length gt 0">
+            and status in
+            <foreach collection="status" open="(" close=")" separator="," item="s">
+                #{s}
+            </foreach>
+        </if>
+    </select>
+
+    <insert id="insertSelective" parameterType="com.jm.bid.admin.finance.entity.JMSelfWithDrawRecord">
+        insert into jm_self_withdraw_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tradeId != null">tradeId,</if>
+            <if test="amount != null">amount,</if>
+            <if test="status != null">status,</if>
+            <if test="bankCardId != null">bankCardId,</if>
+            <if test="createBy != null">createBy,</if>
+            <if test="createDate != null">createDate,</if>
+            <if test="remark != null">remark,</if>
+            <if test="bankMsg != null">bankMsg,</if>
+            <if test="deleted != null">deleted,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tradeId != null">#{tradeId,jdbcType=VARCHAR},</if>
+            <if test="amount != null">#{amount,jdbcType=DECIMAL},</if>
+            <if test="status != null">#{status,jdbcType=INTEGER},</if>
+            <if test="bankCardId != null">#{bankCardId,jdbcType=BIGINT},</if>
+            <if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
+            <if test="bankMsg != null">#{bankMsg,jdbcType=VARCHAR},</if>
+            <if test="deleted != null">#{deleted,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.jm.bid.admin.finance.entity.JMSelfWithDrawRecord">
+        update jm_self_withdraw_record
+        <set>
+            <if test="tradeId != null"> tradeId = #{tradeId,jdbcType=VARCHAR}, </if>
+            <if test="amount != null"> amount = #{amount,jdbcType=DECIMAL}, </if>
+            <if test="status != null"> status = #{status,jdbcType=INTEGER}, </if>
+            <if test="bankCardId != null"> bankCardId = #{bankCardId,jdbcType=BIGINT}, </if>
+            <if test="createBy != null"> createBy = #{createBy,jdbcType=VARCHAR}, </if>
+            <if test="createDate != null"> createDate = #{createDate,jdbcType=TIMESTAMP}, </if>
+            <if test="remark != null"> remark = #{remark,jdbcType=VARCHAR}, </if>
+            <if test="bankMsg != null"> bankMsg = #{bankMsg,jdbcType=VARCHAR}, </if>
+            <if test="deleted != null"> deleted = #{deleted,jdbcType=BIT}, </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

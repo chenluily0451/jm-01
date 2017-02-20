@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤公司信息</title>
+    <link rel="stylesheet" href="/styles/partials/account/myCompany.css">
+</head>
+<!--这里是头部的结束内容-->
+<body class="front-body">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',3,1)}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content">
+        <div class="content-left">
+            <div layout:insert="~{/layout/sidebar-buyer :: sidebarBuyer('1')}" th:remove="tag"></div>
+        </div>
+        <div class="content-right">
+            <div class="panel">
+                <div class="panel-content">
+                    <div class="panel-title">
+                        <h2>公司信息</h2>
+                    </div>
+                    <form class="form-horizontal register-form" name="registerForm" id="registerForm">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="txt-warning">*</span>公司名称：</label>
+                            <div class="col-sm-10 no-padding-left">
+                                <input th:value="${company!=null?company.name:''}" type="text" class="form-control" placeholder="请输入完整的公司名称(5-50个字符以内，文字，英文，数字，符号)"  name="name" id="name" maxlength="50"/>
+                                <div class="col-sm-12 no-padding-left form-info"></div>
+                                <div class="col-sm-12 error-height"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="txt-warning">*</span>注册地址：</label>
+                            <div class="col-sm-10 no-padding-left">
+                                <input th:value="${company!=null?company.registerAddress:''}" type="text" class="form-control" placeholder="请输入营业执照上的注册地址(5-60个字符以内，文字，英文，数字，符号)" name="registerAddress" id="registerAddress" maxlength="60"/>
+                                <div class="col-sm-12 no-padding-left form-info">
+                                </div>
+                                <div class="col-sm-12 error-height"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="txt-warning">*</span>注册号：</label>
+                            <div class="col-sm-4 no-padding-left">
+                                <input th:value="${company!=null?company.registerCode:''}" type="text" class="form-control" placeholder="请输入注册号(5-20个字符以内，文字，英文，符号)" name="registerCode" id="registerCode" maxlength="20"/>
+                                <div class="col-sm-12 no-padding-left form-info"></div>
+                                <div class="col-sm-12 error-height"></div>
+                            </div>
+                            <label class="col-sm-2 control-label"><span class="txt-warning">*</span>企业法人：</label>
+                            <div class="col-sm-4 no-padding-left">
+                                <input th:value="${company!=null?company.legalPerson:''}" type="text" class="form-control" placeholder="请输入企业法人(2-20个字符以内，文字，英文)" name="legalPerson" id="legalPerson" maxlength="20"/>
+                                <div class="col-sm-12 no-padding-left form-info"></div>
+                                <div class="col-sm-12 error-height"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="txt-warning">*</span>委托人：</label>
+                            <div class="col-sm-4 no-padding-left">
+                                <input  th:value="${company!=null?company.proxyPerson:''}" type="text" class="form-control" placeholder="请输入委托人(2-20个字符以内，文字，英文)" name="proxyPerson" id="proxyPerson" maxlength="20"/>
+                                <div class="col-sm-12 no-padding-left form-info"></div>
+                                <div class="col-sm-12 error-height"></div>
+                            </div>
+                            <label class="col-sm-2 control-label"><span class="txt-warning">*</span>联系方式：</label>
+                            <div class="col-sm-4 no-padding-left">
+                                <input th:value="${company!=null?company.companyPhone:''}" type="text" class="form-control" placeholder="请输入联系方式" name="companyPhone" id="companyPhone" maxlength="15"/>
+                                <div class="col-sm-12 no-padding-left form-info"></div>
+                                <div class="col-sm-12 error-height"></div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="form-horizontal register-form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">公司证件：</label>
+                            <div class="col-sm-10 no-padding-left">
+                                <div class="upload-info">要求扫描件或者照片，大小<span class="txt-warning">不超过5M</span></div>
+                                <ul class="upload-list" id="uploadList">
+                                    <li th:class="${company!=null?(company.businessLicensePic!=null?'active':''):''}">
+                                        <form enctype="multipart/form-data" action="/uploadFile" method="post">
+                                            <div class="add-btn"></div>
+                                            <div class="shadow"></div>
+                                            <div class="operate-btn">
+                                                <a href="#" data-index="0">修改</a>
+                                                <a href="#" data-index="0" class="delete">删除</a>
+                                            </div>
+                                            <input type="file" name="file" th:class="${company!=null&&company.businessLicensePic!=null?'file active':'file'}" accept="image/jpg,image/jpeg,image/png,image/bmp" value=""/>
+                                            <img th:src="${company!=null?company.businessLicensePic:''}" class="display-none upload-img"/>
+                                        </form>
+                                        <p class="certificate-info">营业执照</p>
+                                    </li>
+                                    <li th:class="${company!=null?(company.taxRegistrationPic!=null ?'active':''):''}">
+                                        <form enctype="multipart/form-data" action="/uploadFile" method="post">
+                                            <div class="add-btn"></div>
+                                            <div class="shadow"></div>
+                                            <div class="operate-btn">
+                                                <a href="#" data-index="1">修改</a>
+                                                <a href="#" data-index="1" class="delete">删除</a>
+                                            </div>
+                                            <input type="file" name="file" th:class="${company!=null&&company.taxRegistrationPic!=null?'file active':'file'}" accept="image/jpg,image/jpeg,image/png,image/bmp" value=""/>
+                                            <img  th:src="${company!=null?company.taxRegistrationPic:''}" class="display-none upload-img"/>
+                                        </form>
+                                        <p class="certificate-info">税务登记证</p>
+                                    </li>
+                                    <li th:class="${company!=null?(company.organizationCodePic!=null ?'active':''):''}">
+                                        <form enctype="multipart/form-data" action="/uploadFile" method="post">
+                                            <div class="add-btn"></div>
+                                            <div class="shadow"></div>
+                                            <div class="operate-btn">
+                                                <a href="#" data-index="2">修改</a>
+                                                <a href="#" data-index="2" class="delete">删除</a>
+                                            </div>
+                                            <input type="file" name="file" th:class="${company!=null&&company.organizationCodePic!=null?'file active':'file'}" accept="image/jpg,image/jpeg,image/png,image/bmp" value=""/>
+                                            <img   th:src="${company!=null?company.organizationCodePic:''}" class="display-none upload-img"/>
+                                        </form>
+                                        <p class="certificate-info">组织机构代码证</p>
+                                    </li>
+                                    <li th:class="${company!=null?(company.openingLicensePic!=null ?'active':''):''}">
+                                        <form enctype="multipart/form-data" action="/uploadFile" method="post">
+                                            <div class="add-btn"></div>
+                                            <div class="shadow"></div>
+                                            <div class="operate-btn">
+                                                <a href="#" data-index="3">修改</a>
+                                                <a href="#" data-index="3" class="delete">删除</a>
+                                            </div>
+                                            <input type="file" name="file" th:class="${company!=null&&company.openingLicensePic!=null?'file active':'file'}" accept="image/jpg,image/jpeg,image/png,image/bmp" value=""/>
+                                            <img  th:src="${company!=null?company.openingLicensePic:''}" class="display-none upload-img"/>
+                                        </form>
+                                        <p class="certificate-info">开户许可证</p>
+                                    </li>
+                                    <li th:class="${company!=null?(company.creditCodePic!=null ?'active':''):''}">
+                                        <form enctype="multipart/form-data" action="/uploadFile" method="post">
+                                            <div class="add-btn"></div>
+                                            <div class="shadow"></div>
+                                            <div class="operate-btn">
+                                                <a href="#" data-index="4">修改</a>
+                                                <a href="#" data-index="4" class="delete">删除</a>
+                                            </div>
+                                            <input type="file" name="file" th:class="${company!=null&&company.creditCodePic!=null?'file active':'file'}" accept="image/jpg,image/jpeg,image/png,image/bmp" value=""/>
+                                            <img th:src="${company!=null?company.creditCodePic:''}" class="display-none upload-img"/>
+                                        </form>
+                                        <p class="certificate-info">信用代码证</p>
+                                    </li>
+                                    <li th:class="${company!=null?(company.proxyPic!=null ?'active':''):''}">
+                                        <form enctype="multipart/form-data" action="/uploadFile" method="post">
+                                            <div class="add-btn"></div>
+                                            <div class="shadow"></div>
+                                            <div class="operate-btn">
+                                                <a href="#" data-index="5">修改</a>
+                                                <a href="#" data-index="5" class="delete">删除</a>
+                                            </div>
+                                            <input type="file" name="file" th:class="${company!=null&&company.proxyPic!=null?'file active':'file'}" accept="image/jpg,image/jpeg,image/png,image/bmp" value=""/>
+                                            <img th:src="${company!=null?company.proxyPic:''}" class="display-none upload-img"/>
+                                        </form>
+                                        <p class="certificate-info">委托书</p>
+                                    </li>
+                                </ul>
+                                <div id="uploadError" class="txt-warning display-none">图片大小不能超过5M</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="txt-warning">*</span>身份证：</label>
+                            <div class="col-sm-10 no-padding-left">
+                                <div class="upload-info">要求扫描件或者照片，大小<span class="txt-warning">不超过5M</span></div>
+                                <ul class="upload-list no-margin-bottom" id="identifyCard">
+                                    <li th:class="${company!=null?(company.idCardPic!=null ?'active':''):''}">
+                                        <form enctype="multipart/form-data" action="/uploadFile" method="post">
+                                            <div class="add-btn"></div>
+                                            <div class="shadow"></div>
+                                            <div class="operate-btn">
+                                                <a href="#" data-index="6">修改</a>
+                                                <a href="#" data-index="6" class="delete">删除</a>
+                                            </div>
+                                            <input type="file" name="file" th:class="${company!=null&&company.idCardPic!=null?'file active':'file'}" accept="image/jpg,image/jpeg,image/png,image/bmp" value=""/>
+                                            <img  th:src="${company!=null?company.idCardPic:''}" class="display-none upload-img"/>
+                                        </form>
+                                        <p class="certificate-info">身份证(正面+反面)</p>
+                                    </li>
+                                </ul>
+                                <p class="txt-warning img-check-warning" id="imgCheck">请上传身份证</p>
+                            </div>
+                        </div>
+                        <div id="modalImgModal" class="modal fade customer-modal" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <img src="" id="modalImg"/>
+                                        <span class="close" id="modalClose"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="next-btn">
+                        <input type="submit" class="btn btn-blue" value="保存" th:attr="data-companyid=${company!=null?company.id:''},data-uuid=${company!=null?company.UUID:''}" id="registerBtn"/>
+                    </div>
+                </div>
+            </div>
+            <div layout:insert="~{/components/modal/modal :: modalHasBtn(2,'确认删除')}" th:remove="tag">
+                <div class="buttons" layout:fragment="modal-content"></div>
+            </div>
+            <div layout:insert="~{/components/modal/modal :: modalHasBtn(3,'确认删除')}" th:remove="tag">
+                <div class="buttons" layout:fragment="modal-content"></div>
+            </div>
+            <div class="line"></div>
+        </div>
+    </div>
+    <div layout:insert="~{/components/modal/modal :: modalHasBtn(1,'确认删除')}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/account/myCompany.js"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤中标公示</title>
+    <link rel="stylesheet" href="/styles/admin/notice/releaseNotice.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/background-subNav}" th:remove="tag"></div>
+</div>
+<div layout:fragment="wrapper">
+    <div class="main">
+        <div layout:insert="~{/layout/sidebar-finance :: sidebarFinance(3)}" th:remove="tag"></div>
+        <div class="bg-inner">
+            <form action="" method="GET" id="validateWrap">
+                <div class="notice-wrap">
+                    <div class="notice-input-wrap">
+                        <div>
+                            <label for="">项目名称</label>
+                            <select id="projectName" name="projectName" >
+                                <option value="">请选择</option>
+                                <option th:each="t:${waitReleaseList}" th:value="${t.tenderCode}"  th:selected="${tender!=null && tender.id==t.id}" th:attr="data-status=${t.status},data-id=${t.id}" th:text="${t.tenderTitle}">Hebe</option>
+                            </select>
+                            <input type="hidden" name="tenderId" id="tenderId"/>
+                            <input type="hidden" name="tenderStatus" id="tenderStatus"/>
+                        </div>
+                        <div class="pf55">
+                            <label for="">项目编号</label>
+                            <input type="text" id="projectNum" disabled  name="tenderCode"  th:value="${tenderNotice!=null?tenderNotice.tenderCode:'--'}" />
+                        </div>
+                    </div>
+                    <div class="notice-input-wrap">
+                        <div>
+                            <label for="">公示名称</label>
+                            <input type="text" name="noticeName" id="noticeName" placeholder="请输入公示名称" th:value="${tenderNotice!=null?tenderNotice.noticeName:''}" />
+                        </div>
+                        <div class="pf55">
+                            <label for="">公示期</label>
+                            <div class="date-wrap">
+                               <input type="text" name="noticeStartDate" placeholder="请选择日期" id="startTime" th:value="${(tenderNotice!=null&&tenderNotice.noticeStartDate!=null) ?(#temporals.format(tenderNotice.noticeStartDate,'yyyy-MM-dd')):''}"/>
+                            </div>
+                            <div class="from-to">一</div>
+                            <div class="date-wrap">
+                               <input type="text" name="noticeEndDate" placeholder="请选择日期" id="endTime" th:value="${(tenderNotice!=null&&tenderNotice.noticeEndDate!=null) ?(#temporals.format(tenderNotice.noticeEndDate,'yyyy-MM-dd')):''}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice-input-wrap">
+                        <div>
+                            <label for="">监督电话</label>
+                            <input type="text" name="servicePhone" placeholder="请输入监督电话" th:value="${tenderNotice!=null?tenderNotice.servicePhone:''}"/>
+                        </div>
+                        <div class="pf55">
+                            <label for="">监督部门</label>
+                            <input type="text" name="serviceDepartment" placeholder="请输入监督部门" th:value="${tenderNotice!=null?tenderNotice.serviceDepartment:''}" />
+                        </div>
+                    </div>
+                    <div class="notice-input-wrap mb0">
+                        <div>
+                            <label for="">公示类型</label>
+                            <span id="noticeType" th:text="${tenderNotice!=null?(tenderNotice.hasWinBid==4?'流标公示':'中标公示'):'--'}">--</span>
+                        </div>
+                    </div>
+                    <div class="errorWrap"></div>
+                </div>
+                <div class="notice-wrap pr45">
+                    <p class="notice-content"><span>公示内容</span>请编写详细公示内容，公示一旦发布，在公示时间内不允许撤回</p>
+                    <div class="notice-inner">
+                        <script id="notice-inner" name="content" type="text/plain"></script>
+                    </div>
+                    <input type="hidden" id="contentStr" name="contentStr" />
+                    <div id="contentStr1" class="display-none" th:text="${tenderNotice!=null?tenderNotice.contentStr:''}"></div>
+                    <div class="notice-btnWrap">
+                        <input type="submit" class="btn-control" id="previewBtn" value="预览"/>
+                        <input type="submit" class="btn-control" id="releaseBtn" value="发布"/>
+                        <a href="/admin/notice" class="cancelBtn" >取消</a>
+                        <div class="errorWrap1"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div layout:insert="~{/components/modal/modal :: modalHasBtn(0,'发布成功！')}" th:remove="tag">
+        <div class="buttons" layout:fragment="modal-content">
+            <input type="button" class="btn confirm" value="确认" id="jumpBtn">
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/scripts/admin/notice/releaseNotice.js"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+@import '/scripts/plugins/My97DatePicker/skin/WdatePicker.css';
+.myTenderListWrap{
+  .myTenderListBlock{background: #fff;border:1px solid #ebebeb;padding:16px;border-bottom:none;}
+  .myTenderListBlock .searchList{
+    margin-bottom: 20px;
+    font-size: 0;
+    label{color:#999;font-size: 14px;font-weight: normal;display: inline-block;vertical-align: middle;margin:0;}
+    .typeName{width: 70px;}
+    label.type{display: inline-block;cursor:pointer;color:#333;height:25px;margin: 0 10px;padding:0px 15px;vertical-align: middle;line-height: 24px;text-align: center;text-align: center}
+    label.type:hover{background: #e63939;color:#fff;border-radius:10px;}
+    label.type:hover i{color:#fff;}
+    label.selected{background: #e63939;color:#fff;border-radius:10px;}
+    label.selected i{color:#fff;}
+    input{display: none;}
+    i{font-weight: normal;font-style: normal;color:#e63939}
+    .searchBtn{display: inline-block;width: 60px;height: 30px;outline:none;line-height: 25px;text-align: center;border-radius: 2px;border:1px solid #0274d0;background: transparent;color:#0274d0;margin-left: 10px;}
+    .searchBtn:hover{background: #0274d0;color:#fff;}
+
+  }
+  .myTenderListBlock .mb0{margin-bottom: 0;}
+  .myTenderListBlock .dateList{
+    > * {display: inline-block;font-size: 14px;vertical-align: middle}
+    .from-to{margin:0 10px;}
+    .date-wrap{
+      position: relative;
+      display:inline-block;
+      input{margin:0;width: 211px;height:30px;line-height:30px;display: inline-block;padding-left: 10px;border-radius: 4px;border:1px solid #ccc;outline: none;}
+      input:focus{border:1px solid #0274d0;}
+      &:after{
+        content: '';
+        width: 21px;
+        height: 19px;
+        background: url("/images/icons/date-icon.png") no-repeat 0px;
+        position: absolute;
+        right: 10px;
+        top: 5px;
+      }
+
+    }
+  }
+}
+.tenderListContent{
+  border:1px solid #ebebeb;
+  background: #fff;
+  .listTitle{background: #fafafa;border-bottom: 1px solid #e6e6e6;height: 44px;line-height: 44px;font-size: 0;padding-left: 30px;}
+  .listTitle > * {display: inline-block;font-size: 12px;color:#999;text-align: left}
+  .w320{width: 320px;}
+  .w188{width: 188px;}
+  .w88{width: 88px;}
+  .w100{width: 100px;}
+  .w172{width: 172px;}
+  .w130{width: 130px;text-align: center;}
+  .listDetail{
+    color:#333;
+    &:hover{
+      color:#0274d1;
+    }
+  }
+  .listCon{
+    font-size: 0;
+    li{padding:10px 0;border-bottom:1px solid #ebebeb;width: 100%;padding-left: 30px;}
+    li:hover{background: #f2f9ff;border-bottom:1px solid transparent;}
+    li > *{display: inline-block;font-size: 14px;word-break: break-all;vertical-align: middle}
+    li:after{display: inline-block;vertical-align: middle;content: '';height: 100%;}
+  }
+  .tendering{color:#30bf6c}
+  .waitTender{color:grey;}
+  .tenderFull{color:#d92b2b}
+  .controlBtn{color:#0274d1;padding:4px 10px;text-align: center;display: inline-block;margin:0 auto;border-radius: 2px;}
+  .controlBtn:hover{color:#fff;background: #61aaf2;}
+  .delBtn,.revokeBtn{color:#e63939;}
+  .delBtn:hover,.revokeBtn:hover{color:#fff;background: #e63939;}
+  .txtCenter{text-align: center;}
+  .pagination-wrap{border:none;}
+}

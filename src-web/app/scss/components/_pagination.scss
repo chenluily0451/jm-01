@@ -1,0 +1,164 @@
+//分页控件样式
+@charset "UTF-8";
+
+$pageIco : "/images/common/page-ico.png";
+
+
+.pagination-wrap {
+    display: block;
+    background:#fff;
+    text-align: center;
+}
+.company-area{
+    .pagination-wrap{
+        width:100%;
+    }
+}
+.text-c {text-align: center;}
+.text-l {text-align: left;}
+.text-r {text-align: right;}
+
+
+.ym-pagination {
+    display: inline-block;
+    height: 36px;
+    margin: 30px auto;
+    font-size: 14px;
+
+    .ico {
+        display: inline-block;
+        font-size: 0;
+        background: url($pageIco) no-repeat;
+    }
+    ul, li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    ul, .total, .form { display: inline-block; vertical-align: middle;}
+    li {
+        position: relative;
+        float: left;
+        margin-left: -1px;
+        width: 35px;
+        border: solid 1px #ededed !important;
+        background-color: #fff;
+        height: 34px;
+        line-height: 34px;
+        color: #333;
+        text-align: center;
+        cursor: pointer;
+        transition: all .2s ease-out;
+        a {
+            display: block;
+            color: #333;
+            &:hover {color: #333;}
+        }
+        span {
+            display: inline-block;
+            color: #333;
+            width: 100%;
+            &:hover {color: #333;}
+        }
+        &:hover {z-index: 999; border-color: #0274d0; color: #0274d0;}
+        &:hover a {color: #0274d0;}
+    }
+    .active, .active:hover {
+        position: relative;
+        background: #0274d0;
+        a, span {
+            color: #fff;
+            cursor: default;
+        }
+    }
+    .next, .prev, .next:hover, .prev:hover, .home, .last, .home:hover, .last:hover {
+        width: 70px;
+        position: static;
+        color: #999;
+        background-color: #fff;
+        cursor: default;
+    }
+    .prev, .home {
+        margin-right: 6px;
+        margin-left: 0;
+        &.disabled {
+            color: #999;
+            border: solid 1px #ededed;
+        }
+    }
+    .next, .last {
+        margin-left: 5px;
+        &.disabled {
+            color: #999;
+            border: solid 1px #ededed;
+        }
+    }
+    .ico-page-next, .ico-page-prev {
+         width: 6px;
+         height: 9px;
+    }
+    .ico-page-next {
+        margin-left: 4px;
+        background-position: -6px 0;
+    }
+    .ico-page-prev {margin-right: 4px;}
+    a:hover .ico-page-next, span:hover .ico-page-next {background-position: -12px 0;}
+    a:hover .ico-page-prev, span:hover .ico-page-prev {background-position: -18px 0;}
+    a .ico-page-prev, span .ico-page-prev {background-position: -24px 0;}
+    .disabled, .disabled:hover, .disabled a, .disabled a:hover, .disabled span, .disabled span:hover {
+        cursor: default;
+        color: #999;
+    }
+    .disabled a .ico-page-next, .disabled span .ico-page-next {background-position: 0 0;}
+    .disabled a .ico-page-prev, .disabled span .ico-page-prev {background-position: -30px 0;}
+
+    .ellipse {
+        border: none;
+        line-height: 37px;
+        width: 24px;
+        margin-left: 1px;
+        background: none;
+    }
+    .text, .total {color: #999;}
+    .total {margin-left: 10px;}
+    .ym-pagination-sbm-btn, .ym-pagination-input, .text {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+    .ym-pagination-sbm-btn {
+        height: 30px;
+        width: 50px;
+        border: solid 1px #ededed;
+        background-color: #fff;
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        &:hover {color: #0274d0; border-color: #0274d0; }
+    }
+    .ym-pagination-input {
+        width: 50px;
+        border: solid 1px #ededed;
+        color: #999;
+        height: 30px;
+        line-height: 30px;
+        line-height: 24px\0;
+        text-align: center;
+        &:focus {border-color: #0274d0;}
+    }
+}
+.pagination-no-result{
+    padding:20px 0;
+    font-size:15px;
+    color:#666666;
+    text-align:center;
+    font-weight:normal;
+    img{
+        margin-top:-3px;
+        padding-right:4px;
+        vertical-align:middle;
+    }
+}
+
+
+

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤我要竞标</title>
+    <link rel="stylesheet" href="/styles/partials/tender/tenderIndex.css">
+</head>
+<body id="tenderIndex">
+    <div layout:fragment="header">
+        <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+        <div layout:insert="~{/layout/subNav :: subNav('',1,1)}" th:remove="tag"></div>
+    </div>
+    <div layout:fragment="wrapper">
+        <div class="main">
+            <div class="searchWrap">
+                <form method="GET" id="searchWrap">
+                    <table>
+                        <tr>
+                            <td class="searchTit">煤炭品种：</td>
+                            <td>
+                                <ul class="sortWrap">
+                                    <li data-key="0" th:class="${tenderParam.coalTypeId==null || tenderParam.coalTypeId==0}?'selected':''">
+                                        <label for="">全部</label>
+                                    </li>
+                                    <li th:each="coalType:${coalTypeList}" th:attr="data-key=${coalType.key}" th:class="${tenderParam!=null && tenderParam.coalTypeId==coalType.key}?'selected':''">
+                                        <label for="" th:text="${coalType.value}"></label>
+                                    </li>
+                                </ul>
+                                <input type="text" name="coalTypeId" th:value="${tenderParam.coalTypeId}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="searchTit">矿&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                            <td>
+                                <ul class="sortWrap">
+                                    <li data-key="0" th:class="${tenderParam.coalZoneId==null || tenderParam.coalZoneId==0}?'selected':''">
+                                        <label for="">全部</label>
+                                    </li>
+                                    <li th:each="coalZone:${coalZoneList}" th:attr="data-key=${coalZone.key}" th:class="${tenderParam!=null && tenderParam.coalZoneId==coalZone.key}?'selected':''">
+                                        <label for="" th:text="${coalZone.value}"></label>
+                                    </li>
+                                </ul>
+                                <input type="text" name="coalZoneId" th:value="${tenderParam.coalZoneId}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="searchTit">运输方式：</td>
+                            <td>
+                                <ul class="sortWrap">
+                                    <li data-key="0" th:class="${tenderParam.transportModeId==null || tenderParam.transportModeId==0}?'selected':''">
+                                        <label for="">全部</label>
+                                    </li>
+                                    <li th:each="transportMode:${transportModeList}" th:attr="data-key=${transportMode.key}" for="" th:class="${tenderParam.transportModeId==transportMode.key}?'selected':''">
+                                        <label for="" th:text="${transportMode.value}"></label>
+                                    </li>
+                                </ul>
+                                <input type="text" name="transportModeId" th:value="${tenderParam.transportModeId}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <a href="/helpCenter#menu9" target="_new" class="tenderAd">
+                    <img src="/images/partials/tender/tenderAd.png" alt=""/>
+                </a>
+            </div>
+            <div class="tenderList">
+                <ul class="tenderHead">
+                    <li class="w82">品种</li>
+                    <li class="w199">矿别</li>
+                    <li class="w130">吨数</li>
+                    <li class="w142">运输方式</li>
+                    <li class="w138">保证金</li>
+                    <li class="w202">竞标时间</li>
+                    <li class="w128">目前状态</li>
+                </ul>
+                <ul class="tenderBody">
+                    <li th:each="tender,iterStat:${page.results}" >
+                        <div class="w82">
+                            <th:block th:if="${tender.coalTypeId==1}">
+                                <img src="/images/partials/tender/mo.png" alt=""/>
+                            </th:block>
+                            <th:block th:if="${tender.coalTypeId==2}">
+                                <img src="/images/partials/tender/kuai.png" alt=""/>
+                            </th:block>
+                            <th:block th:if="${tender.coalTypeId==3}">
+                                <img src="/images/partials/tender/ximo.png" alt=""/>
+                            </th:block>
+                        </div>
+                        <div class="w199 borderBg" th:text="${coalZoneList[tender.coalZoneId]}"></div>
+                        <div class="w130 borderBg">
+                            <b th:text="|${tender.saleAmount}吨|">2,000</b>
+                        </div>
+                        <div class="w142 borderBg" th:text="${transportModeList[tender.transportModeId]}">
+                            火车
+                        </div>
+                        <div class="w138 borderBg">
+                            <b class="red"><th:block th:if="${tender.minimumSaleAmount==1000}">10</th:block><th:block th:if="${tender.minimumSaleAmount==2000}">15</th:block><th:block th:if="${tender.minimumSaleAmount==3000}">20</th:block><th:block th:if="${tender.minimumSaleAmount==4000}">25</th:block><th:block th:if="${tender.minimumSaleAmount>=5000}">30</th:block></b>万起
+                        </div>
+                        <div class="w202 borderBg">
+                            <p th:text="|${#temporals.format(tender.tenderStartDate,'yyyy-MM-dd HH:mm')}">2016-10-10 14:00</p>
+                            <p>|</p>
+                            <p th:text="|${#temporals.format(tender.tenderEndDate,'yyyy-MM-dd HH:mm')}">2016-10-10 14:00</p>
+                        </div>
+                        <div class="w128 borderBg">
+                            <th:block th:if="${tender.status==2}">
+                                <p class="bid-step bid-step1"></p>
+                            </th:block>
+                            <th:block th:if="${tender.status==3}">
+                                <p class="bid-step bid-step2"></p>
+                            </th:block>
+                            <th:block th:if="${tender.status==4 || tender.status==5}">
+                                <p class="bid-step bid-step4"></p>
+                            </th:block>
+                        </div>
+                        <div class="w130">
+                            <th:block th:if="${tender.status==2}">
+                                <a th:href="|/tender/${tender.id}|" class="viewBtn viewDetail">查看详情</a>
+                            </th:block>
+                            <th:block th:if="${tender.status==3}">
+                                <a th:href="|/tender/${tender.id}|" class="viewBtn tenderBtn">立即竞价</a>
+                            </th:block>
+                            <th:block th:if="${tender.status==4 || tender.status==5}">
+                                <a th:href="|/tender/${tender.id}|" class="viewBtn viewDetail">查看详情</a>
+                            </th:block>
+                        </div>
+                    </li>
+                </ul>
+                <div class="box pagination-wrap text-c" th:insert="/components/pagination/pagination :: pagination (page=${page})"></div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="script" th:remove="tag">
+        <script type="text/javascript" src="/scripts/partials/tender/tenderIndex.js"></script>
+    </div>
+</body>
+</html>

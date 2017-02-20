@@ -1,0 +1,85 @@
+@import '../../helpers/_mixins';
+
+.wrapper{
+  min-height:calc(100% - 212px );
+  min-height:500px/9;
+  *min-height:500px;
+  padding:10px 0;
+  background:#fff;
+}
+.register{
+  margin-top:28px;
+  color:#333333;
+  font-size:14px;
+  .register-step{
+    width:736px;
+    margin:0 auto;
+    padding-bottom:60px;
+  }
+  .register-form{
+    margin-left:-50px;
+  }
+  .border-line{
+    height:10px;
+    border-bottom:1px dashed #dbdbdb;
+  }
+  .agreement{
+    .error-wrap{
+      position:static;
+      width:300px;
+      margin-top:1px;
+      background:none;
+      color:#ff0000;
+      text-indent:0;
+    }
+    .success-wrap{
+      display:none;
+    }
+  }
+  .cannot-see{
+    padding-top:4px;
+    font-size:12px;
+  }
+}
+.modal-edit{
+  color:#666666;
+  .modal-dialog{
+    width:800px;
+    .modal-content{
+      .modal-header{
+        .modal-title{
+          font-size:14px;
+        }
+      }
+      .modal-body{
+        overflow-y:scroll;
+        height:600px;
+        font-size:14px;
+        line-height:30px;
+        text-align:left;
+        h2{
+          padding:20px 0;
+          font-size:24px;
+          text-align:center;
+        }
+        h4{
+          padding:10px 0;
+          font-size:20px;
+        }
+        .btn-blue{
+          width:50%;
+          margin-top:20px;
+          margin-bottom:-20px;
+        }
+        .letter-spacing{
+          letter-spacing: -1px;
+        }
+        &.text-indent{
+          p{
+            text-indent:28px;
+          }
+        }
+      }
+    }
+  }
+}

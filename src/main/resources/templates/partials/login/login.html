@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤登录</title>
+    <link rel="stylesheet" href="/styles/partials/login/login.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="login-page">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/subNav :: subNav('',-1,1)}" th:remove="tag"></div>
+</div>
+<div layout:insert="" th:remove="tag"></div>
+<div layout:fragment="wrapper">
+    <div class="login-wrap">
+        <div class="login-content">
+            <div class="login-register">
+                <a href="/register" target="_new">没有账号？免费注册</a>
+            </div>
+            <div class="login-inner">
+                <div class="login-tit">
+                    欢迎登录
+                </div>
+                <div class="login-con">
+                    <div class="input-wrap">
+                        <i class="login-name"></i>
+                        <input type="text" placeholder="请输入手机号码" id="user-name" maxlength="11" />
+                    </div>
+                    <p class="errorMsg"><i class="login-error" id="username-error">错误信息</i></p>
+                    <div class="input-wrap">
+                        <i class="login-pwd"></i>
+                        <input type="password" id="user-pwd" placeholder="请输入登录密码" maxlength="16"/>
+                    </div>
+                    <p class="errorMsg"><i class="login-error" id="pwd-error">错误信息</i></p>
+                    <a href="javascript:void(0)" class="login-btn" id="login-btn">登录</a>
+                    <p class="forget-pwd">
+                        <a href="/regainPwd" target="_new">忘记密码</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+</div>
+</body>
+</html>

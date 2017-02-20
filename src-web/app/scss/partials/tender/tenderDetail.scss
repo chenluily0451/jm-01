@@ -1,0 +1,615 @@
+#tenderDetail{
+  .mt60{margin-top: 60px;}
+  .pd15{padding-left: 15px;padding-right: 15px;}
+  .detailBlock{
+    background: #fff;
+    border:1px solid #ebebeb;
+    font-size: 0;
+    margin-bottom: 20px;
+    padding-bottom: 60px;
+    .coalInnerContent{width: 100%;}
+    .pdb{padding-bottom: 400px;}
+    & > div{display: inline-block;}
+    .detailBlockL{width: 867px;border-right: 1px dashed #e8e8e8}
+    .detailBlockR{padding:24px;width:330px;vertical-align: top;margin-top: 66px;}
+  }
+  .tenderTitleBlock{
+    padding-left: 180px;
+    position: relative;
+    .introImg{
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      left: 10px;
+      top: -40px;
+      background: #fff;
+
+//      background: url("/images/partials/tender/coalDetail-img.jpg") no-repeat;
+    }
+
+    .tenderTitle{
+      font-size: 24px;
+      color:#333;
+      padding-top: 25px;
+    }
+    ul{
+      margin-bottom: 40px;
+      li{
+        margin-bottom: 10px;
+        font-size: 0;
+        span{display: inline-block;background: #54aaf0;font-size: 12px;color:#fff;border-radius:10px;margin-right: 12px;padding:4px 10px;}
+        .tenderCode{
+          float: right;
+          color:#333;
+          background: none;
+
+        }
+      }
+    }
+  }
+  .tenderInfoBlock{
+    background: #fff7f4;
+    li{width: 100%;padding:18px 0;font-size: 0;color:#333;text-align: center}
+    li > div{
+      display: inline-block;
+      font-size: 14px;
+      vertical-align: middle;
+      &.w94{
+        width:94px
+      }
+      &.w200{width:200px;}
+      &.w106{width:106px;}
+      &.w100{width:100px;}
+      &.w130{width:130px;}
+      &.w103{width:103px;}
+
+      background: url("/images/partials/tender/coalInfoBorder.jpg") no-repeat right center;
+
+    }
+    .num{font-size: 18px;}
+    .red{color:red;}
+    .last{background: none;}
+    .con{margin-top: 12px;}
+    .bid-step{
+      width: 66px;
+      height: 71px;
+      margin: 0 auto;
+
+    }
+    .bid-step1{
+      background: url("/images/common/bidding-status.png") no-repeat 0 0;
+    }
+    .bid-step2{
+      background: url("/images/common/bidding-status.png") no-repeat -67px 0;
+    }
+    .bid-step3{
+      background: url("/images/common/bidding-status.png") no-repeat -134px 0;
+    }
+    .bid-step4 {
+      background: url(/images/common/bidding-status.png) no-repeat -201px 0;
+    }
+  }
+  .tenderBottomBlock{
+    padding:10px 20px;
+    padding-bottom: 30px;
+    font-size: 0;
+    li{width: 100%;}
+    > * {display: inline-block;font-size: 12px;}
+    label{width: 70px;color:#999;vertical-align: top;margin:0;padding-top: 10px;}
+    span{color:#333;width:740px;border-bottom:1px dashed #ebebeb;display: inline-block;padding:10px 0;}
+    span.labelTwo{
+      width: 330px;
+    }
+    label.labelTwo{border-bottom:1px dashed #ebebeb;padding:10px 0;}
+  }
+
+  .reservePriceInfo{
+    width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+    span{display: inline-block}
+    span.reserveInfo{color:#999;font-size: 14px;}
+    span.reservePrice{
+      width: 210px;
+      text-align: right;
+      color:#333;
+      font-size: 14px;
+      b{color:#d92b2b;font-size: 22px;}
+    }
+    .reserveNotice{
+      position: absolute;
+      width: 166px;
+      right: 0px;
+      top: -20px;
+      font-size: 12px;
+      background: #fff7f4;
+      color:#d92b2b;
+      border:1px solid #fcc5c5;
+      text-align: center;
+      height: 20px;
+      i{
+        width: 12px;
+        height: 4px;
+        position: absolute;
+        right: 0px;
+        bottom: -4px;
+        background: url("/images/partials/tender/infoArrow.png") no-repeat;
+      }
+    }
+  }
+  .reservePriceInputWrap{
+    padding-top: 12px;
+    input{
+      font-size: 16px;
+      height: 35px;
+      line-height: 35px;
+      width: 100%;
+      border:1px solid #ccc;
+      padding-left: 10px;
+      outline: none;
+      &:focus{border:1px solid #0274d0;}
+    }
+  }
+  .addInfo{
+    font-size: 12px;
+    color:#999;
+    padding-top: 5px;
+    padding-bottom: 20px;
+
+    span{
+      display: inline-block;
+      width: 50%;
+      b{color:#d92b2b;}
+    }
+    .currentPrice{
+      width: 40%;
+    }
+    .bidUp{
+      text-align: right;
+      width: 60%;
+    }
+  }
+  .marginsInfoContent{
+    font-size: 14px;
+    color:#333;
+    margin-bottom:10px;
+    span{
+      border-bottom:1px solid #ccc;
+      display: inline-block;
+      padding:0 10px;
+      margin:0 2px;
+      font-size: 16px;
+    }
+  }
+  .errorWrap,{
+    font-size: 12px;
+    color:#d92b2b;
+    padding-left: 44px;
+  }
+  .amountError{
+    font-size: 12px;
+    color:#d92b2b;
+    padding-left: 10px;
+  }
+  .leftTime{
+    font-size:14px;
+    color:#999;
+    input{display: none;}
+    > * {display: inline-block;}
+    > div{width: 250px;}
+    > div .timeWrap{float: right;font-size: 16px;}
+    span.text-warning{color:#d92b2d}
+    i{
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: url("/images/partials/tender/tender-sprite.png") no-repeat 0 0;
+      vertical-align: top;
+      position: relative;
+      top: 2px;
+      margin-right: 5px;
+    }
+  }
+  .tenderSubmit{
+    width: 100%;
+    height: 40px;
+    color:#fff;
+    font-size: 16px;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    background:#d92b2b;
+    margin: 12px 0;
+    &:hover{
+      background: #ca1616;
+    }
+  }
+  .biddingStatus{
+    background: #999;
+    color:#fff;
+    &:hover{
+      background: #999;
+      color:#fff;
+    }
+  }
+  .tenderComplete{
+    width: 100%;
+    height: 40px;
+    color:#fff;
+    font-size: 16px;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+    background:grey;
+    margin: 12px 0;
+  }
+  .marginsMethod{
+    font-size: 12px;
+    color:#395f9e;
+    i{
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: url("/images/partials/tender/tender-sprite.png") no-repeat -16px 0;
+      vertical-align: top;
+      position: relative;
+      margin-right: 5px;
+    }
+  }
+  .controlWrap{
+    width: 100%;
+    font-size: 0;
+    position: relative;
+    > *{display: inline-block;vertical-align: top;}
+    a{
+      font-weight: bold;
+      color:#999;
+      display: inline-block;
+      width: 42px;
+      height: 35px;
+      border:1px solid #ccc;
+      text-align: center;
+      line-height: 30px;
+      font-size: 30px;
+      font-weight: bold;
+      &:hover{
+        border:1px solid #0274d0;
+        background: #dff1ff;
+        color:#0274d0
+      }
+    }
+    .disableBtn{
+      color:#e5e5e5;
+      &:hover{
+        border:1px solid #ccc;
+        background: #fff;
+        color:#e5e5e5;
+      }
+    }
+    .unit{
+      font-size: 14px;
+      color:#999;
+      position: absolute;
+      width: 40px;
+      height: 25px;
+      top: 8px;
+      right:50px;
+
+    }
+  }
+  .bidPrice{
+    width: 197px;
+    border:1px solid #ccc;
+    height: 35px;
+    line-height: 35px;
+    outline: none;
+    border-left: none;
+    border-right: none;
+    font-size: 16px;
+    padding-left: 10px;
+    &:focus{
+      border:1px solid #0274d0;
+    }
+  }
+  .bidProgress{
+    background: #fff;
+    padding:10px 0;
+    font-size: 0;
+    > *{display: inline-block;vertical-align: top;}
+    .bidProgressL{
+      width: 180px;
+      height: 120px;
+      text-align: center;
+      border-right: 1px dashed #ccc;
+
+      i{margin-top:30px;
+        display: inline-block;
+        width: 104px;
+        height: 50px;
+        background:url("/images/partials/tender/tender-sprite.png") no-repeat 0px -16px;
+      }
+    }
+    .bidProgressR{
+      width: 1000px;
+      padding-left: 26px;
+      .bidStep{
+        height: 36px;
+        background: url(/images/partials/tender/tender-sprite.png) no-repeat 0px -66px;
+        margin-top: 10px;
+      }
+      ul{
+        font-size: 0;
+
+        li{
+          width: 200px;
+          font-size: 12px;
+          display: inline-block;
+
+          .title{
+            font-size: 16px;
+            margin-top: 8px;
+
+            a{
+              color:#0274d0;
+              &:hover{
+                text-decoration: underline;
+                color:#0274d0;
+              }
+            }
+          }
+          p{
+            margin-bottom: 4px;
+            a{
+              color:#999;
+              &:hover{
+                text-decoration: underline;
+                color:#0274d0;
+              }
+            }
+          }
+        }
+        .last{
+          width: 160px;
+        }
+      }
+    }
+  }
+  .tenderMenu{
+    width: 100%;
+    padding-top: 10px;
+    border-bottom: 1px solid #ccc;
+    li{
+      display: inline-block;
+      padding:0 20px;
+      height: 46px;
+      font-size: 16px;
+      line-height: 46px;
+      text-align: center;
+      color:#000;
+      position: relative;
+      span{
+        color:#ccc;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        width: 1px;
+        height:5px;
+      }
+      i{
+        color:#d92b2b;
+        font-style: normal;
+      }
+
+      div{
+        width: 100%;
+        height: 0px;
+        background: #0274d0;
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        transition: all ease .5s;
+      }
+
+      &.selected{
+        color:#0274d0;
+        div{
+          width: 100%;
+          height: 2px;
+          background: #0274d0;
+          position: absolute;
+          left: 0;
+          bottom: -2px;
+        }
+      }
+      &:hover{
+        color:#0274d0;
+        cursor: pointer;
+      }
+      &:hover div{
+        width: 100%;
+        height: 2px;
+        background: #0274d0;
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+      }
+    }
+  }
+  .pl45{padding-left: 45px;}
+  .pl45{
+    .dashedBlock{
+      padding:0;
+      margin-left: 0;
+    }
+  }
+  .dashedBlock{
+    border-top: 1px dashed #ccc;
+    padding-top: 30px;
+    position: relative;
+    width: 100%;
+    word-break: break-all;
+    margin-bottom: 30px;
+    table{
+      border:1px solid #ccc;
+      border-collapse: collapse;
+      font-size: 14px;
+      tr{
+        td{
+          border:1px solid #ccc;
+          width: 142px;
+          height: 45px;
+          text-align: center;
+        }
+        .grey{
+          background: #fafafa;
+          color:#999;
+        }
+      }
+    }
+    .dashedTitle{
+      font-size: 16px;
+      position: absolute;
+      padding-right: 30px;
+      top: -12px;
+      left: 0;
+      background: #fff;
+      i{
+        width: 23px;
+        height: 25px;
+        display: inline-block;
+        vertical-align: top;
+        position: relative;
+        top: -2px;
+        margin-right: 10px;
+
+      }
+      .ring{
+        background: url(/images/partials/tender/tender-sprite.png) no-repeat 0px -99px;
+      }
+      .assessmentIndex{
+        background: url(/images/partials/tender/tender-sprite.png) no-repeat -22px -99px;
+      }
+    }
+    .indexInfo{
+      padding-left: 30px;
+      li{
+        font-size: 14px;
+        color:#333;
+        margin-bottom: 10px;
+        a{
+          color:#0274d0;
+          &:hover{
+            filter: alpha(80);
+            opacity: .8;
+          }
+        }
+      }
+    }
+    .subTitle{
+      font-size: 14px;
+      color:#333;
+      margin-bottom: 10px;
+      i{
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        margin-right: 10px;
+        vertical-align: top;
+        position: relative;
+        top: -2px;
+      }
+      .qualificationIcon{
+        background: url(/images/partials/tender/tender-sprite.png) no-repeat -74px -100px;
+      }
+      .marginsIcon{
+        background: url(/images/partials/tender/tender-sprite.png) no-repeat -52px -100px;
+      }
+    }
+    .contentWrap{
+      font-size: 14px;
+      color:#333;
+      line-height: 1.6;
+      p{margin-bottom: 10px;}
+    }
+    .pb50{padding-bottom: 50px;}
+  }
+  .bidRecord{
+    width: 100%;
+    height: 40px;
+    background: #f5f5f5;
+    color:#999;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    > p{display: inline-block;line-height: 40px;}
+
+  }
+  .bidRecordList{
+    text-align: center;
+    li{
+      border-bottom: 1px solid #ccc;
+      height: 53px;
+      font-size: 14px;
+      line-height: 53px;
+      & > div{display: inline-block}
+    }
+    li.noborder{
+      border-bottom: none;
+    }
+  }
+  .w240{width: 240px;}
+  .w260{width: 260px;}
+  .w249{width: 249px;}
+  .w337{width: 337px;}
+  input[disabled]{background: #ebebeb;}
+
+  .tenderTitWrap{
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    color:#0274d0;
+    background: url(/images/partials/tender/tenderTitWrap.png) no-repeat center center;
+    line-height: 50px;
+    margin:30px 0;
+  }
+  .fixed{
+    position: fixed;
+    background: #fff;
+    z-index: 99;
+    width: 1168px;
+    top: 0;
+    display: none;
+  }
+  .nobidRecordList{
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    color:#999;
+  }
+}
+
+#reservation{
+  .modalPhoneWrap{
+    font-size: 14px;
+    margin-top: 60px;
+    label{
+      margin: 0;
+      padding-right: 10px;
+      vertical-align: middle;
+    }
+    .inputPhone{
+      width: 230px;
+      height: 35px;
+      line-height: 35px;
+      outline: none;
+      padding-left: 5px;
+      border: 1px solid #ccc;
+      &:focus{
+        border: 1px solid #1fb8ea;
+      }
+    }
+  }
+  .modalErrorWrap{color:#ff0000;font-size: 12px;margin-top: 10px;}
+  .reservationInfo{color:#333;font-size: 12px;padding-left: 65px;margin-top: 5px;}
+}

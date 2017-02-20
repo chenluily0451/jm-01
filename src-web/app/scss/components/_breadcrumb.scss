@@ -1,0 +1,18 @@
+.breadcrumb{
+  margin-bottom:0;
+  padding:10px 0 16px 0;
+  font-size:12px;
+}
+.breadcrumb > li + li:before {
+  content:">";
+  padding:0 5px;
+  color:#ccc;
+}
+.breadcrumb{
+  li{
+    color:$gray3;
+    &.active{
+      color:$gray4;
+    }
+  }
+}

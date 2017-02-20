@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.user.bid.mapper.BidMapper">
+  <sql id="Base_Column_List">
+    id, tenderId, companyId,companyName, checked, quotePrice,quoteAmount,winBidAmount,createDate, createBy
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.jm.bid.user.bid.entity.Bid">
+    select <include refid="Base_Column_List" /> from jm_bid where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectMaxPriceByTenderId" resultType="java.math.BigDecimal">
+    select max(quotePrice) from jm_bid where tenderId = #{tenderId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByTenderId" resultType="com.jm.bid.user.bid.dto.BidDTO">
+    select * from (
+    select b.id, b.tenderId, b.companyId, b.companyName, b.checked, b.quotePrice,b.quoteAmount,b.winBidAmount,b.createDate, b.createBy, te.tenderTitle from jm_bid b, jm_tender te where b.tenderId=te.id and b.tenderId=#{id,jdbcType=BIGINT}    order by b.createDate desc ) t
+    group by t.companyId  order by t.quotePrice desc, t.createDate asc
+  </select>
+
+  <select id="findCompanyBid" resultType="com.jm.bid.user.bid.dto.BidDTO">
+    select * from (
+    select b.id, b.tenderId, b.companyId,b.companyName,  b.checked, b.quotePrice,b.quoteAmount,b.winBidAmount,b.createDate, b.createBy ,te.tenderTitle from jm_bid b, jm_tender te where b.tenderId=te.id and  b.companyId= #{companyId,jdbcType=VARCHAR}
+      order  by b.createDate desc
+      ) t group by t.tenderId order by t.createDate desc
+  </select>
+
+  <select id="selectByCompanyIdAndTenderId" resultType="com.jm.bid.user.bid.dto.BidDTO">
+      select b.id, b.tenderId, b.companyId,b.companyName,  b.checked, b.quotePrice,b.quoteAmount,b.winBidAmount,b.createDate, b.createBy ,te.tenderTitle  from jm_bid b, jm_tender te
+      where b.tenderId=te.id and  b.companyId= #{companyId,jdbcType=VARCHAR} and b.tenderId=#{tenderId,jdbcType=BIGINT}  order by createDate desc limit 1
+  </select>
+
+    <select id="selectTotalSaleMoney" resultType="java.math.BigDecimal">
+      select IFNULL(sum(quotePrice * winBidAmount),0)  from jm_bid where checked=1
+    </select>
+  <select id="selectTotalSaleAmount" resultType="java.lang.Long">
+    select IFNULL(sum(winBidAmount),0)  from jm_bid where checked=1
+  </select>
+
+  <select id="selectNoBidCompany" resultType="com.jm.bid.user.bid.entity.Bid">
+    SELECT payCompanyId companyId,createDate
+    FROM jm_payRecord
+    WHERE tenderId = #{tenderId,jdbcType=BIGINT} AND status = 4 and  payCompanyId not in (select companyId from jm_bid where tenderId=#{tenderId,jdbcType=BIGINT} group by companyId)
+  </select>
+
+  <insert id="insertSelective" parameterType="com.jm.bid.user.bid.entity.Bid">
+    insert into jm_bid
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tenderId != null"> tenderId, </if>
+      <if test="companyId != null"> companyId, </if>
+      <if test="companyName != null"> companyName, </if>
+      <if test="checked != null"> checked, </if>
+      <if test="quotePrice != null"> quotePrice, </if>
+      <if test="quoteAmount!= null"> quoteAmount, </if>
+      <if test="createDate != null"> createDate, </if>
+      <if test="createBy != null"> createBy, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tenderId != null"> #{tenderId,jdbcType=BIGINT}, </if>
+      <if test="companyId != null"> #{companyId,jdbcType=VARCHAR}, </if>
+      <if test="companyName!= null"> #{companyName,jdbcType=VARCHAR}, </if>
+      <if test="checked != null"> #{checked,jdbcType=BIT}, </if>
+      <if test="quotePrice != null"> #{quotePrice,jdbcType=DECIMAL}, </if>
+      <if test="quoteAmount != null"> #{quoteAmount,jdbcType=INTEGER}, </if>
+      <if test="createDate != null"> #{createDate,jdbcType=TIMESTAMP}, </if>
+      <if test="createBy != null"> #{createBy,jdbcType=VARCHAR}, </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.jm.bid.user.bid.entity.Bid">
+    update jm_bid
+    <set>
+      <if test="tenderId != null"> tenderId = #{tenderId,jdbcType=BIGINT}, </if>
+      <if test="companyId != null"> companyId = #{companyId,jdbcType=VARCHAR}, </if>
+      <if test="companyName!= null"> companyName= #{companyName,jdbcType=VARCHAR}, </if>
+      <if test="checked != null"> checked = #{checked,jdbcType=BIT}, </if>
+      <if test="quotePrice != null"> quotePrice = #{quotePrice,jdbcType=DECIMAL}, </if>
+      <if test="quoteAmount!= null"> quoteAmount= #{quoteAmount,jdbcType=INTEGER}, </if>
+      <if test="winBidAmount!= null"> winBidAmount= #{winBidAmount,jdbcType=INTEGER}, </if>
+      <if test="createDate != null"> createDate = #{createDate,jdbcType=TIMESTAMP}, </if>
+      <if test="createBy != null"> createBy = #{createBy,jdbcType=VARCHAR}, </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

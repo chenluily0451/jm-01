@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.user.bid.mapper.BidSubscribeMapper">
+    <sql id="Base_Column_List">
+    id, tenderId, phone, logined, ip, createDate,noticeDate
+  </sql>
+
+    <select id="selectByTenderId" parameterType="java.lang.Long" resultType="com.jm.bid.user.bid.entity.BidSubscribe">
+        select <include refid="Base_Column_List"/> from jm_bid_subscribe where tenderId = #{tenderId,jdbcType=BIGINT}
+    </select>
+
+    <select id="selectByTenderIdAndPhone" resultType="com.jm.bid.user.bid.entity.BidSubscribe">
+
+        select <include refid="Base_Column_List"/> from jm_bid_subscribe where tenderId = #{tenderId,jdbcType=BIGINT} and phone=#{phone}
+    </select>
+
+    <insert id="insert" parameterType="com.jm.bid.user.bid.entity.BidSubscribe">
+    insert into jm_bid_subscribe (tenderId, phone, logined, ip, createDate,noticeDate )
+    values ( #{tenderId,jdbcType=BIGINT}, #{phone,jdbcType=VARCHAR},
+      #{logined,jdbcType=BIT}, #{ip,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},#{noticeDate,jdbcType=TIMESTAMP})
+  </insert>
+
+
+    <update id="updateByPrimaryKey" parameterType="com.jm.bid.user.bid.entity.BidSubscribe">
+        update jm_bid_subscribe
+        <set>
+            <if test="tenderId != null">
+                tenderId = #{tenderId,jdbcType=BIGINT},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="logined != null">
+                logined = #{logined,jdbcType=BIT},
+            </if>
+            <if test="ip != null">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                createDate = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="noticeDate != null">
+                noticeDate = #{noticeDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

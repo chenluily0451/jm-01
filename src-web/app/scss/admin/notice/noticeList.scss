@@ -1,0 +1,94 @@
+@import '/scripts/plugins/My97DatePicker/skin/WdatePicker.css';
+
+.notice-list-wrap{
+  background: #fff;
+  border:1px solid #e6e6e6;
+  margin-bottom: 10px;
+
+  form.noticeForm{
+    padding: 20px;
+    font-size: 14px;
+    color:#666;
+    .input-wrap {
+      display: inline-block;
+      margin-right: 15px;
+      & > * {display: inline-block;vertical-align: middle}
+      .input-search{width: 60px;text-align: center;border:1px solid #0274d0;color:#0274d0;line-height: 29px;border-radius: 2px;background: #fff;padding:0;}
+
+
+      a{width: 100px;height: 32px;line-height: 32px;border: 1px solid #0274d0;color:#0274d0;text-align: center;display: inline-block;border-radius: 2px;}
+      .input-search:hover,a:hover{background: #61aaf2;color:#fff;border:1px solid transparent;}
+    }
+    .m380{
+      min-width:380px;
+    }
+    .mr0{margin-right: 0;}
+    .date-wrap{
+      position: relative;
+
+      input{margin:0;width: 140px;}
+      &:after{
+        content: '';
+        width: 21px;
+        height: 19px;
+        background: url("/images/icons/date-icon.png") no-repeat 0px;
+        position: absolute;
+        right: 10px;
+        top: 7px;
+      }
+    }
+    input{height: 32px;border:1px solid #ccc;line-height: 32px;border-radius:2px;padding-left: 10px;outline: none;}
+    input:focus{border:1px solid #61aaf2; }
+    .w288{width: 288px;}
+  }
+  .notice-list-ul{
+
+    li{
+      font-size: 0;
+      border-bottom: 1px solid #e6e6e6;
+      padding-left: 30px;
+      text-align: left;
+      height: 50px;
+      div{display: inline-block;vertical-align: middle;font-size: 14px;word-break: break-all;padding-right:20px;}
+      &:after{
+        content: '';
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      &:hover{background: #f2f9ff;}
+    }
+    li.notice-tit{
+      background: #fafafa;
+      border-bottom: 1px solid #ebebeb;
+      height: 45px;
+      div{color:#999;font-size: 12px;}
+      .notice-bar3 {
+        padding-left: 27px;
+      }
+      &:hover{background: #fff;}
+    }
+    .notice-bar1{width: 400px;}
+    .notice-bar2{width: 370px;}
+    .notice-bar3{
+      padding: 0;
+      width: 230px;
+      a{
+        color:#0274d1;
+        width: 107px;
+        height: 35px;
+        text-align: center;
+        display: inline-block;
+        border-radius: 2px;
+        line-height: 35px;
+        &:hover{
+          background: #61aaf2;
+          color:#fff;
+        }
+      }
+    }
+
+  }
+  .pagination-wrap{border:none;}
+}
+

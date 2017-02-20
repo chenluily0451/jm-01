@@ -1,0 +1,86 @@
+body {
+  background: #fff;
+}
+
+.set-pwd-step {
+  width: 490px;
+  margin: 20px auto;
+}
+
+.set-pwd-form {
+  position:relative;
+  width: 928px;
+  height: 250px;
+  padding:70px 0 50px 0;
+  margin: 0 auto;
+  margin-bottom:70px;
+  border: 1px solid #e4e4e4;
+  &:before{
+    content:'';
+    position:absolute;
+    top:-8px;
+    left:666px;
+    width:21px;
+    height:8px;
+    background:url('/images/partials/pay/arrow-up.png') no-repeat center;
+  }
+  h2{
+    width:274px;
+    height:84px;
+    margin:0 auto;
+    padding-left:100px;
+    background:url('/images/partials/pay/success.png') no-repeat left center;
+    color:#333333;
+    font-size:24px;
+    text-align:center;
+    line-height:84px;
+  }
+  h3{
+    color:#333333;
+    font-size:24px;
+    text-align:center;
+  }
+  .bank-list{
+    height:282px;
+    margin-top:36px;
+    padding-top:38px;
+    background:#ecf6ff;
+    li{
+      padding-left:328px;
+      color:#999999;
+      font-size:14px;
+      line-height:36px;
+      span{
+        display:inline-block;
+        width:100px;
+      }
+      strong{
+        color:#333333;
+      }
+      .btn{
+        display:block;
+        width:180px;
+        margin:30px 0 0 40px;
+        background:#0274d0;
+        color:#fff;
+        font-size:16px;
+      }
+    }
+  }
+  .tips{
+    margin:32px 0 22px 0;
+    color:#999999;
+    font-size:12px;
+    text-align:center;
+  }
+  .img-loading{
+    display:block;
+    width:104px;
+    margin:0 auto;
+    padding:30px 0 46px 0;
+  }
+}
+.modalPublic .modal-dialog .modal-content .modal-body .attention{
+  width:90px;
+  background:url('/images/partials/pay/error-link.png') no-repeat center;
+}

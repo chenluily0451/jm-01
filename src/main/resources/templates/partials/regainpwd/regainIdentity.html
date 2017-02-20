@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤验证身份</title>
+    <link rel="stylesheet" href="/styles/partials/regainpwd/regainPwd.css">
+</head>
+<!--这里是头部的结束内容-->
+<body class="register-body">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('找回密码',-1,2)}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content regain-pwd">
+        <div class="regain-pwd-step"><img src="/images/partials/regainpwd/regain-pwd-2.png"/></div>
+        <form class="form-horizontal register-form" id="registerForm">
+            <div class="form-group">
+                <label class="col-sm-5 control-label"><span class="txt-warning">*</span>用户名：</label>
+                <div class="col-sm-3 no-padding-left">
+                    <p th:text="${#CustomerStringUtil.phoneFormat(securePhone)}" class="padding-top-8" id="phoneStar"></p>
+                </div>
+            </div>
+            <div class="form-group error-hidden">
+                <label class="col-sm-5 control-label"><span class="txt-warning">*</span>手机验证码：</label>
+                <div class="col-sm-3 no-padding-left">
+                    <input type="text" class="form-control" maxlength="6" placeholder="手机验证码" name="authCode" id="authCode"/>
+                    <div class="yzm" id="yzm">获取验证码</div>
+                    <div class="col-sm-12">
+                        <div class="yzm-tips" id="yzmTips">验证码已发送至你的手机，请查收！</div>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-sm-offset-5 error-height"></div>
+                <div id="authCode-error-other" class="display-none col-sm-4 col-sm-offset-5 authCode-error-other">请输入6位手机验证码</div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-5 col-sm-3 no-padding-left">
+                    <input type="submit" class="btn btn-blue" value="下一步"/>
+                </div>
+            </div>
+        </form>
+        <input type="hidden" th:value="${k}" id="userKey"/>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/regainPwd/regainIdentity.js"></script>
+</div>
+</body>
+</html>

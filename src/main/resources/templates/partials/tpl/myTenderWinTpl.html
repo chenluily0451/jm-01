@@ -1,0 +1,108 @@
+<div th:fragment="tenderDetail(project,index)">
+    <table class="project-wrapper">
+        <tr>
+            <td class="td-border">
+                <ul>
+                    <li class="larger">
+                        <span>供应量(万吨)</span>
+                        <p th:text="${project.supplyAmount.divide(10000)}">供应量(万吨)</p>
+                    </li>
+                    <li class="larger">
+                        <span th:if="${project.quotePriceUnit ==1 || project.quotePriceUnit ==null}">报价(元/吨)</span>
+                        <span th:if="${project.quotePriceUnit ==2}">报价(元/百大卡·吨)</span>
+                        <p th:text="${project.price}">报价(元)</p>
+                    </li>
+                    <li class="larger">
+                        <span>是否矿直装</span>
+                        <p th:if="${project.directPack == 0}">否</p>
+                        <p th:if="${project.directPack == 1}">是</p>
+                    </li>
+                    <li class="larger">
+                        <span>发运 站 / 港</span>
+                        <p th:text="${project.deliveryPlace}">发运 站 / 港</p>
+                    </li>
+                    <li class="larger larger-content-1">
+                        <span>预计到厂时间</span>
+                        <p th:text="${project.deliveryStartTime}+'-'+${project.deliveryEndTime}"></p>
+                    </li>
+                    <li class="larger" th:remove="${project.coalStr}?none:all">
+                        <span>煤种</span>
+                        <p th:text="${project.coalStr}">12312</p>
+                    </li>
+                    <li th:remove="${project.NCV}?none:all" class="larger-content-2 bg">
+                        <span>热值</span>
+                        <p><i th:text="${project.NCV}"></i> - <i th:text="${project.NCV2}"></i> <i>kcal/kg</i></p>
+                    </li>
+                    <li th:remove="${project.PS}?none:all">
+                        <span>颗粒度</span>
+                        <p th:text="${project.PS}">动力煤</p>
+                    </li>
+                    <li th:remove="${project.origin}?none:all">
+                        <span>产地</span>
+                        <p th:text="${project.origin}">动力煤</p>
+                    </li>
+                    <li th:remove="${project.ADV}?none:all">
+                        <span>空干基挥发分</span>
+                        <p><i th:text="${project.ADV}"></i> - <i th:text="${project.ADV2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.RS}?none:all">
+                        <span>收到基硫分</span>
+                        <p><i th:text="${project.RS}"></i> - <i th:text="${project.RS2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.TM}?none:all">
+                        <span>全水</span>
+                        <p><i th:text="${project.TM}"></i> - <i th:text="${project.TM2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.RV}?none:all">
+                        <span>收到基挥发分</span>
+                        <p><i th:text="${project.RV}"></i> - <i th:text="${project.RV2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.ADS}?none:all">
+                        <span>空干基硫分</span>
+                        <p><i th:text="${project.ADS}"></i> - <i th:text="${project.ADS2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.IM}?none:all">
+                        <span>内水</span>
+                        <p><i th:text="${project.IM}"></i> - <i th:text="${project.IM2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.ASH}?none:all">
+                        <span>灰分</span>
+                        <p><i th:text="${project.ASH}"></i> - <i th:text="${project.ASH2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.GV}?none:all">
+                        <span>G值</span>
+                        <p><i th:text="${project.GV}"></i> - <i th:text="${project.GV2}"></i> </p>
+                    </li>
+                    <li th:remove="${project.YV}?none:all">
+                        <span>Y值</span>
+                        <p><i th:text="${project.YV}"></i> - <i th:text="${project.YV2}"></i> mm</p>
+                    </li>
+                    <li th:remove="${project.FC}?none:all">
+                        <span>固定碳</span>
+                        <p><i th:text="${project.FC}"></i> - <i th:text="${project.FC2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.AFT}?none:all">
+                        <span>灰熔点</span>
+                        <p><i th:text="${project.AFT}"></i> - <i th:text="${project.AFT2}"></i> ℃</p>
+                    </li>
+                    <li th:remove="${project.CRC}?none:all">
+                        <span>焦渣特征</span>
+                        <p><i th:text="${project.CRC}"></i> - <i th:text="${project.CRC2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.HGI}?none:all">
+                        <span>哈市可磨</span>
+                        <p><i th:text="${project.HGI}"></i> - <i th:text="${project.HGI2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.VDAF}?none:all">
+                        <span>干燥无灰基挥发分</span>
+                        <p><i th:text="${project.VDAF}"></i> - <i th:text="${project.VDAF2}"></i> %</p>
+                    </li>
+                    <li th:remove="${project.STD}?none:all">
+                        <span>干燥基硫分</span>
+                        <p><i th:text="${project.STD}"></i> - <i th:text="${project.STD2}"></i> %</p>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>

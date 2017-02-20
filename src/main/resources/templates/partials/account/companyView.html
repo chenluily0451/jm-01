@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤公司信息查看</title>
+    <link rel="stylesheet" href="/styles/admin/customer/customerAudit.css">
+    <link  rel="stylesheet"href="/scripts/plugins/lightbox2/css/lightbox.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',3,1)}" th:remove="tag"></div>
+</div>
+<div layout:fragment="wrapper">
+    <div class="main">
+        <div layout:insert="~{/layout/sidebar-buyer :: sidebarBuyer(1)}" th:remove="tag"></div>
+        <div class="bg-inner">
+            <div class="panel">
+                <dl>
+                    <dt>
+                        <!--<h2><span th:text="${company!=null?company.name:''}">和略电子商务有点公司</span><sup th:class="${company.status==1}?'success':(${company.status==2}?'fail':'wait')"></sup></h2>-->
+                        <h2><span th:text="${company!=null?company.name:''}">和略电子商务有点公司</span>
+                            <sup th:if="${company!=null && company.status==1}" class="success"></sup>
+                            <sup th:if="${company!=null && company.status==2}" class="fail"></sup>
+                            <sup th:if="${company!=null && company.status!=1 && company.status!=2}" class="wait"></sup>
+                        </h2>
+                    </dt>
+                    <dd>
+                        <span>注册地址</span>
+                        <strong th:text="${company!=null?company.registerAddress:''}" class="company-address">上海市闸北区裕通路388号</strong>
+                    </dd>
+                    <dd>
+                        <ul>
+                            <li>
+                                <span>注&nbsp;&nbsp;册&nbsp;&nbsp;号</span>
+                                <strong th:text="${company!=null?company.registerCode:''}">0909882777</strong>
+                            </li>
+                            <li>
+                                <span>企业法人</span>
+                                <strong th:text="${company!=null?company.legalPerson:''}">张张</strong>
+                            </li>
+                            <li>
+                                <span>委托人</span>
+                                <strong th:text="${company!=null?company.proxyPerson:''}">张张</strong>
+                            </li>
+                            <li>
+                                <span>联系电话</span>
+                                <strong th:text="${company!=null?company.companyPhone:''}">180 9080 8080</strong>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd th:if="${company!=null && company.auditMsg!=null && !#strings.isEmpty(company.auditMsg)}">
+                        <ul>
+                            <li>
+                                <span>审核原因</span>
+                                <strong class="reason" th:text="${company.auditMsg}">123</strong>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd>
+                        <span>公司证件</span>
+                        <ul class="certificate">
+                            <li>
+                                <a th:if="${company!=null && company.businessLicensePic!=null}" th:href="${company.businessLicensePic}" data-lightbox="roadtrip"><img th:src="${company.businessLicensePic}"/></a>
+                                <img th:if="${company!=null && company.businessLicensePic==null}" src="/images/common/no-img.png"/>
+                                <p>营业执照</p>
+                            </li>
+                            <li>
+                                <a th:if="${company!=null && company.taxRegistrationPic!=null}" th:href="${company.taxRegistrationPic}" data-lightbox="roadtrip"><img th:src="${company.taxRegistrationPic}"/></a>
+                                <img th:if="${company!=null && company.taxRegistrationPic==null}" src="/images/common/no-img.png"/>
+                                <p>税务登记证</p>
+                            </li>
+                            <li>
+                                <a th:if="${company!=null && company.organizationCodePic!=null}" th:href="${company.organizationCodePic}" data-lightbox="roadtrip"><img th:src="${company.organizationCodePic}"/></a>
+                                <img th:if="${company!=null && company.organizationCodePic==null}" src="/images/common/no-img.png"/>
+                                <p>组织机构代码证</p>
+                            </li>
+                            <li>
+                                <a th:if="${company!=null && company.openingLicensePic!=null}" th:href="${company.openingLicensePic}" data-lightbox="roadtrip"><img th:src="${company.openingLicensePic}"/></a>
+                                <img th:if="${company!=null && company.openingLicensePic==null}" src="/images/common/no-img.png"/>
+                                <p>开户许可证</p>
+                            </li>
+                            <li>
+                                <a th:if="${company!=null && company.creditCodePic!=null}" th:href="${company.creditCodePic}" data-lightbox="roadtrip"><img th:src="${company.creditCodePic}"/></a>
+                                <img th:if="${company!=null && company.creditCodePic==null}" src="/images/common/no-img.png"/>
+                                <p>信用代码证</p>
+                            </li>
+                            <li>
+                                <a th:if="${company!=null && company.proxyPic!=null}" th:href="${company.proxyPic}" data-lightbox="roadtrip"><img th:src="${company.proxyPic}"/></a>
+                                <img th:if="${company!=null && company.proxyPic==null}" src="/images/common/no-img.png"/>
+                                <p>委托书</p>
+                            </li>
+                        </ul>
+                    </dd>
+                    <dd class="no-border">
+                        <span>身份证</span>
+                        <ul class="certificate">
+                            <li>
+                                <a th:if="${company!=null && company.idCardPic!=null}" th:href="${company.idCardPic}" data-lightbox="roadtrip"><img th:src="${company.idCardPic}"/></a>
+                                <img th:if="${company!=null && company.idCardPic==null}" src="/images/common/no-img.png"/>
+                                <p>身份证(正面+反面)</p>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+                <div class="row" th:if="${@userSession.user.role.name()=='ADMIN'}">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <a href="/account/updateCompany" class="btn btn-blue">编辑</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/admin/customer/custeromAudit.js"></script>
+</div>
+</body>
+</html>

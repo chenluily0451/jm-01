@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤账户设置</title>
+    <link rel="stylesheet" href="/styles/partials/bid/myBid.css">
+</head>
+<!--这里是头部的结束内容-->
+<body class="front-body">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/background-subNav}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content regain-pwd">
+        <div class="content-left">
+            <div layout:insert="~{/layout/sidebar-finance :: sidebarFinance(2)}" th:remove="tag"></div>
+        </div>
+        <div class="content-right">
+            <div class="panel">
+                <div class="panel-content">
+                    <div class="panel-title">
+                        <h2 th:text="|项目名称:${tender.tenderTitle}|"> 项目名称：晋煤10月份第二次竞标销售公告</h2>
+                    </div>
+                    <div id="myBid" th:if="${tender.tenderEndDate.isAfter(#temporals.createNow())}">
+                        <!--竞价进行中-->
+                        <div class="listBlock">
+                            <div class="w220">竞拍公司</div>
+                            <div class="w220">时间</div>
+                            <div class="w220">竞拍吨数(吨)</div>
+                            <div class="w130">竞拍价格(元)</div>
+                            <div class="w140">状态</div>
+                        </div>
+                        <p class="noData" th:if="${bidList.size()==0 && noBidList.size()==0}">暂无人投标</p>
+                        <ul class="listCon">
+                            <li th:each="bid:${bidList}">
+                                <div class="w220">保密</div>
+                                <div class="w220" th:text="${#temporals.format(bid.createDate,'yyyy-MM-dd HH:mm:ss')}">2016-12-12 14：00：00</div>
+                                <div class="w220">保密</div>
+                                <div class="w130" th:text="${bid.quotePrice}">保密</div>
+                                <div class="w140" th:text="${bid.checked==null?'已报价':(bid.checked==true?'已中标':'未中标')}">已报价</div>
+                            </li>
+                        </ul>
+                        <ul class="listCon">
+                            <li th:each="bid:${noBidList}">
+                                <div class="w220">保密</div>
+                                <div class="w220">--</div>
+                                <div class="w220">--</div>
+                                <div class="w130">--</div>
+                                <div class="w140">已缴纳保证金，待报价</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--竞价完成-->
+                    <div id="myBid" th:if="${tender.tenderEndDate.isBefore(#temporals.createNow())}">
+                        <div class="listBlock">
+                            <div class="w220">竞拍公司</div>
+                            <div class="w220">时间</div>
+                            <div class="w140">竞拍吨数(吨)</div>
+                            <div class="w130">竞拍价格(元)</div>
+                            <div class="w120">中标量(吨)</div>
+                            <div class="w120">状态</div>
+                        </div>
+                        <p class="noData" th:if="${bidList.size()==0}">暂无人投标</p>
+                        <ul class="listCon">
+                            <li th:each="bid:${bidList}">
+                                <div class="w220" th:text="${bid.companyName}">公司名称</div>
+                                <div class="w220" th:text="${#temporals.format(bid.createDate,'yyyy-MM-dd HH:mm:ss')}">2016-12-12 14：00：00</div>
+                                <div class="w140" th:text="${bid.quoteAmount}">2000</div>
+                                <div class="w130" th:text="${bid.quotePrice}">300.00</div>
+                                <div class="w120" th:text="${bid.checked==true?bid.winBidAmount:'--'}">1111</div>
+                                <div class="w120">
+                                    <span th:if="${bid.checked==null}">--</span>
+                                    <span th:if="${bid.checked!=null && bid.checked==true}" class="alreadyBid">中标</span>
+                                    <span th:if="${bid.checked!=null && bid.checked==false}" class="unbid">未中标</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src=""></script>
+</div>
+</body>
+</html>

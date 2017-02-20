@@ -1,0 +1,440 @@
+body,html{
+  font-family: 'Microsoft Yahei', Arial, Helvetica, "黑体", sans-serif;
+}
+html,body{
+  height:100%;
+  min-width: 1200px;
+  min-height:100%;
+  width: 100%;
+}
+//  后台页面背景
+#background-page{
+  background: #f5f5f5;
+  .form-control{
+    height:34px;
+  }
+  .btn-search{
+    height:34px;
+    padding:0 16px;
+    border:1px solid #0274d0;
+    background:#fff;
+    color:#0274d0;
+    line-height:20px;
+    &:hover{
+      background:#0274d0;
+      color:#fff;
+    }
+  }
+}
+body{
+  background:#f5f5f5;
+}
+#background-page{
+  .wrapper{
+    min-height:calc(100% - 212px );
+    min-height:500px/9;
+    *min-height:500px;
+  }
+}
+.date-wrap{
+  position: relative;
+
+  input{margin:0;width: 140px;}
+  &:after{
+    content: '';
+    width: 21px;
+    height: 19px;
+    background: url("/images/icons/date-icon.png") no-repeat 0px;
+    position: absolute;
+    right: 10px;
+    top: 7px;
+  }
+}
+.wrapper{
+  width:1200px;
+  min-height:calc(100% - 212px );
+  margin:0px auto;
+  .bg-inner{width:1050px;margin-left: 10px;float: left;}
+  .sidebar{
+    float:left;
+    width:200px;
+  }
+  .main{
+    padding-top: 15px;padding-bottom: 60px;overflow: hidden
+  }
+  .form-group{
+    margin-bottom:20px;
+  }
+  input.form-control{
+    height:40px;
+    border-radius:0;
+    &:focus{
+      box-shadow:none;
+      outline:0;
+    }
+  }
+  label{
+    font-weight:normal;
+  }
+  .no-padding-left{
+    padding-left:0;
+  }
+  .no-padding-left-right{
+    padding-left:0;
+    padding-right:0;
+  }
+  .no-margin-bottom{
+    margin-bottom:0;
+  }
+  .margin-top-0{
+    margin-top:0;
+  }
+  .padding-top-8{
+    padding-top:8px;
+  }
+  .padding-top-10{
+    padding-top:10px;
+  }
+  .margin-bottom-2{
+    margin-bottom:2px;
+  }
+  .margin-bottom-20{
+    margin-bottom:20px;
+  }
+  .vertical-middle{
+    vertical-align:middle;
+  }
+  // *号 红色
+  .txt-warning{
+    color:#ff0000;
+  }
+  // 图片验证码
+  .img-code{
+    position:absolute;
+    top:6px;
+    right:22px;
+    width:100px;
+    height:28px;
+  }
+  .see-blur{
+    padding-top:5px;
+    font-size:12px;
+    line-height:16px;
+    a{
+      display:block;
+    }
+  }
+  // 手机验证码
+  .yzm{
+    position:absolute;
+    top:5px;
+    right:22px;
+    width:120px;
+    height:30px;
+    background:#969494;
+    color:#fff;
+    font-size:14px;
+    text-align:center;
+    line-height:30px;
+    cursor:pointer;
+    &.active{
+      background:#969494;
+      color:#fff;
+      &:hover{
+        background:#969494;
+        cursor:default;
+      }
+    }
+    &.disabled{
+      opacity:0.4;
+      filter:alpha(opacity=80);
+      cursor:default;
+    }
+
+  }
+  .yzm-tips{
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:1000;
+    width:100%;
+    height:0px;
+    opacity:0;
+    filter:alpha(opacity=0);
+    padding-left:20px;
+    background:#effced url('/images/icons/icons.png') no-repeat 4px -71px;
+    font-size:12px;
+    line-height:22px;
+    text-align:left;
+  }
+  // 按钮
+  .btn-blue{
+    width:100%;
+    height:40px;
+    margin-bottom:10px;
+    border-radius:4px;
+    background:#1d90e3;
+    color:#fff;
+    line-height:26px;
+    &:hover{
+      opacity:0.8;
+      filter:alpha(opacity=80);
+    }
+    &.disabled{
+      background:#969494;
+      cursor:default;
+    }
+  }
+  .cannot-see{
+    padding-top:4px;
+    font-size:12px;
+  }
+  // 提示效果
+  .form-info{
+    position:absolute;
+    left:0;
+    top:-38px;
+    z-index:100;
+    width:100%;
+    .info-wrap{
+      position:static;
+      width:100%;
+      height:30px;
+      padding-top:0;
+      padding-bottom:0;
+      line-height:30px;
+      &:before{
+        content:'';
+        position:absolute;
+        top:29px;
+        left:20px;
+        width:13px;
+        height:6px;
+        background:#f5fbff url('/images/icons/icons.png') no-repeat -137px -594px;
+      }
+    }
+  }
+  .error-height{
+    padding:4px 0 0 0;
+  }
+  input.error-wrap{
+    border:1px solid #ff0000;
+    box-shadow:none;
+  }
+  //.form-validate{
+  //   div.error-wrap{
+  //     position:static;
+  //     width:100%;
+  //     height:auto;
+  //     background:none;
+  //     .error{
+  //       width:100%;
+  //       height:24px;
+  //       padding-top:6px;
+  //       background:url('/images/icons/icons.png') no-repeat 0 -18px;
+  //       color:#ff0000;
+  //       text-indent:20px;
+  //     }
+  //     .success-wrap{
+  //       position:absolute;
+  //       right:28px;
+  //       top:12px;
+  //       left:auto;
+  //       height:0;
+  //       padding-bottom:16px;
+  //     }
+  //   }
+  //}
+  .info-wrap{
+    display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    padding:6px 10px 6px 28px;
+    border:1px solid #d1eeff;
+    background:#f5fbff url('/images/icons/icons.png') no-repeat -126px 8px;
+    color:#2f8ed9;
+    &:before{
+      content:'';
+      position:absolute;
+      top:10px;
+      left:-6px;
+      width:6px;
+      height:12px;
+      background:#f5fbff url('/images/icons/icons.png') no-repeat -144px -87px;
+    }
+    ul{
+      padding-left:16px;
+    }
+    ul,li{
+      list-style-type:decimal;
+      line-height:18px;
+    }
+  }
+  div.error-wrap{
+    .error{
+      height:16px;
+      padding-left:20px;
+      background:url('/images/icons/icons.png') no-repeat 0 -24px;
+      color:#ff0000;
+      line-height:16px;
+    }
+    .success{
+      position:absolute;
+      right:26px;
+      top:-26px;
+      width:16px;
+      height:16px;
+      background:#fff url('/images/icons/icons.png') no-repeat 0 0px;
+    }
+  }
+  .error-hidden{
+    div.error-wrap{
+      .success{
+        display:none;
+      }
+    }
+  }
+  .authCode-error-other{
+    height:16px;
+    padding-left:20px;
+    background:url('/images/icons/icons.png') no-repeat 0 -24px;
+    color:#ff0000;
+    line-height:16px;
+  }
+  .bg-white{
+    background:#fff;
+  }
+//  后台sidebar
+  .background-sidebar{
+    width: 140px;
+    float: left;
+    background: #fff;
+    border: 1px solid #ebebeb;
+
+    ul{
+      background: #fff;
+      width: 100%;
+      padding:10px 0;
+      li{
+        font-size: 14px;
+        border-bottom:1px solid #e6e6e6;
+        &:last-child{border:none;}
+      }
+      li a {
+        color:#4c4c4c;
+        padding:12px 0;
+        padding-left:30px;
+        display:inline-block;
+        width:100%;
+        &.active{color:#fff;background: #61aaf2}
+        &:hover{color:#fff;background: #61aaf2}
+
+      }
+    }
+  }
+  .content{
+    overflow:hidden;
+    margin:20px 0;
+  }
+  .content-left{
+    float:left;
+    width:138px;
+    border:1px solid #ebebeb;
+    border-bottom:0;
+    background:#fff;
+    font-size:14px;
+    li{
+      border-bottom:1px solid #e6e6e6;
+      line-height:44px;
+      text-align:center;
+      a{
+        display:block;
+        color:#4c4c4c;
+        &.bg{
+          background:url('/images/partials/helpcenter/help-icon.png') no-repeat 15px 14px;
+          &.active{
+            background:#61aaf2 url('/images/partials/helpcenter/help-icon.png') no-repeat 15px 14px;
+            color:#fff;
+          }
+        }
+        &.active{
+          background:#61aaf2;
+          color:#fff;
+        }
+        &:hover{
+          background:#61aaf2;
+          color:#fff;
+        }
+      }
+    }
+  }
+  .content-right{
+    position:relative;
+    float:left;
+    width:1050px;
+    margin-left:12px;
+    padding:0 20px;
+    border:1px solid #ebebeb;
+    background:#fff;
+    .panel{
+      border:0;
+      box-shadow:none;
+    }
+    .panel-title{
+      margin-bottom:15px;
+      padding:13px;
+      padding-left: 0;
+      border-bottom:2px solid #ebebeb;
+      color:#333333;
+      font-size:16px;
+      font-weight:normal;
+      h2{
+        padding-left:12px;
+        border-left:3px solid #0274d0;
+      }
+    }
+    .line{
+      position:absolute;
+      bottom:-1px;
+      left:-152px;
+      width:138px;
+      border-bottom:1px solid #ebebeb;
+    }
+  }
+}
+.tooltip-inner{
+  word-break:break-all;
+}
+.toolInfoTxt{
+
+  .priceAmountInfoContent{
+    font-size: 12px;
+    width: 100%;
+    color:#333;
+    text-align: left;
+    margin-top: 3px;
+    span{
+      color:#d92b2b;
+    }
+  }
+  .tooltip-inner{
+    max-width: 500px;
+    width: 230px;
+    background: #effafd;
+    border:1px solid #caf1fc;
+    margin-left: 150px;
+  }
+  .tooltip.bottom .tooltip-arrow{
+    border: none;
+    width: 15px;
+    height: 7px;
+    background:url('/images/common/tooltipsArrow.png') no-repeat;
+    top: -1px;
+  }
+}
+.bidMoneyStyle{
+  display: inline-block;
+  border-bottom: 1px dashed #007193;
+  cursor: pointer;
+}

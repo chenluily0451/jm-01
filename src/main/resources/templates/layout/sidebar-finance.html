@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body layout:fragment="sidebarFinance(curIndex)">
+<div class="content-left">
+    <ul th:switch="${@adminSession.admin.role.name()}">
+        <!--财务-->
+        <th:block th:case="'ADMIN_TREASURER'">
+            <li><a href="/admin/finance" th:class="${curIndex}=='0'?'active':''">账户概览</a></li>
+            <li><a href="/admin/finance/asset" th:class="${curIndex}=='1'?'active':''">我的账户</a></li>
+            <li><a href="/admin/finance/tradeRecord" th:class="${curIndex}=='2'?'active':''">交易记录</a></li>
+            <li><a href="/admin/finance/bankBill" th:class="${curIndex}=='4'?'active':''">银行流水</a></li>
+            <li><a href="/admin/accountSetting" th:class="${curIndex}=='5'?'active':''">安全设置</a></li>
+        </th:block>
+
+        <!--业务-->
+        <th:block th:case="'ADMIN_SALESMAN'">
+            <li><a href="/admin" th:class="${curIndex}=='0'?'active':''">平台概述</a></li>
+            <li><a href="/admin/tender/releaseTender" th:class="${curIndex}=='1'?'active':''">发布竞价</a></li>
+            <li><a href="/admin/tender/myTenderList" th:class="${curIndex}=='2'?'active':''">竞价记录</a></li>
+            <li><a href="/admin/notice" th:class="${curIndex}=='3'?'active':''">竞标公示</a></li>
+            <li><a href="/admin/customer/customerList" th:class="${curIndex}=='4'?'active':''">客户管理</a></li>
+            <li><a href="/admin/accountSetting" th:class="${curIndex}=='5'?'active':''">账户设置</a></li>
+        </th:block>
+
+    </ul>
+</div>
+</body>
+</html>

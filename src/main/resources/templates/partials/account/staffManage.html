@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤员工管理</title>
+    <link rel="stylesheet" href="/styles/partials/account/staffManage.css">
+</head>
+<!--这里是头部的结束内容-->
+<body class="front-body">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',3,1)}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content regain-pwd">
+        <div class="content-left">
+            <div layout:insert="~{/layout/sidebar-buyer :: sidebarBuyer('3')}" th:remove="tag"></div>
+        </div>
+        <div class="content-right">
+            <div class="panel">
+                <div class="panel-title">
+                    <h2>员工管理</h2>
+                </div>
+                <div class="panel-content">
+                    <table th:class="${employeeList.size()==0}?'staff-table display-none':'staff-table '" id="staffTable">
+                        <tr>
+                            <th>员工姓名</th>
+                            <th>手机号码</th>
+                            <th>角色</th>
+                            <th>权限</th>
+                            <th>操作</th>
+                        </tr>
+                        <tr th:each="employee,iterStat:${employeeList}">
+                            <td th:text="${employee.userName}">员工姓名</td>
+                            <td th:text="${employee.securePhone}">手机号码</td>
+                            <td th:text="${employee.role.value}">角色</td>
+                            <td>
+                            <th:block th:if="${employee.role.name()=='TREASURER'}">开通资金账户、付款、提现、查看收支明细等</th:block>
+                            <th:block th:if="${employee.role.name()=='SALESMAN'}">投标、查看竞价信息、用款申请等</th:block>
+                            </td>
+                            <td><a th:href="'#'+${iterStat.index}" class="delete" th:attr="data-index=${employee.id}">禁用</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-sm-offset-4 col-sm-4">
+                    <a href="#" class="btn btn-blue" id="addStaffBtn">+ 添加用户</a>
+                </div>
+            </div>
+            <div id="addStaff" class="modal fade modalPublic modal-edit" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" id="addStaffTitleClose" class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="addStaffTitle">添加员工</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" id="addStaffForm">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">姓名</label>
+                                    <div class="col-sm-8 no-padding-left">
+                                        <input type="text" class="form-control" placeholder="请输入姓名" name="userName" id="userName">
+                                    </div>
+                                    <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                                </div>
+                                <div class="form-group error-hidden">
+                                    <label class="col-sm-3 control-label">角色</label>
+                                    <div class="col-sm-8 no-padding-left">
+                                        <select class="form-control" name="role" id="role">
+                                            <option value="">请选择员工角色</option>
+                                            <option value="SALESMAN">业务人员</option>
+                                            <option value="TREASURER">财务人员</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">手机号</label>
+                                    <div class="col-sm-8 no-padding-left">
+                                        <input type="text" class="form-control" placeholder="请输入手机号" name="tel" id="tel" maxlength="11">
+                                    </div>
+                                    <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                                </div>
+                                <div class="form-group error-hidden">
+                                    <label class="col-sm-3 control-label">手机验证码</label>
+                                    <div class="col-sm-8 no-padding-left">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="请输入手机验证码" maxlength="6" id="authCode" name="authCode"/>
+                                            <div class="input-group-addon" id="yzm">获取验证码</div>
+                                            <div class="error-icon"></div>
+                                            <div class="yzm-tips" id="yzmTips">验证码已发送至你的手机，请查收！</div>
+                                        </div>
+                                        <div class="error-height more-padding-right">
+                                            <div class="display-none error-wrap" id="authCode-other"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8 col-sm-offset-3 no-padding-left padding-top-4">注：请在<span class="color-red">10分钟内输入</span>所添加员工的短信校验码。</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <input type="submit" class="btn btn-blue" value="确认" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:insert="~{/components/modal/modal :: modalHasBtn(1,'禁用后不能恢复！确认禁用该账户吗？')}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/account/staffManage.js"></script>
+</div>
+</body>
+</html>

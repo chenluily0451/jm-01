@@ -1,0 +1,88 @@
+/****** 混合通用的样式 Edited By Edward(2016-08-1) ******/
+$gray1:#e4e4e4;
+$gray2:#666666;
+$gray3:#999999;
+$gray4:#333333;
+$blue1:#00b7ec;
+$blue2:#eff9ff;
+$blue3:#037191;
+$blue4:#007193;
+$orange:#fe6e27;
+$orange1:#ff6e27;
+$dark:#000;
+$white:#fff;
+
+.gray{
+  color:$gray1;
+}
+.dark{
+  color:$dark;
+}
+.white{
+  color:$white;
+}
+@mixin displayBlock{
+  display:block;
+}
+@mixin displayNone{
+  display:none;
+}
+.display-none{
+  display:none;
+}
+.display-block{
+  display:block;
+}
+@mixin displayInlineBlock{
+  display:inline-block;
+}
+@mixin overFlow{
+  overflow:hidden;
+}
+@mixin floatLeft{
+  float:left;
+}
+@mixin floatRight{
+  float:right;
+}
+@mixin widthHeight($width:100px,$height:100px){
+  width:$width;
+  height:$height;
+}
+@mixin marginLeftRight($left:10px,$right:10px){
+  margin-left:$left;
+  margin-right:$right;
+}
+@mixin marginTopBottom($top:10px,$bottom:10px){
+  margin-top:$top;
+  margin-bottom:$bottom;
+}
+@mixin margin($leftRight:10px,$topBottom:10px){
+  margin:$topBottom $leftRight;
+}
+@mixin paddingLeftRight($left:10px,$right:10px){
+  padding-left:$left;
+  padding-right:$right;
+}
+@mixin paddingTopBottom($top:10px,$bottom:10px){
+  padding-top:$top;
+  padding-bottom:$bottom;
+}
+@mixin padding($leftRight:10px,$topBottom:10px){
+  padding:$topBottom $leftRight;
+}
+@mixin border($width:1px,$color:#ccc){
+  border:$width solid $color;
+}
+@mixin lineHeight($num:20px){
+  line-height:$num;
+}
+@mixin fontWeight{
+  font-weight:bolder;
+}
+@mixin fontSize($num:12px){
+  font-size:$num;
+}
+
+
+

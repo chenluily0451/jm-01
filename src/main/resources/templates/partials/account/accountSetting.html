@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤账户设置</title>
+    <link rel="stylesheet" href="/styles/partials/account/accountSetting.css">
+</head>
+<!--这里是头部的结束内容-->
+<!--公用了账户设置页面并对财务和业务角色做判断-->
+<body class="front-body">
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',3,1)}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content regain-pwd">
+        <div layout:insert="~{/layout/sidebar-buyer :: sidebarBuyer('5')}" th:remove="tag"></div>
+        <div class="content-right">
+            <div class="panel">
+                <div class="panel-content">
+                    <dl>
+                        <dt>
+                            <h2>设置账户</h2>
+                        </dt>
+                        <dd class="account-pwd">
+                            <span>登录密码</span>
+                            <strong class="star-strong">***************</strong>
+                            <a href="#" id="resetPwd">重置</a>
+                        </dd>
+                        <dd class="account-pay" th:if="${@userSession.user.role.name()=='TREASURER' && hasCashAccount!=null && hasCashAccount==true}">
+                            <span>支付密码</span>
+                            <strong class="star-strong">***************</strong>
+                            <a href="#" id="resetPay">重置</a>
+                        </dd>
+                    </dl>
+                    <div id="modalEdit" class="modal fade modalPublic modal-edit" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" id="modalEditClose" class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="modalTitle">密码重置</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" id="editTelForm">
+                                        <div class="form-group img-status">
+                                            <img src="/images/admin/account/edit-pwd.png"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">手机号码</label>
+                                            <div class="col-sm-8">
+                                                <p class="padding-top-8 text-left" th:text="${#CustomerStringUtil.phoneFormat(user.securePhone)}">18650395433</p>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">图形验证码</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="请输入图形验证码" maxlength="6" id="imgCode"/>
+                                                    <div class="input-group-addon img-code-addon">
+                                                        <img src="/loadImgCode" height="32" width="98" id="verifycode"/>
+                                                    </div>
+                                                </div>
+                                                <div class="txt-warning-wrap" id="imgCodeError">请输入图形验证码</div>
+                                                <div class="right-icon"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">手机验证码</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="请输入手机验证码" maxlength="6" id="yzm"/>
+                                                    <!--<div class="input-group-addon disabled" id="yzmBtn">获取验证码</div>-->
+                                                    <span class="input-group-addon" id="yzmBtn">获取验证码</span>
+                                                    <div class="error-icon"></div>
+                                                    <div class="yzm-tips" id="yzmTips">验证码已发送至你的手机，请查收！</div>
+                                                </div>
+                                                <div class="txt-warning-wrap" id="yzmError">请输入手机验证码</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="btn btn-blue" id="stepToNext">下一步</div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form class="form-horizontal display-none" id="editPwdForm">
+                                        <div class="form-group img-status">
+                                            <img src="/images/admin/account/edit-pwd-success.png" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" id="txtName">原登录密码</label>
+                                            <div class="col-sm-8">
+                                                <input type="password" placeholder="请输入原密码" class="form-control" maxlength="16" id="originPwd"/>
+                                                <div class="txt-warning-wrap" id="originPwdError">原密码错误</div>
+                                                <div class="right-icon"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">新密码</label>
+                                            <div class="col-sm-8">
+                                                <input type="password" placeholder="请输入新密码" class="form-control" maxlength="16" id="newPwd" disabled/>
+                                                <div class="info-border">长度为6~16位字符，至少包含数字、大小写字母不许有空格</div>
+                                                <div class="txt-warning-wrap" id="newPwdError">新密码格式错误</div>
+                                                <div class="right-icon right-icon-input"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">确认密码</label>
+                                            <div class="col-sm-8">
+                                                <input type="password" placeholder="请输入确认密码" class="form-control" maxlength="16" id="confirmPwd" disabled/>
+                                                <div class="info-border">长度为6~16位字符，至少包含数字、大小写字母不许有空格</div>
+                                                <div class="txt-warning-wrap" id="confirmPwdError">长度为6~16位字符，至少包含数字、大小写字母不许有空格</div>
+                                                <div class="right-icon right-icon-input"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="btn btn-blue" id="pwdSubmit">完成</div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form class="form-horizontal display-none" id="editNewTelForm">
+                                        <div class="form-group img-status">
+                                            <img src="/images/admin/account/edit-pwd-success.png" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">新手机号码</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" placeholder="请输入手机号码" class="form-control" id="newTel" maxlength="11"/>
+                                                <div class="info-border">请输入11位数字号码</div>
+                                                <div class="txt-warning-wrap" id="newTelError">请输入11位数字号码</div>
+                                                <div class="right-icon right-icon-input"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">图形验证码</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="请输入图形验证码" maxlength="6" id="telImgCode"/>
+                                                    <div class="input-group-addon img-code-addon">
+                                                        <img src="/admin/loadImgCode" height="32" width="98" id="telVerifycode"/>
+                                                    </div>
+                                                </div>
+                                                <div class="txt-warning-wrap" id="telVerifycodeError">请输入图形验证码</div>
+                                                <div class="right-icon right-icon-input"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">手机验证码</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"  placeholder="请输入手机验证码" maxlength="6" id="telYzm"/>
+                                                    <div class="input-group-addon" id="telYzmBtn">获取验证码</div>
+                                                </div>
+                                                <div class="txt-warning-wrap" id="telYzmError">请输入手机验证码</div>
+                                                <div class="right-icon"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <div class="btn btn-blue" id="telChangeHandler">完成</div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="addStaff" class="modal fade modalPublic modal-edit" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" id="addStaffTitleClose" class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="addStaffTitle">添加员工</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-horizontal" id="addStaffForm">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">姓名</label>
+                                            <div class="col-sm-8 no-padding-left">
+                                                <input type="text" class="form-control" placeholder="请输入姓名" name="staffName" id="staffName">
+                                            </div>
+                                            <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">角色</label>
+                                            <div class="col-sm-8 no-padding-left">
+                                                <p class="padding-top-8 text-left">业务人员</p>
+                                            </div>
+                                            <div class="col-sm-8 col-sm-offset-3 error-height no-border "></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">手机号</label>
+                                            <div class="col-sm-8 no-padding-left">
+                                                <input type="text" class="form-control" placeholder="请输入手机号" name="staffTel" id="staffTel" maxlength="11">
+                                            </div>
+                                            <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                                        </div>
+                                        <div class="form-group error-hidden">
+                                            <label class="col-sm-3 control-label">手机验证码</label>
+                                            <div class="col-sm-8 no-padding-left">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="请输入手机验证码" maxlength="6" id="staffCode" name="staffCode"/>
+                                                    <div class="input-group-addon" id="yzmStaff">获取验证码</div>
+                                                    <div class="error-icon"></div>
+                                                </div>
+                                                <div class="error-height no-padding-right">
+                                                    <div class="display-none error-wrap" id="staffCode-other"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8 col-sm-offset-3 no-padding-left padding-top-4">注：请在<span class="color-red">10分钟内输入</span>所添加员工的短信校验码。</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <input type="submit" class="btn btn-blue" value="确认" />
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div layout:insert="~{/components/modal/modal :: modalHasBtn(2,'确认删除')}" th:remove="tag">
+                <div class="buttons" layout:fragment="modal-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/account/accountSetting.js"></script>
+</div>
+</body>
+</html>

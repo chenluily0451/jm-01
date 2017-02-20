@@ -1,0 +1,69 @@
+.exception-wrap{
+  background:#fff;
+
+}
+.exception{
+  background: #f2f2f2;
+  border:1px solid #ebebeb;
+
+  .wrapper{
+    background: #fff;
+    min-height: calc(100% - 318px);
+    margin: 25px auto;
+  }
+  label{margin:0;}
+  .wrap-num{padding: 155px 0;padding-left: 290px;overflow: hidden;}
+  .wrap-num img{float:left}
+  .wrap-num .info-num{float:left;margin-top: 70px;}
+  .info-tit{font-size: 22px;color:#333;margin-bottom: 20px;}
+  .info-jump .ft{margin-left: 0;}
+  .info-jump a{font-size: 12px; color:#0274d0;margin-left: 10px;margin-right: 10px;}
+  .info-jump a:hover{opacity: .8;}
+}
+.exception-head{
+  height: 56px;
+  background: #0d3c6e;
+  width: 100%;
+  .exception-head-wrap{
+    width: 1200px;
+    margin: 0 auto;
+    font-size: 14px;
+
+    .news-info{
+      background: url("/images/icons/exception-icon1.png") no-repeat left center;
+      color:#709ece;
+      margin-top: 18px;
+      font-weight: normal;
+      i{
+        font-style: normal;
+        padding-left: 24px;
+      }
+      span{
+        color:#fff;
+      }
+
+    }
+    .bid-amount{
+      background: url("/images/icons/exception-icon2.png") no-repeat left center;
+      color:#fff;
+      font-weight: normal;
+      margin-top: 8px;
+      > *{display: inline-block;vertical-align: middle}
+      i{
+        font-style: normal;
+        color:#709ece;
+        padding-left: 24px;
+      }
+      span.bid-num{
+        color:#d92b2b;
+        font-size:30px;
+        position: relative;
+        top: -3px;
+      }
+      span.bid-unit{
+        color:#fff;
+        font-size:14px;
+      }
+    }
+  }
+}

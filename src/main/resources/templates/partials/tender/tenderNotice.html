@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤中标公告</title>
+    <link rel="stylesheet" href="/styles/partials/tender/noticeList.css">
+</head>
+<body id="tenderIndex">
+    <div layout:fragment="header">
+        <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+        <div layout:insert="~{/layout/subNav :: subNav('',2,1)}" th:remove="tag"></div>
+    </div>
+    <div layout:fragment="wrapper">
+        <div class="content">
+            <div id="noticeList">
+                <div class="noticeAd"></div>
+                <div class="noticeListCon">
+                    <div class="noticeListHead">
+                        <div class="w64">序号</div>
+                        <div class="w190">类型</div>
+                        <div class="w400">标题</div>
+                        <div class="w228">状态</div>
+                        <div class="w272">发布时间</div>
+                    </div>
+                    <ul class="noticeUllist">
+                        <li th:each="notice,iterStat:${page.results}" th:class="${notice.noticeEndDate.isBefore(#temporals.createToday())?'outDate':''}">
+                            <a th:href="|/tender/notice/${notice.id}|">
+                                <div class="w64" th:text="${iterStat.index+1}">1</div>
+                                <div class="w190" th:text="${notice.hasWinBid?'中标公示':'流标公示'}">中标公示</div>
+                                <div class="w400" th:text="${notice.noticeName}">第几次中表共识说明</div>
+                                <div class="w228"><span th:class="${notice.noticeEndDate.isBefore(#temporals.createToday())?'':'tendering'}" th:text="${notice.noticeEndDate.isBefore(#temporals.createToday())?'已结束':'公示中'}">公示中</span></div>
+                                <div class="w272" th:text="${#temporals.format(notice.lastUpdateDate,'yyyy-MM-dd')}">2016-03-11</div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="box pagination-wrap text-c" th:insert="/components/pagination/pagination :: pagination (page=${page})"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="script" th:remove="tag">
+        <script type="text/javascript" src=""></script>
+    </div>
+</body>
+</html>

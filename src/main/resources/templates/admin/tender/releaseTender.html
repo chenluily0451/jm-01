@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤发布竞价</title>
+    <link rel="stylesheet" href="/styles/admin/tender/releaseTender.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+    <div layout:fragment="header">
+        <div layout:insert="~{/layout/background-subNav}" th:remove="tag"></div>
+    </div>
+    <div layout:fragment="wrapper">
+        <div class="main">
+            <div layout:insert="~{/layout/sidebar-finance :: sidebarFinance(1)}" th:remove="tag"></div>
+            <div class="bg-inner">
+                <form action="javasctipt:void(0)" id="formTender">
+                    <div class="release-tender" data-order="1">
+                        <p class="release-title"><span>*</span>一、基本信息</p>
+                        <div class="release-input-wrap release-input-1">
+                            <label for="">项目名称</label>
+                            <input type="text" placeholder="请填写竞买公告的名称" name="tenderTitle" th:value=" ${tender != null} ? ${tender.tenderTitle} : '' " />
+                        </div>
+                        <div class="release-input-wrap release-input-2">
+                            <label for="">品种</label>
+                            <div>
+                                <select name="coalTypeId" id="coalTypeId">
+                                    <option value="">请选择煤炭品种</option>
+                                    <option th:each="coalType:${coalTypeList}" th:value="${coalType.key}" th:text="${coalType.value}" th:selected="${tender!=null && tender.coalTypeId==coalType.key}">神马煤</option>
+                                </select>
+                            </div>
+                            <label for="">矿别</label>
+                            <div>
+                            <select name="coalZoneId" id="coalZoneId">
+                                <option value="">请选择矿别</option>
+                                <option th:each="coalZone:${coalZoneList}" th:value="${coalZone.key}" th:text="${coalZone.value}" th:selected="${tender!=null && tender.coalZoneId==coalZone.key}">神马煤</option>
+                            </select>
+                            </div>
+                            <label for="">发站</label>
+                            <div>
+                            <select name="forwardStationId" id="forwardStationId" class="mr0">
+                                <option value="">请选择发站</option>
+                                <option th:each="station:${forwardStationList}" th:value="${station.key}" th:text="${station.value}" th:selected="${tender!=null && tender.forwardStationId==station.key}">神马煤</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="release-input-wrap release-input-2">
+                            <label for="">运输方式</label>
+                            <div>
+                            <select name="transportModeId" id="transportModeId">
+                                <option value="">请选择请输入运输方式</option>
+                                <option th:each="deliveryMode:${transportModeList}" th:value="${deliveryMode.key}" th:text="${deliveryMode.value}" th:selected="${tender!=null && tender.transportModeId==deliveryMode.key}">神马煤</option>
+                            </select>
+                            </div>
+                            <label for="">吨数</label>
+                            <input type="text" placeholder="0吨" name="saleAmount" id="saleAmount" th:value=" ${tender != null} ? ${tender.saleAmount} : '' " />
+                            <!--<label for="">保证金</label>-->
+                            <!--<input type="text" placeholder="0.00万元" name="margins" id="margins" class="mr0" th:value=" ${tender != null} ? ${#numbers.formatDecimal(tender.margins/10000,1,2)} : '' "/>-->
+                            <label for="">成交价格</label>
+                            <input type="text" placeholder="现货价"  maxlength="10" value="现货价" class="mr0" disabled  />
+                        </div>
+                        <div class="release-input-wrap release-input-2">
+
+                            <label for="">竞买底价</label>
+                            <input type="text" placeholder="0.00元/吨" name="saleBasePrice" id="saleBasePrice" th:value=" ${tender != null} ? ${tender.saleBasePrice} : '' "  />
+                            <label for="">加价幅度</label>
+                            <input type="text" name="saleIncreasePriceStep" id="saleIncreasePriceStep" placeholder="0元/吨" th:value=" ${tender != null} ? ${tender.saleIncreasePriceStep} : '' "/>
+                            <label for="">最低竞买量</label>
+                            <input type="text" placeholder="0吨" class="mr0" name="minimumSaleAmount" id="minimumSaleAmount" th:value=" ${tender != null} ? ${tender.minimumSaleAmount} : '' " />
+                        </div>
+                        <div class="release-input-wrap release-input-1">
+                            <label for="">交货方式</label>
+                            <th:block th:if="${tender!=null && tender.transportModeId==1}">
+                                <input type="text" class="deliveryMethod" placeholder="交货方式由运输方式决定" disabled value="卖方矿场交货，竞价方自行组织车辆拉运"/>
+                            </th:block>
+                            <th:block th:if="${tender!=null && tender.transportModeId==2}">
+                                <input type="text" class="deliveryMethod" placeholder="交货方式由运输方式决定" disabled value="卖方矿场车板交货，卖方代办铁路运输，运费、货物保险费等费用均由竞价方承担"/>
+                            </th:block>
+                            <th:block th:if="${tender==null}">
+                                <input type="text" class="deliveryMethod" placeholder="交货方式由运输方式决定" disabled value=""/>
+                            </th:block>
+
+                        </div>
+                        <div class="release-input-wrap release-input-1">
+                            <label for="">结算方式</label>
+                            <textarea name="settlementModeStr" id="settlementModeStr" th:value=" ${tender != null} ? ${tender.settlementModeStr} : '' " >实行煤炭增值税票和运杂费增值税票等分票结算；签订交易合同前全额预付现汇；6个月以内承兑汇票加价20元/吨，6个月以上承兑汇票加价30元/吨。</textarea>
+                        </div>
+                        <div class="release-input-wrap release-input-2">
+                            <label for="">竞价时间</label>
+                            <div class="date-wrap">
+                                <input type="text" placeholder="请选择日期" name="tenderStartDate" id="startTime" th:value=" ${tender != null} ? ${#temporals.format(tender.tenderStartDate,'yyyy-MM-dd HH:mm')} : '' " />
+                            </div>
+                            <div class="from-to">一</div>
+                            <div class="date-wrap">
+                                <input type="text" placeholder="请选择日期" name="tenderEndDate" id="endTime" th:value=" ${tender != null} ? ${#temporals.format(tender.tenderEndDate,'yyyy-MM-dd HH:mm')} : '' "/>
+                            </div>
+                        </div>
+                        <div class="error-p1"></div>
+                    </div>
+                    <div class="release-tender" data-order="2">
+                        <p class="release-title">二、煤炭指标</p>
+                        <div class="release-input-wrap release-input-3">
+                            <label for=""><b>*</b>发热量</label>
+                            <input type="text" name="NCV" placeholder="1-7500之间的整数" th:value="${tender != null} ? ${tender.coalBaseDTO.NCV} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="NCV2" placeholder="1-7500之间的整数" th:value="${tender != null} ? ${tender.coalBaseDTO.NCV2} : '' " />
+                            <div class="unit"> kcal/kg</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="" class="mr35">收到基硫分</label>
+                            <input type="text" name="RS" placeholder="0-10之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.RS} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="RS2" placeholder="0-10之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.RS2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="">空干基挥发分</label>
+                            <input type="text" name="ADV" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.ADV} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="ADV2" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.ADV2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="" class="mr35">全水分</label>
+                            <input type="text" name="TM" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.TM} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="TM2" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.TM2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="">灰分</label>
+                            <input type="text" name="ASH" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.ASH} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="ASH2" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.ASH2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="" class="mr35">空干基硫分</label>
+                            <input type="text" name="ADS" placeholder="0-10之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.ADS} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="ADS2" placeholder="0-10之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.ADS2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="">收到基挥发分</label>
+                            <input type="text" name="RV" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.RV} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="RV2" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.RV2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="" class="mr35">内水分</label>
+                            <input type="text" name="IM" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.IM} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="IM2" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.IM2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="">Y值</label>
+                            <input type="text" name="YV" placeholder="0-100之间的整数值" th:value="${tender != null} ? ${tender.coalBaseDTO.YV} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="YV2" placeholder="0-100之间的整数值" th:value="${tender != null} ? ${tender.coalBaseDTO.YV2} : '' " />
+                            <div class="unit">mm</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="" class="mr35">固定碳</label>
+                            <input type="text" name="FC" placeholder="0-100之间的整数值" th:value="${tender != null} ? ${tender.coalBaseDTO.FC} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="FC2" placeholder="0-100之间的整数值" th:value="${tender != null} ? ${tender.coalBaseDTO.FC2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="">焦渣特征</label>
+                            <input type="text" name="CRC" placeholder="0-100之间的整数值" th:value="${tender != null} ? ${tender.coalBaseDTO.CRC} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="CRC2" placeholder="0-100之间的整数值" th:value="${tender != null} ? ${tender.coalBaseDTO.CRC2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="" class="mr35">G值</label>
+                            <input type="text" name="GV" placeholder="0-100之间的整数值" th:value="${tender != null} ? ${tender.coalBaseDTO.GV} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="GV2" placeholder="0-100之间的整数值" th:value="${tender != null} ? ${tender.coalBaseDTO.GV2} : '' " />
+                            <div class="unit"></div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="">干燥无灰基挥发分</label>
+                            <input type="text" name="VDAF" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.VDAF} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="VDAF2" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.VDAF2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="" class="mr35" >干燥基硫分</label>
+                            <input type="text" name="STD" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.STD} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="STD2" placeholder="0-50之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.STD2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="">哈氏可磨</label>
+                            <input type="text" name="HGI" placeholder="0-99之间的整数" th:value="${tender != null} ? ${tender.coalBaseDTO.HGI} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="HGI2" placeholder="0-99之间的整数" th:value="${tender != null} ? ${tender.coalBaseDTO.HGI2} : '' " />
+                            <div class="unit">%</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="" class="mr35" >灰熔点</label>
+                            <input type="text" name="AFT" placeholder="900-1800之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.AFT} : '' " />
+                            <div class="from-to">至</div>
+                            <input type="text" name="AFT2" placeholder="900-1800之间的值" th:value="${tender != null} ? ${tender.coalBaseDTO.AFT2} : '' " />
+                            <div class="unit">℃</div>
+                        </div>
+                        <div class="release-input-wrap release-input-3">
+                            <label for="">颗粒度</label>
+                            <div>
+                                <select name="PS" id="PS" class="w322">
+                                    <option value="" th:selected="${tender==null}">请选择颗粒度</option>
+                                    <option value="原煤" th:selected="${tender!=null && tender.coalBaseDTO.PS==1}">原煤</option>
+                                    <option value="末煤" th:selected="${tender!=null && tender.coalBaseDTO.PS==2}">末煤</option>
+                                    <option value="混煤" th:selected="${tender!=null && tender.coalBaseDTO.PS==3}">混煤</option>
+                                    <option value="三八块" th:selected="${tender!=null && tender.coalBaseDTO.PS==4}">三八块</option>
+                                    <option value="洗精煤" th:selected="${tender!=null && tender.coalBaseDTO.PS==5}">洗精煤</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="error-p2"></div>
+                    </div>
+                    <div class="release-tender"  data-order="3">
+                        <p class="release-title"><span>*</span>三、考核指标</p>
+                        <div class="release-input-wrap release-input-4">
+                            <div class="indicators">
+                                <script id="indicators" type="text/plain"></script>
+                            </div>
+                            <input type="text" class="display-none" id="KPIStr" name="KPIStr" />
+                            <div class="display-none KPIStr" th:utext="${tender!=null} ? ${tender.KPIStr}:''"></div>
+                            <div class="errorWrap"></div>
+                        </div>
+                    </div>
+                    <div class="release-tender"  data-order="4">
+                        <p class="release-title"><span>*</span>四、竞买资格</p>
+                        <div class="release-input-wrap release-input-4">
+                            <p>资质</p>
+                            <div class="qualification">
+                                <script id="qualification" name="content" type="text/plain"></script>
+                            </div>
+                            <input type="text" class="display-none" id="qualificationStr" name="qualificationStr" />
+                            <div class="display-none qualificationStr" th:utext="${tender!=null} ? ${tender.qualificationStr}:''"></div>
+                            <div class="errorWrap"></div>
+                        </div>
+                        <div class="release-input-wrap release-input-4">
+                            <p>保证金</p>
+                            <div class="qualification">
+                                <script id="marginsCon" name="marginsCon" type="text/plain"></script>
+                            </div>
+                            <input type="text" class="display-none" id="marginsStr" name="marginsStr" />
+                            <div class="display-none marginsStr" th:utext="${tender!=null} ? ${tender.marginsStr}:''"></div>
+                            <div class="errorWrap"></div>
+                        </div>
+                    </div>
+                    <div class="release-tender"  data-order="5">
+                        <p class="release-title"><span>*</span>五、竞买规则</p>
+                        <div class="release-input-wrap release-input-4">
+                            <div class="tender-rules">
+                                <script id="tender-rules" name="content" type="text/plain"></script>
+                            </div>
+                            <input type="text" class="display-none" id="saleRuleStr" name="saleRuleStr" />
+                            <div class="display-none saleRuleStr" th:utext="${tender!=null} ? ${tender.saleRuleStr}:''"></div>
+                            <div class="errorWrap"></div>
+                        </div>
+                    </div>
+                    <div class="release-tender txtCenter">
+                        <input type="submit" value="发布" class="release-btn" />&nbsp;
+                        <input type="submit" value="暂存" class="release-btn temporarilySave" />
+                    </div>
+            </form>
+            <input type="text" class="display-none" th:if="${tender!=null}" th:value="${tender.id}" id="tenderId" />
+            </div>
+        </div>
+        <!--modal-->
+        <div layout:insert="~{/components/modal/modal :: modalHasBtn(0,'本次竞价发布成功！')}" th:remove="tag">
+            <div class="buttons" layout:fragment="modal-content">
+                <input type="button" class="btn confirm" value="确认" id="jumpBtn">
+            </div>
+        </div>
+        <!--modal-->
+    </div>
+
+    <div layout:fragment="script" th:remove="tag">
+        <script type="text/javascript" src="/scripts/plugins/My97DatePicker/WdatePicker.js"></script>
+        <script type="text/javascript" src="/scripts/admin/tender/releaseTender.js"></script>
+    </div>
+</body>
+</html>

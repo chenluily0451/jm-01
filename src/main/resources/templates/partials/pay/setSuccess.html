@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤支付密码设置</title>
+    <link rel="stylesheet" href="/styles/partials/pay/setSuccess.css">
+</head>
+<!--这里是头部的结束内容-->
+<body>
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',3,1)}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content">
+        <div class="set-pwd-step"><img src="/images/partials/pay/pay-step-2.png"/></div>
+        <form class="form-horizontal set-pwd-form" id="setPwdForm">
+            <div class="display-none">
+                <h2>账户开通成功！</h2>
+                <ul class="bank-list">
+                <li>
+                    <span>账户名称：</span>
+                    <strong>某个银行的某个名称</strong>
+                </li>
+                <li>
+                    <span>开户行：</span>
+                    <strong>上海银行什么分行之类的</strong>
+                </li>
+                <li>
+                    <span>账户号：</span>
+                    <strong>3289 7474 8923 8909 08</strong>
+                </li>
+                <li>
+                    <span>账户类型：</span>
+                    <strong>易煤网资金账户</strong>
+                </li>
+                <li>
+                    <a href="/admin/platformOverView" class="btn">开始使用</a>
+                </li>
+            </ul>
+            </div>
+            <div id="warningWrap">
+                <h3>账户开通成功</h3>
+                <p class="tips">中信银行系统已为您开通附属账户，<span class="txt-warning" id="curSeconds">10s</span>后跳转至账户概览</p>
+            </div>
+            <div layout:insert="~{/components/modal/modal :: modalHasBtn(1,'网络传输超时，开通账户失败。')}" th:remove="tag">
+                <div class="buttons" layout:fragment="modal-content">
+                    <a href="/pay/setPwd" class="btn btn-blue">重新提交</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/pay/setSuccess.js"></script>
+</div>
+</body>
+</html>

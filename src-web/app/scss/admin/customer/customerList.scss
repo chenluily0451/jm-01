@@ -1,0 +1,74 @@
+.form-search{
+  overflow:hidden;
+  padding:20px 0 20px 22px;
+  border:1px solid #ebebeb;
+  font-size:14px;
+}
+.list-table{
+  width:100%;
+  margin-top:10px;
+  border:1px solid #ebebeb;
+  border-bottom:0;
+  background:#fff;
+  table-layout:fixed;
+  font-size:14px;
+  th,td{
+    height:44px;
+    border-bottom:1px solid #ebebeb;
+    text-indent:20px;
+  }
+  th{
+    background:#fafafa;
+    color:#999999;
+    font-weight:normal;
+    span{
+      padding:0 12px;
+    }
+  }
+  tr{
+    &:hover{
+      td{
+        background:#f2f9ff;
+        .btn-blue-admin{
+          background:#f2f9ff;
+        }
+      }
+    }
+    td{
+      .btn-blue-admin{
+        display:inline;
+        background:#fff;
+        color:#0274d1;
+        text-align:center;
+        &:hover{
+          background:#61aaf2;
+          color:#fff;
+        }
+      }
+    }
+  }
+  .company-name{
+    padding:20px;
+    text-indent:0;
+  }
+}
+.pagination-wrap{
+  border-top:0px;
+}
+.select2-container--default .select2-selection--single{
+  height:34px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+  margin-top:3px;
+}
+.select2-container--default .select2-results > .select2-results__options{
+  font-size:14px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b{
+  top:56%
+}
+#background-page{
+  .form-control{
+    border-radius:4px;
+  }
+}

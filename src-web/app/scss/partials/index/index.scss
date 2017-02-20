@@ -1,0 +1,296 @@
+@import '../../helpers/_mixins';
+
+#jm-index{
+  background: #f2f2f2;
+  .wrapper{
+    width: 100%;
+
+    .jm-slide{height: 400px;width: 100%;min-width: 1200px;position: relative}
+    .jm-slide .slide-btn{
+      display: block;
+      width: 39px;
+      height: 95px;
+      transition: opacity ease-in-out .4s;
+
+      &:hover {
+        filter: alpha(opacity=30);
+        -moz-opacity: 0.3;
+        opacity: 0.3;
+      }
+    }
+    .jm-slide a.prev {
+      background: #000 url("/images/partials/index/sub-arrow.png") no-repeat 8px 18px;
+      position: absolute;
+      top: 130px;
+      left: 50%;
+      margin-left: -600px;
+      filter: alpha(opacity=10);
+      -moz-opacity: 0.1;
+      opacity: 0.1;
+    }
+    .jm-slide a.next {
+      background: #000 url("/images/partials/index/sub-arrow.png") no-repeat -26px 18px;
+      position: absolute;
+      top: 130px;
+      left: 50%;
+      margin-left: 562px;
+      filter: alpha(opacity=10);
+      -moz-opacity: 0.1;
+      opacity: 0.1;
+    }
+    .jm-slide .bd {
+      width: 100% !important;height: 400px;overflow: hidden;
+      position: relative;
+      ul{
+        width: 100% !important;
+        overflow: hidden;
+        li {
+          width: 100%;
+          height: 400px;
+          text-align: center;
+          a{
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+    .jm-slide .hd{
+      position: absolute;
+      z-index: 99;
+      height: 16px;
+      width: 100%;
+      bottom: 20px;
+
+      ul{
+        width: 100%;
+        text-align: center;
+        li{display: inline-block;width: 16px;height: 16px;cursor:pointer;background: url("/images/partials/index/circle-black.png") no-repeat;margin-right: 6px;}
+        li.on{background: url("/images/partials/index/circle-red.png") no-repeat;}
+      }
+    }
+    .info-subTit{
+      width: 100%;background: #f2f2f2;padding:30px 0;
+
+      .info-block{
+        width: 1200px;
+        margin: 0 auto;
+        height: 110px;
+        background: #fff;
+        box-shadow: 0 1px 3px #ccc;
+        color:#333;
+        overflow: hidden;
+
+        li{
+          float: left;
+          width: 399px;
+          height: 110px;
+          border-right:1px solid #e0e0e0;
+          overflow: hidden;
+          &.no-border{border:none;}
+          .total-amount{color:#d92b2b;font-size: 48px;padding-top: 0; }
+          display: none;
+        }
+//        .info-pz1{  background: url("/images/partials/index/pz1.png") no-repeat 36px center}
+//        .info-pz2{background: url("/images/partials/index/pz2.png") no-repeat 36px center}
+//        .info-pz3{background: url("/images/partials/index/pz3.png") no-repeat 36px center}
+        .info-mt{font-size: 18px;color:#333;padding-left: 125px;padding-top: 30px;}
+        .pd{padding-top: 20px;}
+
+        .info-st{font-size: 14px;color:#999;padding-left: 125px;padding-top: 10px;}
+
+      }
+    }
+
+    .coal-block{
+      background: #fff;
+
+      .coal-wrap{
+        width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+        padding-top: 15px;
+        padding-bottom: 96px;
+
+        .coal-inner{
+          float: left;
+          p.coal-list-name{float: left;font-size: 18px;color:#333;}
+          p.coal-more{float: right;font-size: 12px;color:#333;position:relative;top: 4px;}
+          p.coal-more a{color:#333;}
+          p.coal-more a:hover{color:#0274d0;}
+          p.coal-more i{display: inline-block;width: 8px;height: 9px;background: url("/images/partials/index/more-icon.png") no-repeat;}
+
+          .coal-inner-tit{
+            padding-bottom: 10px;
+            overflow: hidden;
+          }
+          .coal-inner-content{
+            border:1px solid #ebebeb;
+            border-top: 2px solid #0274d0;
+            overflow: hidden;
+
+            .coal-inner-list{
+              padding-left: 20px;
+              li{
+                padding:20px 0;
+                font-size: 0;
+                border-bottom:1px solid #ebebeb;
+                & > div{
+                  vertical-align: top;
+                  background: url("/images/partials/index/coallist-border.png") no-repeat right center;
+                  display: inline-block;
+                  min-height: 140px;
+                }
+                &.last{
+                  border:none;
+                }
+              }
+              .coal-bid-time{
+                width: 313px;
+                .img-wrap{width: 140px;height: 140px;margin-right: 20px;background: #cccccc}
+                > *{
+                  vertical-align: top;
+                  display: inline-block;
+                }
+
+              }
+              .coal-bid-amount{width: 87px;}
+              .coal-bid-transfer{width: 90px;}
+              .coal-bid-money{width: 90px;}
+              .coal-bid-status{width: 130px;}
+              .coal-bid-control{width: 165px;background: none;}
+
+              .coal-grey-tit{
+                font-size: 14px;
+                color:#999;
+                text-align: center;
+                width: 100%;
+                padding-top: 15px;
+              }
+              .coal-bid-inner{
+                font-size: 14px;
+                color:#000;
+                text-align: center;
+                padding-top: 20px;
+
+                p{padding-bottom: 3px;}
+                .pt24{
+                  padding-top: 24px;
+                  b{color:#ff0000;}
+                  .bid-btn{
+                    width: 100px;
+                    height: 30px;
+                    font-size: 12px;
+                    color:#333;
+                    line-height: 28px;
+                    text-align: center;
+                    background: #fafafa;
+                    border:1px solid #e4e4e4;
+                    border-radius: 2px;
+                    display: block;
+                    margin: 0 auto;
+
+                    &:hover{
+                     background: #fff;
+                     border:1px solid #2B6DD3;
+                     color:#2B6DD3;
+                    }
+                  }
+                  .tenderBtn{
+                    color:#fff;
+                    border:none;
+                    background: #d92b2b;
+                    &:hover{
+                      background: #CA0007;
+                      color:#fff;
+                      border:none;
+                    }
+                  }
+                  .bidding-btn{
+                    background: #d92b2b;
+                    color:#fff;
+                    border:none;
+                  }
+                }
+
+                .bid-step{
+                  width: 66px;
+                  height: 71px;
+                  margin: 0 auto;
+                  
+                }
+                .bid-step1{
+                  background: url("/images/common/bidding-status.png") no-repeat 0 0;
+                }
+                .bid-step2{
+                  background: url("/images/common/bidding-status.png") no-repeat -67px 0;
+                }
+                .bid-step3{
+                  background: url("/images/common/bidding-status.png") no-repeat -134px 0;
+                }
+                .bid-step4 {
+                  background: url(/images/common/bidding-status.png) no-repeat -201px 0;
+                }
+              }
+            }
+          }
+        }
+        .coal-inner-l{width: 900px;}
+        .coal-inner-r{width: 290px;margin-left: 10px;}
+        .coal-inner-r{
+          .coal-inner-content{
+            min-height: 316px;
+            padding-top:18px;
+            li{
+              padding:0 10px;
+              margin-bottom: 24px;
+              & > *{display: inline-block}
+              .public-num{width: 14px;height: 14px;background: #999;color:#fff;text-align: center;line-height: 14px;margin-right: 5px;}
+              .public-hot{background: #0274d0}
+              .public-tit{
+                width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                vertical-align:bottom;
+                a{
+                  color:#333;
+                  font-size: 14px;
+                  &:hover{
+                    color:#0274d0;
+                  }
+                }
+              }
+              .public-date{color:#999;font-size: 14px;}
+              &.mb18{margin-bottom: 18px;}
+            }
+          }
+          .coal-ad{
+            margin-top: 10px;
+            width: 290px;
+            height: 219px;
+            background: #ccc;
+            overflow: hidden;
+            img{
+              width: 100%;
+              transition: all ease-in .3s;
+              &:hover{
+                filter:alpha(opacity=80);
+                opacity: .8;
+              }
+            }
+          }
+        }
+        .coal-inner-l .no-data{
+          text-align: center;
+          padding: 228px 0;
+        }
+        .coal-inner-r .no-data{
+          text-align: center;
+          padding: 104px 0;
+        }
+      }
+    }
+  }
+}

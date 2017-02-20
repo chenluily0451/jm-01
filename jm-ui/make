@@ -1,0 +1,26 @@
+#!/bin/bash
+
+source ../../aegis-docker/bin/aegis-config
+export container_name="jm-ui"
+export project_name=docker-jm-ui
+export image_name=aegis-jm-ui
+
+rm -rf dist
+cp -rf ../src-web/dist  .
+
+# 重写mbt!!!!!
+mbt_rewrite;
+create()      { echo "ERROR: target not supported" | color red bold; }
+stop()        { echo "ERROR: target not supported" | color red bold; }
+start()       { 
+    docker run -d --name jm-ui aegis-jm-ui echo "jm-ui created";
+}
+publish()     { echo "ERROR: target not supported" | color red bold; }
+devPublish()  { echo "ERROR: target not supported" | color red bold; }
+enter()       { echo "ERROR: target not supported" | color red bold; }
+log()         { echo "ERROR: target not supported" | color red bold; }
+local()       { echo "ERROR: target not supported" | color red bold; }
+debug()       { echo "ERROR: target not supported" | color red bold; }
+
+eval "$@"
+

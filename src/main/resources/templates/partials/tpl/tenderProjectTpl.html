@@ -1,0 +1,192 @@
+<div th:fragment="tenderProjectTpl(project)">
+    <ul class="tableWrap tempInsert">
+        <li th:remove="${project.coalStr}?none:all">
+            <div class="greyBg">煤种</div>
+            <div class="tempName" th:text="${project.coalStr}"></div>
+            <div class="inputWrap">
+                <input type="text" name="coalStr" class="wid100" required placeholder="请输入煤种" />
+            </div>
+        </li>
+        <li th:remove="${project.origin}?none:all">
+            <div class="greyBg">产地</div>
+            <div class="tempName" th:text="${project.origin}"></div>
+            <div class="inputWrap">
+                <input type="text" name="origin" class="wid100" required  placeholder="请输入产地" />
+            </div>
+        </li>
+        <li th:remove="${project.NCV}?none:all">
+            <div class="greyBg">热值(Qnet,ar)</div>
+            <div class="tempName" th:text="${project.NCV+'-'+ project.NCV2+'kcal/kg'}"></div>
+            <div class="inputWrap rz"><input type="text" name="NCV" required />
+                <span class="txt">-</span>
+                <input type="text" name="NCV2" required />
+                <span class="txt">kcal/kg</span>
+            </div>
+        </li>
+        <li th:remove="${project.RS}?none:all">
+            <div class="greyBg">收到基硫分(Std)</div>
+            <div class="tempName" th:text="${project.RS+'-'+ project.RS2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="RS" required />
+                <span class="txt">-</span>
+                <input type="text" name="RS2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.ADV}?none:all">
+            <div class="greyBg">空干基挥发分(Vdaf)</div>
+            <div class="tempName" th:text="${project.ADV+'-'+ project.ADV2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="ADV" required />
+                <span class="txt">-</span>
+                <input type="text" name="ADV2" required />
+                <span class="txt">%</span>
+                
+            </div>
+        </li>
+        <li th:remove="${project.TM}?none:all">
+            <div class="greyBg">全水分(Mt)</div>
+            <div class="tempName" th:text="${project.TM+'-'+ project.TM2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="TM" required />
+                <span class="txt">-</span>
+                <input type="text" name="TM2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.ASH}?none:all">
+            <div class="greyBg">灰分(Ad)</div>
+            <div class="tempName" th:text="${project.ASH+'-'+ project.ASH2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="ASH" required />
+                <span>-</span>
+                <input type="text" name="ASH2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.AFT}?none:all">
+            <div class="greyBg">灰熔点</div>
+            <div class="tempName" th:text="${project.AFT+'-'+ project.AFT2+'°C'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="AFT" required />
+                <span>-</span>
+                <input type="text" name="AFT2" required />
+                <span class="txt">°C</span>
+            </div>
+        </li>
+        <li th:remove="${project.FC}?none:all">
+            <div class="greyBg">固定碳</div>
+            <div class="tempName" th:text="${project.FC+'-'+ project.FC2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="FC" required />
+                <span>-</span>
+                <input type="text" name="FC2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.CRC}?none:all">
+            <div class="greyBg">焦渣特征</div>
+            <div class="tempName" th:text="${project.CRC+'-'+ project.CRC2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="CRC" required />
+                <span>-</span>
+                <input type="text" name="CRC2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.GV}?none:all">
+            <div class="greyBg">G值</div>
+            <div class="tempName" th:text="${project.GV+'-'+ project.GV2}"></div>
+            <div class="inputWrap">
+                <input type="text" name="GV" required />
+                <span>-</span>
+                <input type="text" name="GV2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.YV}?none:all">
+            <div class="greyBg">Y值</div>
+            <div class="tempName" th:text="${project.YV+'-'+ project.YV2+'mm'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="YV" required />
+                <span>-</span>
+                <input type="text" name="YV2" required />
+                <span class="txt">mm</span>
+            </div>
+        </li>
+        <li th:remove="${project.IM}?none:all">
+            <div class="greyBg">内水分</div>
+            <div class="tempName" th:text="${project.IM+'-'+ project.IM2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="IM" required />
+                <span>-</span>
+                <input type="text" name="IM2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.ADS}?none:all">
+            <div class="greyBg">空干基硫分</div>
+            <div class="tempName" th:text="${project.ADS+'-'+ project.ADS2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="ADS" required />
+                <span>-</span>
+                <input type="text" name="ADS2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.RV}?none:all">
+            <div class="greyBg">收到基挥发分</div>
+            <div class="tempName" th:text="${project.RV+'-'+ project.RV2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="RV" required />
+                <span>-</span>
+                <input type="text" name="RV2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.PS}?none:all">
+            <div class="greyBg">颗粒度</div>
+            <div class="tempName" th:text="${project.PS}"></div>
+            <div class="inputWrap">
+                <select name="PS" class="psSelect wid100">
+                    <option value="">请选择</option>
+                    <option value="原煤">原煤</option>
+                    <option value="末煤">末煤</option>
+                    <option value="混煤">混煤</option>
+                    <option value="三八块">三八块</option>
+                    <option value="洗精煤">洗精煤</option>
+                </select>
+            </div>
+        </li>
+        <li th:remove="${project.HGI}?none:all">
+            <div class="greyBg">哈氏可磨</div>
+            <div class="tempName" th:text="${project.HGI+'-'+ project.HGI2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="HGI" required />
+                <span class="txt">-</span>
+                <input type="text" name="HGI2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.VDAF}?none:all">
+            <div class="greyBg">干燥无灰基挥发分</div>
+            <div class="tempName" th:text="${project.VDAF+'-'+ project.VDAF2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="VDAF" required />
+                <span class="txt">-</span>
+                <input type="text" name="VDAF2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+        <li th:remove="${project.STD}?none:all">
+            <div class="greyBg">干燥基硫分</div>
+            <div class="tempName" th:text="${project.STD+'-'+ project.STD2+'%'}"></div>
+            <div class="inputWrap">
+                <input type="text" name="STD" required />
+                <span class="txt">-</span>
+                <input type="text" name="STD2" required />
+                <span class="txt">%</span>
+            </div>
+        </li>
+    </ul>
+</div>

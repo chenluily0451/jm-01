@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤竞标公示</title>
+    <link rel="stylesheet" href="/styles/admin/notice/noticeList.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/background-subNav}" th:remove="tag"></div>
+</div>
+<div layout:fragment="wrapper">
+    <div class="main">
+        <div layout:insert="~{/layout/sidebar-finance :: sidebarFinance(3)}" th:remove="tag"></div>
+        <div class="bg-inner">
+            <div class="notice-list-wrap">
+                <form action="" class="noticeForm">
+                    <div class="input-wrap m380">
+                        <label for="">公示名称：</label>
+                        <input type="text" placeholder="请输入所要查询的公示名称" id="noticeName" name="noticeName" th:value="${searchParam!=null?searchParam.noticeName:''}" class="w288" />
+                    </div>
+                    <div class="input-wrap m380">
+                        <label for="">发布时间：</label>
+                        <div class="date-wrap">
+                            <input type="text" placeholder="请选择日期" name="createStartDate" th:value="${searchParam!=null?searchParam.createStartDate:''}" id="startTime" />
+                        </div>
+                        <div class="from-to">一</div>
+                        <div class="date-wrap">
+                            <input type="text" placeholder="请选择日期" name="createEndDate" th:value="${searchParam!=null?searchParam.createEndDate:''}" id="endTime"/>
+                        </div>
+                    </div>
+                    <div class="input-wrap"><input type="submit" value="查询" class="input-search" /></div>
+                    <div class="input-wrap mr0"><a href="/admin/notice/releaseNotice">发布公示</a></div>
+                </form>
+            </div>
+            <div class="notice-list-wrap">
+                <ul class="notice-list-ul">
+                    <li class="notice-tit">
+                        <div class="notice-bar1">公示名称</div>
+                        <div class="notice-bar2">发布时间</div>
+                        <div class="notice-bar3">操作</div>
+                    </li>
+                    <li th:each="notice:${page.results}">
+                        <div class="notice-bar1" th:text="${notice.noticeName}">一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</div>
+                        <div class="notice-bar2" th:text="|${#temporals.format(notice.lastUpdateDate,'yyyy-MM-dd HH:mm')}">2016-09-22  14:00:00</div>
+                        <div class="notice-bar3"><a th:href="|/admin/notice/${notice.id}|">查看详情</a><a href="javascript:void(0)" th:if="${notice.status==1}" class="backOutBtn" th:attr="data-id=${notice.id}">撤销</a></div>
+                    </li>
+                </ul>
+                <div class="box pagination-wrap text-c" th:insert="/components/pagination/pagination :: pagination (page=${page})"></div>
+            </div>
+        </div>
+        <div layout:insert="~{/components/modal/modal :: modalHasBtn(1,'撤销后不可恢复，您确定撤销该公示吗?')}" th:remove="tag">
+            <div class="buttons" layout:fragment="modal-content">
+                <input type="button" class="btn confirm" value="确定" id="modalRevokedBtn">
+                &nbsp;
+                <input type="button" class="btn cancel" value="取消" data-dismiss="modal">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/scripts/admin/notice/noticeList.js"></script>
+</div>
+</body>
+</html>

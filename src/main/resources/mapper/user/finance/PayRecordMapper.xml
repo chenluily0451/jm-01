@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.user.finance.mapper.PayRecordMapper">
+  <sql id="Base_Column_List">
+    id, tenderId, tenderCode, tradeId, status, type, amount, bankId, payRemark, payCompanyId,
+    paySystemNum, payAccountName, payAccountNo, recSystemNum, recAccountName, recAccountNo, 
+    createDate,  createBy, deleted, bankMsg,payApplyId
+  </sql>
+
+  <select id="selectByTypeAndCompanyId" resultType="com.jm.bid.user.finance.entity.PayRecord">
+    select <include refid="Base_Column_List" /> from jm_payRecord where tenderId = #{tenderId,jdbcType=BIGINT} and
+    payCompanyId=#{payCompanyId,jdbcType=VARCHAR} and type= #{type,jdbcType=INTEGER} order by id desc limit 1
+  </select>
+
+  <select id="findAllPayRecord" resultType="com.jm.bid.user.finance.entity.PayRecord">
+      select <include refid="Base_Column_List"/> from jm_payRecord   where  payAccountNo=#{payAccountNo}
+      <if test="recAccountNo!= null and  recAccountNo!='' "> and  (recAccountNo like '%' #{recAccountNo} '%' or recAccountName like '%' #{recAccountNo} '%')  </if>
+      <if test="type!=null and type gt 0 "> and  type=#{type,jdbcType=INTEGER}</if>
+      <if test="status!=null and (status gte 1 and status lte 4)"> and  status=#{status} </if>
+      <if test="createStartDate!=null and  createEndDate!=null">and date_format(createDate,'%Y-%m-%d') between #{createStartDate} and #{createEndDate} </if>
+      <if test="createStartDate!=null and  createEndDate==null">and date_format(createDate,'%Y-%m-%d') between #{createStartDate} and date(now()) </if>
+      <if test="createStartDate==null and  createEndDate!=null">and date_format(createDate,'%Y-%m-%d') <![CDATA[ < ]]> #{createEndDate} </if>
+    order by createDate desc
+  </select>
+
+
+
+
+  <select id="loadAllTradeByStatus" resultType="com.jm.bid.user.finance.entity.PayRecord">
+    select    <include refid="Base_Column_List"/> from jm_payRecord where  deleted=0
+    <if test="status!=null and status.length gt 0">
+      and status in
+      <foreach collection="status" open="(" close=")" separator="," item="s">
+        #{s}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="selectByTypeAndTenderId" resultType="com.jm.bid.user.finance.entity.PayRecord">
+    select  <include refid="Base_Column_List"/> from jm_payRecord where tenderId =#{tenderId,jdbcType=BIGINT}
+   and type=#{type,jdbcType=INTEGER} and deleted=0 and status=#{status,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByTradeId" resultType="com.jm.bid.user.finance.entity.PayRecord">
+     select  <include refid="Base_Column_List"/> from jm_payRecord where tradeId=#{tradeId,jdbcType=VARCHAR} and deleted=0
+  </select>
+
+  <insert id="insertSelective" parameterType="com.jm.bid.user.finance.entity.PayRecord">
+    insert into jm_payRecord
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tenderId != null"> tenderId, </if>
+      <if test="tenderCode != null"> tenderCode, </if>
+      <if test="tradeId != null"> tradeId, </if>
+      <if test="status != null"> status, </if>
+      <if test="type != null"> type, </if>
+      <if test="amount != null"> amount, </if>
+      <if test="bankId != null"> bankId, </if>
+      <if test="payRemark!= null"> payRemark, </if>
+      <if test="payCompanyId != null"> payCompanyId, </if>
+      <if test="paySystemNum != null"> paySystemNum, </if>
+      <if test="payAccountName != null"> payAccountName, </if>
+      <if test="payAccountNo != null"> payAccountNo, </if>
+      <if test="recSystemNum != null"> recSystemNum, </if>
+      <if test="recAccountName != null"> recAccountName, </if>
+      <if test="recAccountNo != null"> recAccountNo, </if>
+      <if test="createDate != null"> createDate, </if>
+      <if test="createBy != null"> createBy, </if>
+      <if test="deleted != null"> deleted, </if>
+      <if test="bankMsg != null"> bankMsg, </if>
+      <if test="payApplyId!= null"> payApplyId, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tenderId != null"> #{tenderId,jdbcType=BIGINT}, </if>
+      <if test="tenderCode != null"> #{tenderCode,jdbcType=VARCHAR}, </if>
+      <if test="tradeId != null"> #{tradeId,jdbcType=VARCHAR}, </if>
+      <if test="status != null"> #{status,jdbcType=INTEGER}, </if>
+      <if test="type != null"> #{type,jdbcType=INTEGER}, </if>
+      <if test="amount != null"> #{amount,jdbcType=DECIMAL}, </if>
+      <if test="bankId != null"> #{bankId,jdbcType=INTEGER}, </if>
+      <if test="payRemark != null"> #{payRemark,jdbcType=VARCHAR}, </if>
+      <if test="payCompanyId != null"> #{payCompanyId,jdbcType=VARCHAR}, </if>
+      <if test="paySystemNum != null"> #{paySystemNum,jdbcType=VARCHAR}, </if>
+      <if test="payAccountName != null"> #{payAccountName,jdbcType=VARCHAR}, </if>
+      <if test="payAccountNo != null"> #{payAccountNo,jdbcType=VARCHAR}, </if>
+      <if test="recSystemNum != null"> #{recSystemNum,jdbcType=VARCHAR}, </if>
+      <if test="recAccountName != null"> #{recAccountName,jdbcType=VARCHAR}, </if>
+      <if test="recAccountNo != null"> #{recAccountNo,jdbcType=VARCHAR}, </if>
+      <if test="createDate != null"> #{createDate,jdbcType=TIMESTAMP}, </if>
+      <if test="createBy != null"> #{createBy,jdbcType=VARCHAR}, </if>
+      <if test="deleted != null"> #{deleted,jdbcType=BIT}, </if>
+      <if test="bankMsg != null"> #{bankMsg,jdbcType=VARCHAR}, </if>
+      <if test="payApplyId!= null"> #{payApplyId,jdbcType=BIGINT}, </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jm.bid.user.finance.entity.PayRecord">
+    update jm_payRecord
+    <set>
+      <if test="tenderId != null"> tenderId = #{tenderId,jdbcType=BIGINT}, </if>
+      <if test="tenderCode != null"> tenderCode = #{tenderCode,jdbcType=VARCHAR}, </if>
+      <if test="tradeId != null"> tradeId = #{tradeId,jdbcType=VARCHAR}, </if>
+      <if test="status != null"> status = #{status,jdbcType=INTEGER}, </if>
+      <if test="type != null"> type = #{type,jdbcType=INTEGER}, </if>
+      <if test="amount != null"> amount = #{amount,jdbcType=DECIMAL}, </if>
+      <if test="bankId != null"> bankId = #{bankId,jdbcType=INTEGER}, </if>
+      <if test="payRemark!= null"> payRemark= #{payRemark,jdbcType=VARCHAR}, </if>
+      <if test="payCompanyId != null"> payCompanyId = #{payCompanyId,jdbcType=VARCHAR}, </if>
+      <if test="paySystemNum != null"> paySystemNum = #{paySystemNum,jdbcType=VARCHAR}, </if>
+      <if test="payAccountName != null"> payAccountName = #{payAccountName,jdbcType=VARCHAR}, </if>
+      <if test="payAccountNo != null"> payAccountNo = #{payAccountNo,jdbcType=VARCHAR}, </if>
+      <if test="recSystemNum != null"> recSystemNum = #{recSystemNum,jdbcType=VARCHAR}, </if>
+      <if test="recAccountName != null"> recAccountName = #{recAccountName,jdbcType=VARCHAR}, </if>
+      <if test="recAccountNo != null"> recAccountNo = #{recAccountNo,jdbcType=VARCHAR}, </if>
+      <if test="createDate != null"> createDate = #{createDate,jdbcType=TIMESTAMP}, </if>
+      <if test="createBy != null"> createBy = #{createBy,jdbcType=VARCHAR}, </if>
+      <if test="deleted != null"> deleted = #{deleted,jdbcType=BIT}, </if>
+      <if test="bankMsg != null"> bankMsg = #{bankMsg,jdbcType=VARCHAR}, </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

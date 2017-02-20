@@ -1,0 +1,24 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body layout:fragment="subNav(headText,curIndex,flag)">
+    <div class="sub-nav" id="subNav">
+        <div class="sub-nav-content">
+            <div class="logo-wrap">
+                <a href="/login"><img src="/images/common/jm-logo.png" alt="jm-logo"/></a>
+                <th:block th:if="${headText}!=''">
+                    <p th:text="${headText}">标题</p>
+                </th:block>
+            </div>
+            <ul class="pull-right head-menu" th:if="${flag}=='1'">
+                <li><a href="/" th:class="${curIndex}=='0'?'active':''">首页</a></li>
+                <li><a href="/tender" th:class="${curIndex}=='1'?'active':''">我要竞标</a></li>
+                <li><a href="/tender/notice" th:class="${curIndex}=='2'?'active':''">中标公告</a></li>
+                <li><a href="/account" th:class="${curIndex}=='3'?'active':''">我的账户</a></li>
+            </ul>
+            <div class="pull-right register-btn" th:if="${flag}=='2'">
+                <p>已有账号？<a href="/login">立即登录</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

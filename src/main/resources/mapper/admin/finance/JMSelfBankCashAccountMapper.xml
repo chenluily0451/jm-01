@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.admin.finance.mapper.JMSelfBankCashAccountMapper">
+
+    <sql id="Base_Column_List">
+    id, accId, bankAccountName, bankAccountNum,accountType, bankId, available, createDate, createBy
+  </sql>
+
+    <select id="selectByAccountTypeAndBankType"  resultType="com.jm.bid.admin.finance.entity.JMSelfBankCashAccount">
+        select <include refid="Base_Column_List"/> from jm_self_bankCashAccount where accountType= #{accountType,jdbcType=INTEGER} and bankId=#{bankType,jdbcType=INTEGER} order by id
+    </select>
+
+    <select id="loadBankAccountsByStatus" resultType="com.jm.bid.admin.finance.entity.JMSelfBankCashAccount">
+        select <include refid="Base_Column_List"/> from jm_self_bankCashAccount where available=#{available,jdbcType=BIT}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.jm.bid.admin.finance.entity.JMSelfBankCashAccount">
+        insert into jm_self_bankCashAccount
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accId != null">accId,</if>
+            <if test="bankAccountName != null">bankAccountName,</if>
+            <if test="bankAccountNum != null">bankAccountNum,</if>
+            <if test="bankId != null">bankId,</if>
+            <if test="accountType!= null">accountType,</if>
+            <if test="available != null">available,</if>
+            <if test="createDate != null">createDate,</if>
+            <if test="createBy != null">createBy,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accId != null">#{accId,jdbcType=VARCHAR},</if>
+            <if test="bankAccountName != null">#{bankAccountName,jdbcType=VARCHAR},</if>
+            <if test="bankAccountNum != null">#{bankAccountNum,jdbcType=VARCHAR},</if>
+            <if test="bankId != null">#{bankId,jdbcType=INTEGER},</if>
+            <if test="accountType!= null">#{accountType,jdbcType=INTEGER},</if>
+            <if test="available != null">#{available,jdbcType=BIT},</if>
+            <if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.jm.bid.admin.finance.entity.JMSelfBankCashAccount">
+        update jm_self_bankCashAccount
+        <set>
+            <if test="accId != null">accId = #{accId,jdbcType=VARCHAR},</if>
+            <if test="bankAccountName != null">bankAccountName = #{bankAccountName,jdbcType=VARCHAR},</if>
+            <if test="bankAccountNum != null">bankAccountNum = #{bankAccountNum,jdbcType=VARCHAR},</if>
+            <if test="bankId != null">bankId = #{bankId,jdbcType=INTEGER},</if>
+            <if test="accountType!= null">accountType=#{accountType,jdbcType=INTEGER},</if>
+            <if test="available != null">available = #{available,jdbcType=BIT},</if>
+            <if test="createDate != null">createDate = #{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="createBy != null">createBy = #{createBy,jdbcType=VARCHAR},</if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

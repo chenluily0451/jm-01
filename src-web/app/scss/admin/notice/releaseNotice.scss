@@ -1,0 +1,118 @@
+@import '/scripts/plugins/My97DatePicker/skin/WdatePicker.css';
+
+.notice-wrap{
+  border:1px solid #ebebeb;
+  background: #fff;
+  padding: 20px;
+  padding-left: 35px;
+  margin-bottom: 10px;
+
+  .notice-input-wrap{
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 0;
+    & > div{min-width: 450px;}//ie
+    div{display: inline-block;font-size: 14px;color:#666;vertical-align: middle;}
+    .pf55{padding-left: 55px;}
+    div label{
+      font-weight: normal;
+      width: 65px;
+      margin: 0;
+    }
+    div select,input{
+      width: 380px;
+      outline: none;
+      height: 32px;
+      border-radius: 4px;
+      border:1px solid #ccc;
+      padding-left: 10px;
+      line-height: 32px;
+    }
+    input{&:focus{border:1px solid #61aaf2}}
+    div .date-wrap{
+        position: relative;
+        input{margin:0;width: 179px;}
+        &:after{
+          content: '';
+          width: 21px;
+          height: 19px;
+          background: url("/images/icons/date-icon.png") no-repeat 0px;
+          position: absolute;
+          right: 10px;
+          top: 7px;
+        }
+    }
+
+  }
+  .mb0{margin-bottom: 0;}
+
+  .notice-content{
+    font-size: 12px;
+    color:#999;
+    margin-bottom: 10px;
+    span{
+      padding-right: 10px;
+      color:#666;
+      font-size: 14px;
+    }
+  }
+  .notice-inner{ min-height: 486px;}
+  .notice-btnWrap{
+    margin-top: 10px;
+    .btn-control,a{
+      width: 70px;
+      padding:5px 0;
+      display:inline-block;
+      border-radius: 4px;
+      color:#fff;
+      background: #ccc;
+      font-size:14px;
+      text-align: center;
+      margin-right: 10px;
+      border: none;
+      vertical-align: middle;
+    }
+    .cancelBtn{
+      &:hover{
+        background: grey;
+      }
+    }
+    .btn-control{background: #61aaf2;}
+    .btn-control:hover{background: #0274d0;}
+  }
+  //  select2样式初始
+  select{opacity: 0;filter:alpha(opacity=0)}
+  .select2-selection{
+    height: 32px;
+    outline: none;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__arrow{
+    top: 4px;
+    right: 4px;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 32px;
+  }
+  .select2-container--default .select2-selection--single{border:1px solid #ccc;}
+  .select2-selection__placeholder{
+    font-size: 14px;
+    line-height: 32px;
+  }
+  input[disabled]{
+    border:none;
+  }
+  .errorWrap{
+    color:#ff0000;
+    font-size: 12px;
+    padding-top: 10px;
+    label{display: inline-block;width: 100%;}
+  }
+  .errorWrap1{
+    display: inline-block;
+    color:#ff0000;
+    font-size: 12px;
+    label{display: inline-block;width: 100%;}
+  }
+}
+.pr45{padding-right: 45px;}
+

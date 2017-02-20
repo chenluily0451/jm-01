@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤银行流水</title>
+    <link rel="stylesheet" href="/styles/partials/pay/bankBill.css">
+    <script src="/scripts/plugins/My97DatePicker/WdatePicker.js"></script>
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',3,1)}" th:remove="tag"></div>
+</div>
+<div layout:fragment="wrapper">
+    <div class="main">
+        <div layout:insert="~{/layout/sidebar-buyer :: sidebarBuyer(4)}" th:remove="tag"></div>
+        <div class="bg-inner content-right">
+            <form class="form-inline trade-record">
+                <div class="form-group w385">
+                    <label class="pull-left padding-top-6">创建时间：</label>
+                    <div class="date-wrap">
+                        <input type="text" placeholder="请选择日期" name="startDate" th:value="${searchParam!=null?searchParam.startDate:''}" id="startTime"/>
+                    </div>
+                    <div class="from-to">一</div>
+                    <div class="date-wrap">
+                        <input type="text" placeholder="请选择日期" name="endDate" th:value="${searchParam!=null?searchParam.endDate:''}" id="endTime"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="pull-left padding-top-6">类型：</label>
+                    <div class="col-sm-4 no-padding-left">
+                        <select name="tradeType" class="form-control">
+                            <option value="C"  th:selected="${searchParam.tradeType!=null && searchParam.tradeType.name()=='C'}">入金</option>
+                            <option value="D"  th:selected="${searchParam.tradeType!=null && searchParam.tradeType.name()=='D'}">出金</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="查询" class="btn btn-search" autocomplete="off">
+                </div>
+            </form>
+            <table class="list-table">
+                <tr>
+                    <th width="10%">日期</th>
+                    <th width="16%">流水号</th>
+                    <th width="6%">币种</th>
+                    <th width="12%">金额</th>
+                    <th width="6%">类型</th>
+                    <th width="18%">对方账户号</th>
+                    <th width="18%">对方账户名称</th>
+                    <th>操作</th>
+                </tr>
+                <tr th:each="record:${page.results}">
+                    <td th:text="${#temporals.format(record.createDate,'yyyy-MM-dd')}">2016-12-12 12:12:21</td>
+                    <td th:text="${record.tradeId}">11014736002002</td>
+                    <td>人民币</td>
+                    <td th:text="${record.tranAmt}">+10,000,000,000.00</td>
+                    <td th:text="${record.loanFlag=='C'}?'入金':'出金'">入金</td>
+                    <td th:text="${#CustomerStringUtil.bankCardNumFormat(record.accountNo)}">11014736002002</td>
+                    <td th:text="${record.accountNm}">上海和略电子商务</td>
+                    <td>
+                        <a href="#" class="color-blue printBtn" th:attr="data-cashAccountNum=${bankCashAccount.bankAccountNum},data-verifcode=${record.verifyCode}">打印回执</a>
+                        <div class="comments">(<span class="comments" data-toggle="tooltip" data-placement="top" th:attr="title=${record.memo}">备注</span>)</div>
+                    </td>
+                </tr>
+            </table>
+            <div class="box pagination-wrap text-c" th:insert="/components/pagination/pagination :: pagination (page=${page})"></div>
+        </div>
+    </div>
+    <div id="modalEdit" class="modal fade modalPublic modal-edit" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="modalEditClose" class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalTitle">打印回执</h4>
+                </div>
+                <div class="modal-body print-style">
+                    <span>打印校验码</span>
+                    <p id="printCode">123123123123</p>
+                    <div>资金账号：<span id="accountId"></span></div>
+                    <i>注：进入打印系统后，请输入中信资金账号和打印校验码</i>
+                    <div class="form-group">
+                        <a href="#" class="btn btn-blue" id="modalPrintBtn">立即打印</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/pay/bankBill.js"></script>
+</div>
+</body>
+</html>

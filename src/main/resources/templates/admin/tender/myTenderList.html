@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤竞价记录</title>
+    <link rel="stylesheet" href="/styles/admin/tender/myTenderList.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+    <div layout:fragment="header">
+        <div layout:insert="~{/layout/background-subNav}" th:remove="tag"></div>
+    </div>
+    <div layout:fragment="wrapper">
+        <div class="main">
+            <div layout:insert="~{/layout/sidebar-finance :: sidebarFinance(2)}" th:remove="tag"></div>
+            <div class="bg-inner">
+                <div class="myTenderListWrap">
+                    <form class="myTenderListBlock" >
+                        <div class="searchList">
+                            <label for="" class="typeName">煤炭品种：</label>
+                            <label for="" data-key="0" th:class="${tenderParam.coalTypeId==null || tenderParam.coalTypeId==0}?'selected type':'type'">全部</label>
+                            <label th:each="coalType:${coalTypeList}" th:attr="data-key=${coalType.key}" th:class="${tenderParam.coalTypeId==coalType.key}?'selected type':'type'">
+                                <th:block th:text="${coalType.value}"></th:block>
+                            </label>
+                            <input type="text" name="coalTypeId" th:value="${tenderParam.coalTypeId}"/>
+                        </div>
+                        <div class="searchList">
+                            <label for="" class="typeName">矿别：</label>
+                            <label for="" data-key="0" th:class="${tenderParam.coalZoneId==null || tenderParam.coalZoneId==0}?'selected type':'type'">全部</label>
+                            <label th:each="coalZone:${coalZoneList}" th:attr="data-key=${coalZone.key}"  for="" th:class="${tenderParam.coalZoneId==coalZone.key}?'selected type':'type'">
+                                <th:block th:text="${coalZone.value}"></th:block>
+                            </label>
+                            <input type="text" name="coalZoneId" th:value="${tenderParam.coalZoneId}"/>
+                        </div>
+                        <div class="searchList">
+                            <label for="" class="typeName">运输方式：</label>
+                            <label for="" data-key="0" th:class="${tenderParam.transportModeId==null || tenderParam.transportModeId==0}?'selected type':'type'">全部</label>
+                            <label th:each="transportMode:${transportModeList}" th:attr="data-key=${transportMode.key}" for="" th:class="${tenderParam.transportModeId==transportMode.key}?'selected type':'type'">
+                                <th:block th:text="${transportMode.value}"></th:block>
+                            </label>
+                            <input type="text" name="transportModeId" th:value="${tenderParam.transportModeId}"/>
+                        </div>
+                        <div class="searchList dateList">
+                            <label for="" class="typeName">发布时间：</label>
+                            <div class="date-wrap">
+                                <input type="text" placeholder="请选择日期" name="createStartDate" th:value="${tenderParam.createStartDate}" id="startTime" />
+                            </div>
+                            <div class="from-to">一</div>
+                            <div class="date-wrap">
+                                <input type="text" placeholder="请选择日期" name="createEndDate" th:value="${tenderParam.createEndDate}" id="endTime"/>
+                            </div>
+                            <input type="submit" value="查询" class="searchBtn"/>
+                        </div>
+                        <div class="searchList mb0">
+                            <label for="" class="typeName">目前状态：</label>
+                            <label for="" th:class="${tenderParam.status==null || tenderParam.status==0}?'selected type':'type'" data-key="0">
+                                全部
+                            </label>
+                            <label for="" th:class="${tenderParam.status==1}?'type selected':'type'" data-key="1">
+                                草稿 (<i th:text="${tenderCountMap[1]}">3</i>)
+                            </label>
+                            <label for="" th:class="${tenderParam.status==2}?'type selected':'type'"   data-key="2">
+                                预告中(<i th:text="${tenderCountMap[2]}">0</i>)
+                            </label>
+                            <label for="" th:class="${tenderParam.status==3}?'type selected':'type'"  data-key="3">
+                                竞价中(<i th:text="${tenderCountMap[3]}">1</i>)
+                            </label>
+                            <label for="" th:class="${tenderParam.status==4}?'type selected':'type'" data-key="4">
+                                已完成(<i th:text="${tenderCountMap[4]}">3</i>)
+                            </label>
+                            <input type="text" name="status" th:value="${tenderParam.status}"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="tenderListContent">
+                    <div class="listTitle">
+                        <div class="w320">项目名称</div>
+                        <div class="w188">发布时间</div>
+                        <div class="w88">品种</div>
+                        <div class="w100">运输方式</div>
+                        <div class="w172">状态</div>
+                        <div class="w130 txtCenter">操作</div>
+                    </div>
+                    <ul class="listCon">
+                        <li th:each="tender:${page.results}">
+                            <div class="w320"><a th:href="|/admin/tender/${tender.id}|" class="listDetail" th:text="${tender.tenderTitle}">晋煤10月份第二次竞标销售公告</a></div>
+                            <div class="w188" th:text="|${#temporals.format(tender.releaseDate,'yyyy-MM-dd HH:mm')}|">2016-09-22  14:00:00</div>
+                            <div class="w88" th:text="${coalTypeList[tender.coalTypeId]}">末煤</div>
+                            <div class="w100"th:text="${transportModeList[tender.transportModeId]}">汽车</div>
+                            <div class="w172">
+                                <th:block th:if="${tender.status==1}">
+                                    <span class="waitTender">待发布</span>
+                                </th:block>
+                                <th:block th:if="${tender.status==2}">
+                                    <span class="tendering">预告中</span>
+                                </th:block>
+                                <th:block th:if="${tender.status==3}">
+                                    <span class="tendering">竞价中</span>
+                                </th:block>
+                                <th:block th:if="${tender.status==4 || tender.status==5}">
+                                    <span>已完成</span>
+                                </th:block>
+                            </div>
+                            <div class="w130">
+
+                                <th:block th:if="${tender.status==1}">
+                                    <a th:href="|/admin/tender/updateTender/${tender.id}|" class="controlBtn">编辑</a>
+                                    <a href="javascript:void(0)" class="controlBtn delBtn" th:attr="data-tenderid=${tender.id}">删除</a>
+                                </th:block>
+
+                                <!--<th:block th:if="${tender.status==2}">-->
+                                    <!--<a href="javascript:void(0)" class="controlBtn revokeBtn" th:attr="data-tenderid=${tender.id}">撤销竞价</a>-->
+                                <!--</th:block>-->
+
+                                <th:block th:if="${tender.status==3}">
+                                    <a th:href="|/admin/tender/${tender.id}/bidDetail|" class="controlBtn" th:attr="data-tenderid=${tender.id}">查看详情</a>
+                                </th:block>
+
+                                <th:block th:if="${tender.status==4 || tender.status==5}">
+                                    <a th:href="|/admin/tender/${tender.id}/bidDetail|" class="controlBtn" th:attr="data-tenderid=${tender.id}">竞价结果</a>
+                                </th:block>
+
+                            </div>
+                        </li>
+
+                    </ul>
+                    <div class="box pagination-wrap text-c" th:insert="/components/pagination/pagination :: pagination (page=${page})"></div>
+                    <!--modal-->
+                    <div layout:insert="~{/components/modal/modal :: modalHasBtn(0,'删除后不可恢复，您确定删除本次竞价记录？')}" th:remove="tag">
+                        <div class="buttons" layout:fragment="modal-content">
+                            <input type="button" class="btn confirm" value="确定" id="modalDelBtn">
+                            &nbsp;
+                            <input type="button" class="btn cancel" value="取消" data-dismiss="modal">
+                        </div>
+                    </div>
+                    <div layout:insert="~{/components/modal/modal :: modalHasBtn(1,'撤销后不可恢复，您确定撤销该竞价记录吗？')}" th:remove="tag">
+                        <div class="buttons" layout:fragment="modal-content">
+                            <input type="button" class="btn confirm" value="确定" id="modalRevokedBtn">
+                            &nbsp;
+                            <input type="button" class="btn cancel" value="取消" data-dismiss="modal">
+                        </div>
+                    </div>
+                    <!--modal-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="script" th:remove="tag">
+        <script type="text/javascript" src="/scripts/plugins/My97DatePicker/WdatePicker.js"></script>
+        <script type="text/javascript" src="/scripts/partials/tender/tenderList.js"></script>
+    </div>
+
+</body>
+</html>

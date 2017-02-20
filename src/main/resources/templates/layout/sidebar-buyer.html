@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body layout:fragment="sidebarBuyer(curIndex)">
+<div class="content-left">
+    <ul th:switch="${@userSession.user.role.name()}" >
+        <!--admin-->
+        <th:block th:case="'ADMIN'">
+            <li th:with="url='/account/company'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">公司信息</a></li>
+            <li th:with="url='/account/bid'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">我的竞价</a></li>
+            <li th:with="url='/account/staffManage'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">员工管理</a></li>
+            <li th:with="url='/account/accountSetting'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">账户设置</a></li>
+        </th:block>
+
+        <!--业务-->
+        <th:block th:case="'SALESMAN'">
+            <li th:with="url='/account/bid'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">我的竞价</a></li>
+            <li th:with="url='/account/company'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">公司信息</a></li>
+            <li th:with="url='/account/accountSetting'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">账户设置</a></li>
+        </th:block>
+
+        <!--财务-->
+        <th:block th:case="'TREASURER'">
+            <li th:with="url='/account/finance'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">账户概览</a></li>
+            <li th:with="url='/account/finance/asset'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">我的账户</a></li>
+            <li th:with="url='/account/finance/tradeRecord'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">交易记录</a></li>
+            <li th:with="url='/account/finance/bankBill'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">银行流水</a></li>
+            <li th:with="url='/account/accountSetting'"><a th:href="${url}" th:class="${#request.getRequestURI()==url}?'active':''">账户设置</a></li>
+        </th:block>
+    </ul>
+</div>
+</body>
+</html>

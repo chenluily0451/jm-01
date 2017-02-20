@@ -1,0 +1,27 @@
+.navigation{
+  min-width:1200px;
+  height:25px;
+  background:#f4f4f4;
+  font-size: 12px;
+  color:#333;
+  @include lineHeight(25px);
+  .nav-content{
+    width:1200px;
+    margin:0 auto;
+    ul{font-size: 0;height: 25px;line-height: 25px;}
+    li{
+      display:inline-block;
+      font-size: 12px;
+      a{
+        color:#333;
+        padding: 0 8px;
+        background: url("/images/common/nav-border.png") no-repeat right 3px;
+        outline: none;
+        &:hover{
+          color:#2f8ed9;
+        }
+      }
+      .border-none{background: none;}
+    }
+  }
+}

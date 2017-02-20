@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤账户绑定银行卡</title>
+    <link rel="stylesheet" href="/styles/partials/pay/asset.css">
+</head>
+<!--这里是头部的结束内容-->
+<body id="background-page">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',3,1)}" th:remove="tag"></div>
+</div>
+<div layout:fragment="wrapper">
+    <div class="main">
+        <div layout:insert="~{/layout/sidebar-buyer :: sidebarBuyer(1)}" th:remove="tag"></div>
+        <div class="bg-inner content-right">
+            <div class="panel">
+                <div class="panel-title">
+                    <dl>
+                        <dt><h2>账户详情</h2></dt>
+                    </dl>
+                </div>
+                <div class="panel-content">
+                    <div class="pull-left bank-module">
+                        <dl>
+                            <dt>煤易付账户</dt>
+                            <dd class="border">
+                                <ul>
+                                    <li>
+                                        <span>开户行：</span>
+                                        <th:block th:if="${bankCashAccount.bankId==1}">
+                                            <strong>中信银行郑州分行</strong>
+                                        </th:block>
+                                    </li>
+                                    <li>
+                                        <span>账户名：</span>
+                                        <th:block>
+                                        <strong th:text="${bankCashAccount.bankAccountName}">中信银行郑州分行</strong>
+                                         </th:block>
+                                    </li>
+                                    <li>
+                                        <span>账户号：</span>
+                                        <strong th:text="${#CustomerStringUtil.bankCardNumFormat(bankCashAccount.bankAccountNum)}">中信银行郑州分行</strong>
+                                    </li>
+                                </ul>
+                            </dd>
+                            <dd>
+                                <div class="pull-right">
+                                    <a href="#" class="btn" id="refresh">刷新</a>
+                                    <a href="/account/finance/withdraw" class="btn" th:if="${bankCard!=null && bankCard.validated==true}">提现</a>
+                                </div>
+                                <span>余&nbsp;&nbsp;&nbsp;额：</span>
+                                <span class="txt-warning" id="cashCount"></span>
+                                <i>元</i>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="pull-right bank-module">
+                        <dl th:if="${bankCard==null}">
+                            <dt>出金账户</dt>
+                            <dd>
+                                <div class="bind-card-btn" id="bindCard">
+                                    <span>绑定出金账户</span>
+                                </div>
+                            </dd>
+                        </dl>
+                        <dl th:if="${bankCard!=null}">
+                            <dt>出金账户</dt>
+                            <dd class="border">
+                                <ul>
+                                    <li>
+                                        <span>开户行：</span>
+                                        <strong th:text="${bankCard.childBankName}">中信银行郑州分行</strong>
+                                    </li>
+                                    <li>
+                                        <span>账户名：</span>
+                                        <strong th:text="${bankCard.cardAccountName}">中信银行郑州分行</strong>
+                                    </li>
+                                    <li>
+                                        <span>账户号：</span>
+                                        <strong th:text="${bankCard.cardNum}">中信银行郑州分行</strong>
+                                    </li>
+                                </ul>
+                            </dd>
+                            <dd>
+                                <div class="pull-right" th:attr="data-cardid=${bankCard.id}">
+                                    <th:block th:if="${bankCard.status==4 && !bankCard.validated && bankCard.validateCount<3}">
+                                        <a href="#" class="btn" id="identity">认证</a>
+                                    </th:block>
+                                    <a href="#" class="btn"  id="del">删除</a>
+                                </div>
+                                <span>认&nbsp;&nbsp;&nbsp;证：</span>
+                                <th:block th:if="${bankCard.status==1 || bankCard.status==2}">
+                                    <img src="/images/admin/pay/waitCertify.png"/>
+                                    <span>银行处理中</span>
+                                </th:block>
+
+                                <th:block th:if="${bankCard.status==3}">
+                                    <img src="/images/admin/pay/certifyFail.png"/>
+                                    <span>银行处理失败</span>
+                                </th:block>
+
+                                <th:block th:if="${bankCard.status==4 && bankCard.validated==true}">
+
+                                        <img src="/images/admin/pay/renzheng.png"/>
+                                        <span>已认证</span>
+                                </th:block>
+
+                                <th:block th:if="${bankCard.status==4 && !bankCard.validated && bankCard.validateCount<3}">
+                                        <img src="/images/admin/pay/waitCertify.png"/>
+                                        <span>待认证</span>
+                                </th:block>
+
+                                <th:block th:if="${bankCard.status==4 && !bankCard.validated  && bankCard.validateCount==3}">
+                                        <img src="/images/admin/pay/certifyFail.png"/>
+                                        <span>认证失败</span>
+                                </th:block>
+
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal" class="modal fade modalPublic modal-edit" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalTitle">绑定出金账户</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="cardForm">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">账户名</label>
+                            <div class="col-sm-8 no-padding-left">
+                                <input type="text" class="form-control" placeholder="请填写正确的账户名" disabled th:value="${user.companyName}" id="cardAccountName" name="cardAccountName">
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">开户行</label>
+                            <div class="col-sm-8 no-padding-left">
+                                <select name="bankName" id="bankName" class="selectWidth" ></select>
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">省份</label>
+                            <div class="col-sm-8 no-padding-left">
+                                <select name="provinceName" disabled id="provinceName" class="selectWidth"></select>
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">城市</label>
+                            <div class="col-sm-8 no-padding-left">
+                                <select name="cityName" disabled id="cityName" class="selectWidth"></select>
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">开户行支行</label>
+                            <div class="col-sm-8 no-padding-left">
+                                <select name="childBankName" disabled id="childBankName" class="selectWidth"></select>
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">账户号</label>
+                            <div class="col-sm-8 no-padding-left">
+                                <input type="text" class="form-control" placeholder="请填写正确的账户号" id="cardNum" name="cardNum">
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">手机号码</label>
+                            <div class="col-sm-8 no-padding-left">
+                                <p class="padding-top-8 text-left" th:text="${#CustomerStringUtil.phoneFormat(user.securePhone)}">15800780565</p>
+                            </div>
+                        </div>
+                        <div class="form-group error-hidden">
+                            <label class="col-sm-3 control-label">手机验证码</label>
+                            <div class="col-sm-8 no-padding-left">
+                                <input type="text" class="form-control" placeholder="请输入手机验证码" maxlength="6" id="yzm" name="yzm"/>
+                                <div class="yzm-btn" id="yzmBtn">获取验证码</div>
+                                <div class="yzm-tips" id="yzmTips">验证码已发送至你的手机，请查收！</div>
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-3 error-height"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input type="submit" class="btn btn-blue" value="提交"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal_1" class="modal fade modalPublic modal-edit" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">验证出金账户</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="certification" action="javascript:void(0)">
+                        <div class="form-group">
+                            <div class="col-sm-12 text-left check-tips">请在您所绑定的出金账户网银或者银行柜台查询收支明细，将额填入下面的验证区域完成金额认证，有效期为1个月，有效验证次数为三次，如超出验证期或超出验证次数，需重新绑定出金账户。</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="inline-block">金额</div>
+                            <input type="text" class="form-control width60" name="checkMoney" placeholder="请输入0.01-0.99之间的金额" id="checkMoney">
+                            <div class="inline-block">元</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkMoneyError"></div>
+                            <div class="col-sm-12">
+                                <input type="submit" id="checkBtn" class="btn btn-blue" value="提交" th:attr="data-bankCard= ${bankCard!=null} ? ${bankCard.id} : ''" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:insert="~{/components/modal/modal :: modalHasBtn(2,'您确定删除该出金账户吗?')}" th:remove="tag">
+        <div class="buttons" layout:fragment="modal-content">
+            <input type="button" class="btn cancel" value="取消" data-dismiss="modal" >
+            <input type="button" class="btn confirm" value="确认" id="delBtn" th:attr="data-bankCard= ${bankCard!=null} ? ${bankCard.id} : ''">
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/pay/asset.js"></script>
+</div>
+</body>
+</html>

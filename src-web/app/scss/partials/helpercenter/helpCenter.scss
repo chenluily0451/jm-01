@@ -1,0 +1,132 @@
+.help-center {
+  .wrapper{}
+  .content {
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .left-ban {
+    float: left;
+    width: 138px;
+    border: 1px solid #ebebeb;
+    font-size: 14px;
+    background: #fff;
+    li {
+      height: 44px;
+      line-height: 44px;
+      border-bottom: 1px solid #ebebeb;
+      text-align: center;
+      a {
+        display: block;
+        color: #4c4c4c;
+        &.bg {
+          background: url('/images/partials/helpcenter/help-icon.png') no-repeat 15px 14px;
+          &.active {
+            background: #61aaf2 url('/images/partials/helpcenter/help-icon.png') no-repeat 15px 14px;
+            color: #fff;
+          }
+        }
+        &.active {
+          background: #61aaf2;
+          color: #fff;
+        }
+
+      }
+      &:hover {
+        background: #61aaf2;
+        a {
+          color: #fff;
+        }
+
+      }
+    }
+    li.ft{
+      &:hover {
+        background: #fff;
+        a {
+          color: #4c4c4c;
+          cursor: default;
+        }
+
+      }
+    }
+  }
+  .abs{position: fixed;top: 0;display: none;}
+  .content-right {
+    position: relative;
+    float: left;
+    width: 1050px;
+    margin-left: 12px;
+    padding: 20px;
+    border: 1px solid #ebebeb;
+    padding-bottom:600px;
+    .panel-title {
+      padding-top: 0;
+      padding-bottom: 0;
+      border-bottom: 1px solid #ebebeb;
+      h2{
+        margin:10px 0;
+        padding-left: 10px;
+      }
+    }
+    .panel {
+      margin-bottom: 50px;
+      border: 0;
+      box-shadow: none;
+    }
+    .panel-heading {
+      padding-left: 0;
+      border-bottom: 2px solid #e6e6e6;
+    }
+    .panel-content {
+      color: #333333;
+      font-size: 14px;
+      ul, li {
+        font-weight: normal;
+        margin-bottom: 10px;
+        a {
+          color: #333333;
+        }
+        img {
+          margin-bottom: 30px;
+          margin-top: 10px;
+        }
+      }
+      .tenderInfo {
+        padding-bottom: 20px;
+      }
+      .tenderInfo, .tenderInfo li {
+        list-style-type: square;
+      }
+      .tenderInfo li {
+        height: 52px;
+        border-bottom: 1px dashed #dcdcdc;
+        color: #333333;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 52px;
+        a {
+          font-weight: normal;
+        }
+      }
+      .partStyle {
+        font-size: 20px;
+        padding:20px 0 30px 0;
+      }
+      .sub-info {
+        font-size: 14px;
+        padding: 20px 0 10px 0;
+        display: inline-block
+      }
+      .pl20 {
+        padding-left: 20px;
+      }
+    }
+    .line {
+      position: absolute;
+      bottom: -1px;
+      left: -152px;
+      width: 138px;
+      border-bottom: 1px solid #ebebeb;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.admin.account.mapper.AdminMapper">
+
+    <sql id="Base_Column_List">
+       id, userName, securePhone, role, password ,passwordSalt ,payPassword, payPasswordSalt, isActive ,createDate, createBy
+  </sql>
+
+    <insert id="add" parameterType="com.jm.bid.admin.account.entity.Admin">
+    insert into jm_admin(userName, securePhone, password, passwordSalt, payPassword, payPasswordSalt, isActive, createDate, createBy)
+    values ((#{userName,jdbcType=VARCHAR},#{securePhone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{passwordSalt,jdbcType=VARCHAR},
+    #{payPassword,jdbcType=VARCHAR}, #{payPasswordSalt,jdbcType=VARCHAR},#{isActive,jdbcType=INTEGER},
+    #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR})
+  </insert>
+
+    <update id="updateSelective">
+        update jm_admin
+        <set>
+            <if test="securePhone != null"> securePhone = #{securePhone,jdbcType=VARCHAR}, </if>
+            <if test="password != null"> password = #{password,jdbcType=VARCHAR}, </if>
+            <if test="passwordSalt != null"> passwordSalt = #{passwordSalt,jdbcType=VARCHAR}, </if>
+            <if test="payPassword != null"> payPassword = #{payPassword,jdbcType=VARCHAR}, </if>
+            <if test="payPasswordSalt != null"> payPasswordSalt = #{payPasswordSalt,jdbcType=VARCHAR}, </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="loadById" parameterType="java.lang.Long" resultType="com.jm.bid.admin.account.entity.Admin">
+        select <include refid="Base_Column_List"/> from jm_admin where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="loadBySecurePhone" resultType="com.jm.bid.admin.account.entity.Admin">
+        select <include refid="Base_Column_List"/> from jm_admin where securePhone = #{value,jdbcType=VARCHAR}
+    </select>
+
+
+    <insert id="addSelective" parameterType="com.jm.bid.admin.account.entity.Admin" useGeneratedKeys="true" keyProperty="id">
+        insert into jm_admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName!= null">userName,</if>
+            <if test="securePhone != null">securePhone,</if>
+            <if test="password != null">password,</if>
+            <if test="passwordSalt != null">passwordSalt,</if>
+            <if test="companyId != null">companyId,</if>
+            <if test="status != null">status,</if>
+            <if test="createDate != null">createDate,</if>
+            <if test="createBy != null">createBy,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName!= null">#{userName,jdbcType=VARCHAR},</if>
+            <if test="securePhone != null">#{securePhone,jdbcType=VARCHAR},</if>
+            <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+            <if test="passwordSalt != null">#{passwordSalt,jdbcType=VARCHAR},</if>
+            <if test="companyId != null">#{companyId,jdbcType=VARCHAR},</if>
+            <if test="status != null">#{status,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <select id="loadAdminByRole" resultType="com.jm.bid.admin.account.entity.Admin">
+        SELECT <include refid="Base_Column_List"/> from jm_admin where  isActive=1
+        <if test="userRoles!=null and userRoles.length gt 0">
+            and role in
+            <foreach collection="userRoles" open="(" close=")" separator="," item="role">
+                #{role}
+            </foreach>
+        </if>
+    </select>
+
+</mapper>

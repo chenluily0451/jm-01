@@ -1,0 +1,31 @@
+{
+  "name": "src-web",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Ed_zg <838298008@qq.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/yimei180/aegis-jm",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.11",
+    "bootstrap-sass": "^3.3.7",
+    "requirejs": "^2.2.0",
+    "respond": "^1.4.2",
+    "select2": "^4.0.3",
+    "jquery-form": "^3.46.0",
+    "jquery-validation": "^1.15.1",
+    "jquery_lazyload": "jquery.lazyload#^1.9.7",
+    "superslide": "https://github.com/chinakids/superslide.git",
+    "jquery-animateNumber": "https://github.com/aishek/jquery-animateNumber.git#^0.0.13",
+    "jsrender": "^0.9.83",
+    "jquery.spinner": "jquery-spinner#^0.2.1"
+  }
+}

@@ -1,0 +1,58 @@
+#myBid{
+  .listBlock{
+    background: #fafafa;
+    height: 45px;
+    border:1px solid #ebebeb;
+    font-size: 0;
+    line-height: 45px;
+    color:#999;
+    padding-left: 20px;
+
+    & > div{
+      display: inline-block;
+      font-size: 14px;
+      text-align: center;
+    }
+
+
+  }
+  ul.listCon{
+    li{
+      padding: 15px 0;
+      font-size: 0;
+      padding-left: 20px;
+      border-bottom: 1px solid #ebebeb;
+      div{
+        display: inline-block;
+        font-size: 14px;
+        color:#333;
+        text-align: center;
+      }
+      &:hover{
+        background: #f4faff;
+      }
+    }
+  }
+  .w220{width: 220px;}
+  .w140{width: 140px;}
+  .w130{width: 130px;}
+  .w120{width: 120px;}
+  .detailBtn{
+    display: inline-block;
+    width: 115px;
+    height: 30px;
+    margin: 0 auto;
+    line-height: 30px;
+    color:#fff;
+    background: #61aaf2;
+    border-radius: 2px;
+    &:hover{
+      filter: alpha(80);
+      opacity: .8;
+    }
+  }
+  .unbid{color:grey}
+  .alreadyBid{color:#24ac0d;}
+  .pagination-wrap{border:none;}
+  .noData{color:#999;font-size: 16px;text-align: center;padding:15px 0;}
+}

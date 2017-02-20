@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.admin.finance.mapper.JMSelfSystemCashAccountMapper">
+
+  <sql id="Base_Column_List"> id, accId, createDate, createBy </sql>
+
+  <select id="selectOne"  resultType="com.jm.bid.admin.finance.entity.JMSelfSystemCashAccount">
+    select <include refid="Base_Column_List" /> from  jm_self_systemCashAccount limit 1
+  </select>
+
+  <insert id="insertSelective" parameterType="com.jm.bid.admin.finance.entity.JMSelfSystemCashAccount">
+    insert into jm_self_systemCashAccount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="accId != null"> accId, </if>
+      <if test="createDate != null"> createDate, </if>
+      <if test="createBy != null"> createBy, </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="accId != null"> #{accId,jdbcType=VARCHAR}, </if>
+      <if test="createDate != null"> #{createDate,jdbcType=TIMESTAMP}, </if>
+      <if test="createBy != null"> #{createBy,jdbcType=VARCHAR}, </if>
+    </trim>
+  </insert>
+
+ </mapper>

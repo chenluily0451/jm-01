@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤公示详情</title>
+    <link rel="stylesheet" href="/styles/partials/tender/noticeDetail.css">
+</head>
+<body id="tenderIndex">
+    <div layout:fragment="header">
+        <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+        <div layout:insert="~{/layout/subNav :: subNav('',2,1)}" th:remove="tag"></div>
+    </div>
+    <div layout:fragment="wrapper">
+        <div class="content">
+            <div id="noticeDetail">
+                <div class="noticeTitle" th:text="${notice.noticeName}">采购项目结果公示</div>
+                <div class="noticeTime">发布时间:<span th:text="${#temporals.format(notice.lastUpdateDate,'yyyy-MM-dd HH:mm:ss')}">2017年7月3日</span></div>
+                <!--<p class="data">-->
+                <!--<b>江苏永刚集团</b>-->
+                <!--<span>|在易煤网-阳光采购平台就${#temporals.month(tender.createDate)}月份采购进行公开招标，按照规定程序进行了开标、评标、定标，先就本次招标的结果公示如下：|</span>-->
+                <!--</p>-->
+                <div class="data">
+                    <p class="title"><b>一、采购项目名称及编号</b></p>
+                    <p>项目名称：<span th:text="${tender.tenderTitle}">公示名称</span></p>
+                    <p>项目编号：<span th:text="${notice.tenderCode}">公示编码</span></p>
+                </div>
+                <!--<div class="data">-->
+                <!--<p class="title"> <b>二、采购项目名称及编号</b></p>-->
+                <!--<p>投放公告日期：><span th:text="${tender}">2017年7月3日</span></p>-->
+                <!--<p>报价截止日期：><span>2017年7月3日</span></p>-->
+                <!--<p>评标定标日期：<span>2017年7月3日</span></p>-->
+                <!--</div>-->
+                <div class="data">
+                    <p class="title"><b>二、中标结果信息</b></p>
+                    <div class="noticeContent" th:utext="${notice.contentStr}">按时大大大是放假阿斯达阿斯达阿斯达啊</div>
+                </div>
+                <div class="data">
+                    <p class="title"><b>三、各有关当事人对中标结果如有异议可在中标公示发布之日起七个工作日内向我司监督部门提出质疑，逾期不再受理。</b></p>
+                    <p>监督部门：<span th:text="${notice.serviceDepartment}">江苏永刚招标监督小组</span></p>
+                    <p>联系方式：<span th:text="${notice.servicePhone}">0312-09099909</span></p>
+                    <p>公示期：<span th:text="|${notice.noticeStartDate}一${notice.noticeEndDate}"></span></p>
+                </div>
+                <div class="btnWrap">
+                    <a href="javascript:void(0)" class="return" onclick="history.go(-1)">返回上一页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div layout:fragment="script" th:remove="tag">
+        <script type="text/javascript" src=""></script>
+    </div>
+</body>
+</html>

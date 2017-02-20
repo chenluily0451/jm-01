@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE"></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>The awesome application</title>
+    <link rel="shortcut icon" href="/images/favicon/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
+    <script type="text/javascript" src="/bower_components/requirejs/require.js"></script>
+    <script type="text/javascript" src="/scripts/common/config.js"></script>
+
+</head>
+<body>
+<div class="header" layout:fragment="header"></div>
+<div class="wrapper" layout:fragment="wrapper">
+    <p>Page content goes here</p>
+</div>
+<!--这里是loading弹窗开始-->
+<div th:replace="/components/loading/loading :: loading"></div>
+<!--这里是loading弹窗结束-->
+
+<!--服务器错误弹窗-->
+<div layout:insert="~{/components/modal/modalService :: modalService}" th:remove="tag"></div>
+<!--服务器错误弹窗-->
+
+<!--登录弹窗-->
+<div layout:insert="~{/components/modal/modalLog}" th:remove="tag"></div>
+<!--登录弹窗-->
+
+<div class="footer" layout:fragment="footer">
+    <p><a href="http://www.jamg.cn/xyv5/" target="_new">山西晋城无烟煤矿业集团有限责任公司</a></p>
+    <!--<a href="https://credit.szfw.org/CX20150831011158100383.html" target="_blank">-->
+        <!--<img src="/images/common/cxwz.png" height="31" width="90">-->
+    <!--</a>-->
+    <div class="block-shadow-bottom"></div>
+</div>
+<!--[if lt IE 8]>
+<script type="text/javascript">
+    var htmlStr = '<div id="isUpgrade">'+
+            '<p class="browsehappy">您的浏览器<strong class="red">版本过低</strong>。请<strong class="red">升级您的浏览器</strong>以获得更加的良好浏览体验。</p>'+
+            '<br/>'+
+            '<p class="browsehappy"><a href="http://dl.pconline.com.cn/download/51614.html">Google Chrome(谷歌浏览器)</strong></p>'+
+            '<p class="browsehappy">一款可让您更快速、轻松且安全地使用网络的浏览器，它的设计超级简洁，使用起来更加方便。</p>'+
+            '<br/>'+
+            '<p class="browsehappy"><a href="http://www.firefox.com.cn/">Mozilla Firefox(火狐浏览器)</a></p>'+
+            '<p class="browsehappy">开源并带有强大开发工具的免费浏览器。</p>'+
+            '<br/>'+
+            '<br/>'+
+            '<br/>'
+    '</div>';
+
+    window.onload=function(){
+        var $body = document.getElementsByTagName('body')[0];
+        $body.style.backgroundColor="#f3f1f0";
+        $body.innerHTML = '';
+        $body.innerHTML = htmlStr;
+    }
+
+</script>
+<![endif]-->
+<div class="script" layout:fragment="script"></div>
+</body>
+</html>

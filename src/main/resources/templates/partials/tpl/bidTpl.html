@@ -1,0 +1,222 @@
+<div class="addQuoteWrap" th:fragment="bidTpl(bid)">
+    <div class="addQuoteHeader">
+        <div class="addQupteHeaderInfo">
+            <i class="addQuoteIcon"></i>
+            <div class="addQuoteName w1010">报价</div>
+            <a href="javascript:void(0)" th:remove="${#bools.isTrue(isBidDetail)}?all:none" class="delIcon">删除</a>
+        </div>
+    </div>
+    <div class="addQuoteInner">
+        <form class="myForm" data-validate="" novalidate="novalidate">
+            <ul class="tableWrap">
+                <li class="selected">
+                    <div class="greyBg">供应量(万吨)</div>
+                    <div class="inputWrap"><input type="text" name="supplyAmount" placeholder="请输入供应量" class="wid100" th:value="${#numbers.formatDecimal(bid.supplyAmount.divide(10000),1,2)}" required /></div>
+                </li>
+                <li class="selected">
+                    <div class="greyBg quoteUnit" th:if="${bid.quotePriceUnit ==1 || bid.quotePriceUnit ==null}">报价(元/吨)</div>
+                    <div class="greyBg quoteUnit" th:if="${bid.quotePriceUnit ==2}">报价(元/百大卡·吨)</div>
+                    <div class="inputWrap"><input type="text" name="price" placeholder="请输入报价" class="wid100" required th:value="${bid.price}" /></div>
+                </li>
+                <li class="selected">
+                    <div class="greyBg">是否矿直装</div>
+                    <div class="inputWrap">
+                        <select name="directPack" id="" class="coalDirect wid100">
+                            <option value="0" th:selected="${bid.directPack eq 0}">否</option>
+                            <option value="1" th:selected="${bid.directPack eq 1}">是</option>
+                        </select>
+                    </div>
+                </li>
+                <li class="selected">
+                    <div class="greyBg">发运站/港</div>
+                    <div class="inputWrap"><input type="text" name="deliveryPlace" placeholder="发运站/港" required class="wid100" th:value="${bid.deliveryPlace}" /></div>
+                </li>
+                <li class="dbwidth selected">
+                    <div class="greyBg">预计到厂时间</div>
+                    <div class="previewTime">
+                        <input type="text" class="startDate" placeholder="YYYY-MM-DD" name="deliveryStartTime" th:value="${bid.deliveryStartTime}" required />
+                    </div>
+                    <div class="previewTxt">-</div>
+                    <div class="previewTime br1">
+                        <input type="text" class="endDate" placeholder="YYYY-MM-DD" name="deliveryEndTime" th:value="${bid.deliveryEndTime}" required />
+                    </div>
+                </li>
+                <li th:remove="${bid.coalStr}?none:all">
+                    <div class="greyBg">煤种</div>
+                    <div class="tempName" th:text="${bid.coalStr}"></div>
+                    <div class="inputWrap">
+                        <input type="text" name="coalStr" th:value="${bid.coalStr}" class="wid100" required placeholder="请输入煤种" />
+                    </div>
+                </li>
+                <li th:remove="${bid.origin}?none:all">
+                    <div class="greyBg">产地</div>
+                    <div class="tempName" th:text="${bid.origin}"></div>
+                    <div class="inputWrap">
+                        <input type="text" name="origin" class="wid100" th:value="${bid.origin}" required  placeholder="请输入产地" />
+                    </div>
+                </li>
+                <li th:remove="${bid.NCV}?none:all">
+                    <div class="greyBg">热值(Qnet,ar)</div>
+                    <div class="inputWrap rz">
+                        <input type="text" name="NCV" required="" th:value="${bid.NCV}" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="NCV2" required="" th:value="${bid.NCV2}" aria-required="true">
+                        <span class="txt">kcal/kg</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.RS}?none:all">
+                    <div class="greyBg">收到基硫分(Std)</div>
+                    <div class="inputWrap">
+                        <input type="text" name="RS" required="" th:value="${bid.RS}" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="RS2" required="" th:value="${bid.RS2}" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.ADV}?none:all">
+                    <div class="greyBg">空干基挥发分(Vdaf)</div>
+                    <div class="inputWrap">
+                        <input type="text" name="ADV" required="" th:value="${bid.ADV}" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="ADV2" required="" th:value="${bid.ADV2}" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.TM}?none:all">
+                    <div class="greyBg">全水分(Mt)</div>
+                    <div class="inputWrap">
+                        <input type="text" name="TM" th:value="${bid.TM}" required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="TM2" th:value="${bid.TM2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.ASH}?none:all">
+                    <div class="greyBg">灰分(Ad)</div>
+                    <div class="inputWrap">
+                        <input type="text" name="ASH" th:value="${bid.ASH}"  required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="ASH2" th:value="${bid.ASH2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.AFT}?none:all">
+                    <div class="greyBg">灰熔点</div>
+                    <div class="inputWrap">
+                        <input type="text" name="AFT" th:value="${bid.AFT}" required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="AFT2" th:value="${bid.AFT2}" required="" aria-required="true">
+                        <span class="txt">°C</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.FC}?none:all">
+                    <div class="greyBg">固定碳</div>
+                    <div class="inputWrap">
+                        <input type="text" name="FC" th:value="${bid.FC}" required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="FC2" th:value="${bid.FC2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.CRC}?none:all">
+                    <div class="greyBg">焦渣特征</div>
+                    <div class="inputWrap">
+                        <input type="text" name="CRC" th:value="${bid.CRC}" required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="CRC2" th:value="${bid.CRC2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.GV}?none:all">
+                    <div class="greyBg">G值</div>
+                    <div class="inputWrap">
+                        <input type="text" name="GV" th:value="${bid.GV}" required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="GV2" th:value="${bid.GV2}" required="" aria-required="true">
+                        <span class="txt"></span>
+                    </div>
+                </li>
+                <li th:remove="${bid.YV}?none:all">
+                    <div class="greyBg">Y值</div>
+                    <div class="inputWrap">
+                        <input type="text" name="YV" th:value="${bid.YV}" required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="YV2" th:value="${bid.YV2}" required="" aria-required="true">
+                        <span class="txt">mm</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.IM}?none:all">
+                    <div class="greyBg">内水分</div>
+                    <div class="inputWrap">
+                        <input type="text" name="IM" th:value="${bid.IM}" required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="IM2" th:value="${bid.IM2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.ADS}?none:all">
+                    <div class="greyBg">空干基硫分</div>
+                    <div class="inputWrap">
+                        <input type="text" name="ADS" th:value="${bid.ADS}" required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="ADS2" th:value="${bid.ADS2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.RV}?none:all">
+                    <div class="greyBg">收到基挥发分</div>
+                    <div class="inputWrap">
+                        <input type="text" name="RV" th:value="${bid.RV}" required="" aria-required="true">
+                        <span>-</span>
+                        <input type="text" name="RV2" th:value="${bid.RV2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.PS}?none:all">
+                    <div class="greyBg">颗粒度</div>
+                    <div class="inputWrap">
+                        <select name="PS" class="psSelect wid100">
+                            <option value="">请选择</option>
+                            <option value="原煤" th:selected="${bid.PS eq '原煤'}">原煤</option>
+                            <option value="末煤" th:selected="${bid.PS eq '末煤'}">末煤</option>
+                            <option value="混煤" th:selected="${bid.PS eq '混煤'}">混煤</option>
+                            <option value="三八块" th:selected="${bid.PS eq '三八块'}">三八块</option>
+                            <option value="洗精煤" th:selected="${bid.PS eq '洗精煤'}">洗精煤</option>
+
+                        </select>
+                    </div>
+                </li>
+                <li th:remove="${bid.HGI}?none:all">
+                    <div class="greyBg">哈氏可磨</div>
+                    <div class="inputWrap">
+                        <input type="text" name="HGI" th:value="${bid.HGI}" required="" aria-required="true">
+                        <span class="txt">-</span>
+                        <input type="text" name="HGI2" th:value="${bid.HGI2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.VDAF}?none:all">
+                    <div class="greyBg">干燥无灰基挥发分</div>
+                    <div class="inputWrap">
+                        <input type="text" name="VDAF" th:value="${bid.VDAF}" required="" aria-required="true">
+                        <span class="txt">-</span>
+                        <input type="text" name="VDAF2" th:value="${bid.VDAF2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+                <li th:remove="${bid.STD}?none:all">
+                    <div class="greyBg">干燥基硫分</div>
+                    <div class="inputWrap">
+                        <input type="text" name="STD" th:value="${bid.STD}" required="" aria-required="true">
+                        <span class="txt">-</span>
+                        <input type="text" name="STD2" th:value="${bid.STD2}" required="" aria-required="true">
+                        <span class="txt">%</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="errMsg"></div>
+            <input type="submit" class="submitForm" style="display: none;">
+        </form>
+    </div>
+</div>
+

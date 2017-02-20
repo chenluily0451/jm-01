@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jm.bid.user.account.mapper.CompanyMapper">
+
+    <sql id="Base_Column_List">
+    id, name, status, registerAddress, registerCode, legalPerson, proxyPerson, companyPhone,
+    businessLicensePic, taxRegistrationPic, organizationCodePic, openingLicensePic, creditCodePic,
+    proxyPic, idCardPic, createDate, createBy, auditMsg, auditDate, auditBy, UUID
+  </sql>
+
+    <insert id="addSelective" parameterType="com.jm.bid.user.account.entity.Company" useGeneratedKeys="true" keyProperty="id">
+        insert into jm_company
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="registerAddress != null">registerAddress,</if>
+            <if test="registerCode != null">registerCode,</if>
+            <if test="legalPerson != null">legalPerson,</if>
+            <if test="proxyPerson != null">proxyPerson,</if>
+            <if test="companyPhone != null">companyPhone,</if>
+            <if test="businessLicensePic != null">businessLicensePic,</if>
+            <if test="taxRegistrationPic != null">taxRegistrationPic,</if>
+            <if test="organizationCodePic != null">organizationCodePic,</if>
+            <if test="openingLicensePic != null">openingLicensePic,</if>
+            <if test="creditCodePic != null">creditCodePic,</if>
+            <if test="proxyPic != null">proxyPic,</if>
+            <if test="idCardPic!= null">idCardPic,</if>
+            <if test="createDate != null">createDate,</if>
+            <if test="createBy != null">createBy,</if>
+            <if test="status!= null">status,</if>
+            <if test="UUID!= null">UUID,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="registerAddress != null">#{registerAddress,jdbcType=VARCHAR},</if>
+            <if test="registerCode != null">#{registerCode,jdbcType=VARCHAR},</if>
+            <if test="legalPerson != null">#{legalPerson,jdbcType=VARCHAR},</if>
+            <if test="proxyPerson != null">#{proxyPerson,jdbcType=VARCHAR},</if>
+            <if test="companyPhone != null">#{companyPhone,jdbcType=VARCHAR},</if>
+            <if test="businessLicensePic  != null and businessLicensePic !='' "> #{businessLicensePic,jdbcType=VARCHAR}, </if>
+            <if test="taxRegistrationPic  != null and taxRegistrationPic !='' "> #{taxRegistrationPic,jdbcType=VARCHAR}, </if>
+            <if test="organizationCodePic != null and organizationCodePic !='' "> #{organizationCodePic,jdbcType=VARCHAR}, </if>
+            <if test="openingLicensePic   != null and businessLicensePic !='' ">#{openingLicensePic,jdbcType=VARCHAR}, </if>
+            <if test="creditCodePic       != null and creditCodePic !='' ">#{creditCodePic,jdbcType=VARCHAR},</if>
+            <if test="proxyPic            != null and proxyPic!='' ">#{proxyPic,jdbcType=VARCHAR},</if>
+            <if test="idCardPic           != null and idCardPic!=''">#{idCardPic,jdbcType=VARCHAR},</if>
+            <if test="createDate != null">#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="createBy != null">#{createBy,jdbcType=VARCHAR},</if>
+            <if test="status!= null">#{status,jdbcType=INTEGER},</if>
+            <if test="UUID!= null">#{UUID,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <select id="loadByUUID" parameterType="java.lang.String" resultType="com.jm.bid.user.account.entity.Company">
+        select <include refid="Base_Column_List"/> from jm_company where UUID= #{UUID,jdbcType=VARCHAR} order by id desc limit 1
+    </select>
+
+    <select id="checkCompanyNameExists" resultType="java.lang.Boolean">
+        select  count(id) from jm_company where name = #{companyName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="checkCompanyNameExists2" resultType="java.lang.Boolean">
+        select  count(id) from jm_company where name = #{companyName,jdbcType=VARCHAR} and UUID!=#{UUID,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

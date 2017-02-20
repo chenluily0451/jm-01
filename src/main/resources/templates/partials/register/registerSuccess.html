@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<!--这里是头部的开始内容-->
+<head>
+    <title>晋煤注册成功</title>
+    <link rel="stylesheet" href="/styles/partials/register/registerSuccess.css">
+</head>
+<!--这里是头部的结束内容-->
+<body class="register-body">
+
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/subNav :: subNav('注册',-1,2)}" th:remove="tag"></div>
+</div>
+
+<div layout:fragment="wrapper">
+    <div class="content register">
+        <div class="register-step"><img src="/images/partials/register/register-step-3.png"/></div>
+        <div class="register-success">
+            <img src="/images/partials/register/register-success.png"/>
+            <p>恭喜您，注册成功！</p>
+            <a href="/login">立即登录 >></a>
+        </div>
+    </div>
+</div>
+
+<div layout:fragment="script" th:remove="tag">
+    <script type="text/javascript" src="/scripts/partials/index.js"></script>
+</div>
+</body>
+</html>

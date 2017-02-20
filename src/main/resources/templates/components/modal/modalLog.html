@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <!--<link rel="stylesheet" href="/styles/admin/account/login.css">-->
+</head>
+<body layout:fragment="modalLog">
+    <div id="modal-log-error" class="modal fade modalPublic" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button"  class="close close_modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">欢迎登录</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="login-con">
+                        <div class="input-wrap">
+                            <i class="login-name"></i>
+                            <input type="text" placeholder="请输入账户名" id="user-name" maxlength="11" />
+                        </div>
+                        <p class="errorMsg"><i class="login-error" id="username-error">错误信息</i></p>
+                        <div class="input-wrap">
+                            <i class="login-pwd"></i>
+                            <input type="password" id="user-pwd" placeholder="请输入登录密码" maxlength="16"/>
+                        </div>
+                        <p class="errorMsg"><i class="login-error" id="pwd-error">错误信息</i></p>
+                        <a href="javascript:void(0)" class="login-btn" id="login-btn">登录</a>
+                        <p class="frontInfo" id="frontInfo">没有账号？<a href="/register">免费注册</a><a href="/regainPwd" class="forgetPwd">忘记密码</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

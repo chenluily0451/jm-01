@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/layout}">
+<head>
+    <title>晋煤</title>
+</head>
+<body class="exception">
+<div layout:fragment="header">
+    <div layout:insert="~{/layout/navigation :: navigation('2')}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/subNav :: subNav('',-1,1)}" th:remove="tag"></div>
+    <div layout:insert="~{/layout/exception-head :: exception-head}" th:remove="tag"></div>
+</div>
+<div layout:fragment="wrapper">
+    <div class="exception-wrap">
+        <div class="wrap-num">
+            <img src="/images/common/400.png" alt=""/>
+            <div class="info-num">
+                <p class="info-tit">抱歉！您访问的页面不存在...</p>
+                <p class="info-jump">
+                    <a href="javascript:void(0)" class="ft">首页</a>|<a href="javascript:void(0)" onclick="history.go(-1)">返回上层</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
